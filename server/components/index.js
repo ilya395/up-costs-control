@@ -1,0 +1,9 @@
+const { usersModel, usersRoutes, usersController } = require("./users/index");
+const { expenseItemsRoutes, expenseItemsModel, expenseItemsController } = require("./expense-items/index");
+const { costsModel, costsRoutes, costsController } = require("./costs/index");
+
+module.exports = {
+  usersModel, usersRoutes, usersController,
+  expenseItemsRoutes, expenseItemsModel, expenseItemsController,
+  costsModel, costsRoutes, costsController
+}
