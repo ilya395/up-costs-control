@@ -93,10 +93,19 @@ class UsersController {
       }
     }
     try {
-      const users = await UsersModel.destroy({
-        where: innerData,
-      });
-      if (users) {
+      const users = await UsersModel
+        .destroy({
+          where: innerData,
+        })
+        .catch(e => {
+          console.log(e)
+          return res.status(400).json({
+            status: "ERROR",
+            message: "Can not delete with model",
+            error: e
+          });
+        });
+      if (users[0] > 0) {
         return res.status(200).json({
           data: users,
           status: "OK"
@@ -127,14 +136,30 @@ class UsersController {
       }
     }
     try {
-      const user = await UsersModel.update({
-        ...innerData,
-      }, {
-        where: {
-          id: +innerData.id
-        }
-      });
-      if (user) {
+      const entries = Object.entries(innerData);
+      if (entries.length < 1) {
+        return res.status(400).json({
+          status: "ERROR",
+          message: "No data for update",
+        });
+      }
+      const user = await UsersModel
+        .update({
+            ...innerData,
+          }, {
+          where: {
+            id: +innerData.id
+          }
+        })
+        .catch(e => {
+          console.log(e)
+          return res.status(400).json({
+            status: "ERROR",
+            message: "Can not update with model",
+            error: e
+          });
+        });
+      if (user[0] > 0) {
         return res.status(200).json({
           data: user,
           status: "OK"
@@ -144,7 +169,7 @@ class UsersController {
     } catch(e) {
       return res.status(400).json({
         status: "ERROR",
-        message: "Can not find and delete in db",
+        message: "Can not find and update in db",
         error: e
       });
     }

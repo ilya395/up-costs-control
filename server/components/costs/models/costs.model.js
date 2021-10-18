@@ -13,22 +13,25 @@ CostsModel.init(
     },
     amount: {
       type: Sequelize.INTEGER,
+      allowNull: true,
     },
     description: {
-      type: Sequelize.TEXT,
+      type: Sequelize.STRING,
+      allowNull: true,
     },
-    createdAt: {
-      type: Sequelize.DATE,
-      field: 'created_at',
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
-      field: 'updated_at'
-    },
+    // createdAt: {
+    //   type: Sequelize.DATE,
+    //   field: 'created_at',
+    // },
+    // updatedAt: {
+    //   type: Sequelize.DATE,
+    //   field: 'updated_at'
+    // },
   },
   {
     sequelize: connect,
-    modelName: "costs"
+    modelName: "costs",
+    timestamps: true
   }
 );
 

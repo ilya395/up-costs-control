@@ -5,15 +5,15 @@ const expenseItemsRoutes = express.Router();
 
 expenseItemsRoutes
   .route("/get")
-  .get(expenseItemsController.getExpenseItem)
+  .post(expenseItemsController.getExpenseItem)
 
 expenseItemsRoutes
   .route("/set")
   .put(expenseItemsController.setExpenseItem)
 
 expenseItemsRoutes
-  .post("/update")
-  .get(expenseItemsController.updateExpenseItem)
+  .route("/update")
+  .post(expenseItemsController.updateExpenseItem)
 
 expenseItemsRoutes
   .route("/delete")

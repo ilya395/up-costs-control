@@ -42,7 +42,8 @@ UsersModel.init(
   },
   {
     sequelize: connect,
-    modelName: 'users'
+    modelName: 'users',
+    timestamps: true
   }
 );
 UsersModel.hasMany(expenseItemsModel, { onDelete: "cascade" });

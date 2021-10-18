@@ -5,7 +5,7 @@ const costsRoutes = express.Router();
 
 costsRoutes
   .route("/get")
-  .get(costsController.getCost)
+  .post(costsController.getCost)
 
 costsRoutes
   .route("/set")
