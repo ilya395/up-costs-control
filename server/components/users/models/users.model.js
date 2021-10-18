@@ -3,8 +3,6 @@ const connect = require("../../../connectors/sequelize.conector");
 const { expenseItemsModel } = require("../../expense-items/index");
 const { costsModel } = require("../../costs/index");
 
-console.log(costsModel)
-
 class UsersModel extends Sequelize.Model {}
 
 UsersModel.init(

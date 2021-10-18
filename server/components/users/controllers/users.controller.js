@@ -22,7 +22,16 @@ class UsersController {
       const searchData = entries.length > 0 ?
         { where: innerData, raw: true } :
         { raw: true };
-      const users = await UsersModel.findAll(searchData);
+      const users = await UsersModel
+        .findAll(searchData)
+        .catch(e => {
+          console.log(e)
+          return res.status(400).json({
+            status: "ERROR",
+            message: "Can not search with model",
+            error: e
+          });
+        });
       if (users.length > 0) {
         return res.status(200).json({
           data: users,

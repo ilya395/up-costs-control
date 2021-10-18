@@ -21,7 +21,16 @@ class ExpenseItemController {
       const searchData = entries.length > 0 ?
         { where: innerData, raw: true } :
         { raw: true };
-      const items = await ExpenseItemsModel.findAll(searchData);
+      const items = await ExpenseItemsModel
+        .findAll(searchData)
+        .catch(e => {
+          console.log(e)
+          return res.status(400).json({
+            status: "ERROR",
+            message: "Can not search with model",
+            error: e
+          });
+        });
       if (items.length > 0) {
         return res.status(200).json({
           data: items,
