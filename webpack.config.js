@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin') // очистка
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // работай с css (вставляй стили в файл css)
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin') // минифицируй css
 const TerserWebpackPlugin = require('terser-webpack-plugin') // минифицируй js
-// const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin') // через него прикрутить externals с массивом объектов, содержащих урлы с cdn библтотек
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin') // через него прикрутить externals с массивом объектов, содержащих урлы с cdn библтотек
 const Dotenv = require('dotenv-webpack');
 
 const isDev = process.env.NODE_ENV === 'development' // определяй в каком сейчас режиме
@@ -105,7 +105,16 @@ const plugins = () => {
         new MiniCssExtractPlugin({
             filename: 'assets/css/' + filename('css') // filename('css') // 'assets/css/' + filename('css')
         }),
-        new Dotenv()
+        new Dotenv(),
+        new HtmlWebpackExternalsPlugin({
+          externals: [
+            {
+              module: 'name',
+              entry: 'url',
+              global: 'name',
+            }
+          ]
+        })
     ]
 
     return base
@@ -116,7 +125,7 @@ module.exports = {
     context: path.resolve(__dirname, 'client/src'), // со всех путях  удаляю эту папку
     mode: 'development',
     entry: { // точка входа в приложение, откуда начать
-        script: ['@babel/polyfill', './index.js'],
+        main: ['@babel/polyfill', './index.js'],
     },
     output: { // куда складывать результаты работы
         filename: 'assets/js/' + filename('js'), // filename('js'), // 'assets/js/' + filename('js'), // '[name]' // '[name].[hash].js', // итоговый файл, после сборкивсех js файлов
@@ -203,7 +212,7 @@ module.exports = {
                 test: /\.html$/,
                 include: path.resolve(__dirname, 'src/assets/templates'),
                 use: [
-                    'raw-loader',
+                  'raw-loader',
                 ]
             },
         ]

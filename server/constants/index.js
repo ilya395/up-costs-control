@@ -11,6 +11,7 @@ const DB_PORT = process.env.DB_PORT;
 const DB_NAME = process.env.DB_NAME;
 
 const TOKEN_KEY = process.env.TOKEN_KEY;
+const TOKEN_LIFE_TIME = process.env.TOKEN_LIFE_TIME;
 
 module.exports = {
   HOST,
@@ -20,5 +21,6 @@ module.exports = {
   DB_HOST,
   DB_PORT,
   DB_NAME,
-  TOKEN_KEY
+  TOKEN_KEY,
+  TOKEN_LIFE_TIME
 }
