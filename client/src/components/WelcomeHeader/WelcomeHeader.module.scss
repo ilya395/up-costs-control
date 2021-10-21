@@ -1,0 +1,23 @@
+@import "../LoginForm/LoginForm.module.scss";
+
+.welcom-header-block {
+  @extend .login-form;
+  position: relative;
+  height: 120px;
+  margin-bottom: 4rem;
+  flex-grow: 1;
+  &__icon {
+    position: absolute;
+    top: auto;
+    left: 2.4rem;
+    bottom: 0;
+    right: auto;
+  }
+  &__title {
+    position: absolute;
+    bottom: 15px;
+    top: auto;
+    left: calc(70px + 2.4rem);
+    right: auto;
+  }
+}

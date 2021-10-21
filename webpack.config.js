@@ -142,7 +142,7 @@ module.exports = {
   },
   resolve: {
     extensions: [                                 // какие расширения нужно понимать по умолчанию
-      '.js', '.json', '.png'
+      '.js', '.jsx', '.json', '.png'
     ],
     alias: {                                      // путь до корня проекта
       '@': path.resolve(__dirname, 'src')
@@ -216,7 +216,7 @@ module.exports = {
             type: 'javascript/auto'
         },
         {
-            test: /\.js$/,
+            test: /\.(js|jsx)$/,
             exclude: /node_modules/,
             use: jsLoaders()
         },

@@ -1,0 +1,20 @@
+@import "../variables/variables";
+
+.form-field {
+  &__input {
+    width: 100%;
+    border: 1px solid $separator_color;
+    box-sizing: border-box;
+    border-radius: 0.8rem;
+    padding: 1.55rem;
+    margin-top: 1.5rem;
+
+    &:focus {
+      border: 1px solid $focus_color;
+    }
+  }
+
+  &:first-child {
+    margin-bottom: 3rem;
+  }
+}

@@ -1,0 +1,27 @@
+@import "../base/typography";
+@import "../variables/variables";
+
+.little-button {
+  border-radius: 8px;
+  border: 1px solid $link_color;
+  background-color: $link_color;
+  color: $white_color;
+  padding: 1.2rem 3.3rem 1.3rem 3.3rem;
+  cursor: pointer;
+
+  &.disable {
+    border: 1px solid $disable_link_color;
+    background-color: $disable_link_color;
+    cursor: default;
+  }
+}
+.little-button_opacity {
+  @extend .little-button;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: $link_color;
+}
+.big-button {
+  @extend .little-button;
+  padding: 1.2rem 7.4rem 1.3rem 7.4rem;
+}

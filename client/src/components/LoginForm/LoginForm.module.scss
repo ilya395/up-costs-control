@@ -1,0 +1,31 @@
+@import "../../scss//variables/variables";
+@import "../../scss/base/typography";
+@import "../../scss/components/form-fields";
+
+.login-form {
+  margin: auto;
+  flex-grow: 0;
+
+  @media screen and (max-width: 420px) {
+    width: 100%;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+  }
+  @media screen and (min-width: 420px) {
+    width: 420px;
+    padding-left: 3.4rem;
+    padding-right: 3.4rem;
+  }
+}
+
+.login-form__button-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4.5rem;
+}
+
+.button-block__prompt {
+  margin-top: 1.5rem;
+}
