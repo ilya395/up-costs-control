@@ -49,8 +49,15 @@ html {
 }
 .simple-title_main {
   @extend .simple-title;
-  font-size: 3.6rem;
-  line-height: 4.1rem;
+
+  @media screen and (max-width: 450px) {
+    font-size: 3.0rem;
+    line-height: 3.5rem;
+  }
+  @media screen and (min-width: 450px) {
+    font-size: 3.6rem;
+    line-height: 4.1rem;
+  }
 }
 .simple-title_other {
   @extend .simple-title;

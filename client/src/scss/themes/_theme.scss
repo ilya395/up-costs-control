@@ -1,11 +1,12 @@
 .container {
-  height: 100%;
+  height: auto;
+  min-height: Max(100vh, 568px);
   margin: 0 auto;
   @media screen and (max-width: 320px) {
     width: 100%;
   }
   @media screen and (min-width: 320px) {
-    width: calc(100% - 15px*2);
+    width: 100%;
   }
   @media screen and (min-width: 450px) {
     width: 428px;
