@@ -1,0 +1,28 @@
+@import "../../scss/variables/variables";
+
+$container_padding: 3.2rem; // $content_container_padding;
+$item_padding: 1.5rem;
+
+.expense-items-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-left: -$item_padding;
+  margin-right: -$item_padding;
+
+  &__element {
+    padding: $item_padding;
+    @media screen and (max-width: 370px) {
+      flex-basis: 50%;
+      flex-grow: 0;
+      flex-shrink: 1;
+      height: calc((100vw - #{$container_padding} * 2)/2);
+    }
+    @media screen and (min-width: 370px) {
+      flex-basis: 33.33333%;
+      flex-grow: 0;
+      flex-shrink: 1;
+      height: calc((100vw - #{$container_padding} * 2)/3);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import "../../scss/variables/variables";
+
+$container_padding: $content_container_padding;
+$nav_bar_height: 7.8rem;
+
+.main-content-section {
+  padding-left: $container_padding;
+  padding-right: $container_padding;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  &__expense-items-list {
+    flex-grow: 1;
+    padding-bottom: $nav_bar_height;
+  }
+
+  &__nav-bar {
+    position: fixed;
+    height: $nav_bar_height;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
