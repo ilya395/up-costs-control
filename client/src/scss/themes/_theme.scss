@@ -18,3 +18,11 @@
     width: calc(1200px - 15px*2);
   }
 }
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,9 @@
+@import "../../scss/variables/variables";
+
+.month-picker {
+  & input {
+    text-transform: lowercase;
+    color: $link_color;
+    text-decoration-line: underline;
+  }
+}

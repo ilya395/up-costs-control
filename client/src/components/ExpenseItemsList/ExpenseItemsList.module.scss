@@ -7,22 +7,46 @@ $item_padding: 1.5rem;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-left: -$item_padding;
-  margin-right: -$item_padding;
+
+  @media screen and (max-width: 369px) {
+    margin-left: -$item_padding;
+    margin-right: -$item_padding;
+  }
+  @media screen and (min-width: 370px) {
+    margin-left: -1.1rem;
+    margin-right: -1.1rem;
+  }
+  @media screen and (min-width: 450px) {
+    margin-left: -$item_padding;
+    margin-right: -$item_padding;
+  }
 
   &__element {
-    padding: $item_padding;
-    @media screen and (max-width: 370px) {
+    @media screen and (max-width: 369px) {
       flex-basis: 50%;
       flex-grow: 0;
       flex-shrink: 1;
       height: calc((100vw - #{$container_padding} * 2)/2);
+      padding: $item_padding;
     }
     @media screen and (min-width: 370px) {
+      $little_padding: 1.1rem;
       flex-basis: 33.33333%;
       flex-grow: 0;
       flex-shrink: 1;
       height: calc((100vw - #{$container_padding} * 2)/3);
+      padding: $little_padding;
+    }
+    @media screen and (min-width: 450px) {
+      height: calc((450px - #{$container_padding} * 2)/3);
+      padding: $item_padding;
+    }
+    @media screen and (min-width: 576px) {
+      height: calc((100vw - 15px*2 - #{$container_padding} * 2)/3);
+    }
+    @media screen and (min-width: 768px) {
+      flex-basis: 25%;
+      height: calc((100vw - 15px*2 - #{$container_padding} * 2)/4);
     }
   }
 }

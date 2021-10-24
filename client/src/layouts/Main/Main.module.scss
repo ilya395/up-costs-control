@@ -4,12 +4,21 @@ $container_padding: $content_container_padding;
 $nav_bar_height: 7.8rem;
 
 .main-content-section {
-  padding-left: $container_padding;
-  padding-right: $container_padding;
   display: flex;
   flex-direction: column;
   height: 100%;
   position: relative;
+  padding-left: $container_padding;
+  padding-right: $container_padding;
+
+  &__title {
+    margin-bottom: 3rem;
+    margin-top: 4.5rem;
+  }
+
+  &__monthspicker {
+    padding-bottom: 1.5rem;
+  }
 
   &__expense-items-list {
     flex-grow: 1;
@@ -23,5 +32,11 @@ $nav_bar_height: 7.8rem;
     right: 0;
     bottom: 0;
     left: 0;
+
+    background-color: $white_color;
+    border-top: 1px solid $separator_color;
+    $padding: 2.4rem + $container_padding - 2.4rem;
+    padding-right: $padding;
+    padding-left: $padding;
   }
 }

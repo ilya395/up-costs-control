@@ -15,19 +15,39 @@ html {
   font-weight: 600;
   font-size: 1.8rem;
   line-height: 1.8rem;
+
+  @media screen and (min-width: 576px) {
+    $size: 3rem;
+    font-size: $size;
+    line-height: calc(#{$size} * 1.5);
+  }
 }
 .simple-text_main {
   @extend .simple-text;
   font-size: 2rem;
   line-height: 2rem;
+
+  @media screen and (min-width: 576px) {
+    $size: 2.4rem;
+    font-size: $size;
+    line-height: calc(#{$size} * 1.5);
+  }
 }
 .simple-text_other {
   @extend .simple-text;
   font-size: 1.5rem;
   line-height: 1.5rem;
+  @media screen and (min-width: 576px) {
+    font-size: 2.4rem;
+    line-height: calc(2.4rem * 1.5);
+  }
 
   &-bold {
     font-weight: bold;
+    @media screen and (min-width: 576px) {
+      font-size: 2.4rem;
+      line-height: calc(2.4rem * 1.5);
+    }
   }
 }
 .simple-text_menu {
@@ -97,4 +117,8 @@ a {
 
 p {
   margin: 0;
+}
+
+.lowercase {
+  text-transform: lowercase;
 }

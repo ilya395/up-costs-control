@@ -1,4 +1,5 @@
 import React from "react";
+import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
 import s from "./Main.module.scss";
 
@@ -11,15 +12,14 @@ export const Main = () => {
             Мои расходы
           </h1>
         </div>
-        <div className={s["main-content-section__datepicker"]}>
-          1
+        <div className={s["main-content-section__monthspicker"]}>
+          <MonthPicker />
         </div>
         <div className={s["main-content-section__expense-items-list"]}>
           <ExpenseItemsListContainer />
         </div>
         <div className={s["main-content-section__nav-bar"]}>
-          3
-          <nav className="nav-bar"></nav>
+          <NavBar />
         </div>
       </main>
     </div>

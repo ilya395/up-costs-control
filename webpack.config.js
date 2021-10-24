@@ -117,9 +117,9 @@ const plugins = () => {
     // new HtmlWebpackExternalsPlugin({
     //   externals: [
     //     {
-    //       module: 'name',
-    //       entry: 'url',
-    //       global: 'name',
+    //       module: "material-icons",
+    //       entry: "https://fonts.googleapis.com/icon?family=Material+Icons",
+    //       global: "material-icons",
     //     }
     //   ]
     // }),
