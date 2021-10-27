@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const costsModel = require("../../costs/models/costs.model");
 const expenseItemsModel = require("../../expense-items/models/expenseItems.model");
 
@@ -13,10 +14,10 @@ class CostsCollectionController {
       const { date, userId } = req.body;
       // нужно проверить входные данные
 
-      // try {
-        const thisDate = (new Date(+date))//.setHours(0, 0, 0, 0)// .setDate(1); // ??
-        console.log(thisDate)
-        const nextDate = new Date(thisDate.getFullYear(), thisDate.getMonth(), 32, 0, 0, 0, 0)
+      try {
+        const now = new Date(+date);
+        const thisDate = new Date(now.getFullYear(), now.getMonth(), 2, 0, 0, 0, 0);
+        const nextDate = new Date(now.getFullYear(), now.getMonth(), 32, 23, 59, 59, 999);
         const expenseItems = await expenseItemsModel
           .findAll({
             where: {
@@ -38,9 +39,10 @@ class CostsCollectionController {
               userId,
               createdAt: {
                 // <=
-                $lte: nextDate,
+                [Op.lte]: nextDate,
                 // >=
-                $gte: thisDate,
+                [Op.gte]: thisDate,
+
               }
             },
             raw: true,
@@ -56,20 +58,20 @@ class CostsCollectionController {
         const data = expenseItems.map(item => {
           return {
             ...item,
-            costs: costs.filter(elem => elem.expenseItemId === item.id)
+            costs: costs.filter(elem => +elem.expenseItemId === +item.id),
           }
         });
         return res.status(200).json({
           status: "OK",
           data
         });
-      // } catch(e) {
-      //   return res.status(400).json({
-      //     status: "ERROR",
-      //     message: "Can not work with models",
-      //     error: e
-      //   });
-      // }
+      } catch(e) {
+        return res.status(400).json({
+          status: "ERROR",
+          message: "Can not work with models",
+          error: e,
+        });
+      }
     }
     return res
       .status(401)
