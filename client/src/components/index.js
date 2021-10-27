@@ -7,3 +7,4 @@ export * from "./AddExpenseItem/AddExpenseItem.component";
 export * from "./MonthPicker/MonthPicker.component";
 export * from "./NavBar/NavBar.component";
 export * from "./NavButton/NavButton.component";
+export * from "./Modal/Modal.component";

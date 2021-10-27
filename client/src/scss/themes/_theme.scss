@@ -2,6 +2,7 @@
   height: auto;
   min-height: Max(100vh, 568px);
   margin: 0 auto;
+  position: relative;
   @media screen and (max-width: 320px) {
     width: 100%;
   }

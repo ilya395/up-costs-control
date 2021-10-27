@@ -1,6 +1,7 @@
 import React from "react";
 import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
+import { ModalContainer } from "../../containers/ModalContainer/ModalContainer.container";
 import s from "./Main.module.scss";
 
 export const Main = () => {
@@ -22,6 +23,7 @@ export const Main = () => {
           <NavBar />
         </div>
       </main>
+      <ModalContainer />
     </div>
   );
 }
