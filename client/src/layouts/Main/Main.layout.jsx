@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
 import { ModalContainer } from "../../containers/ModalContainer/ModalContainer.container";
 import s from "./Main.module.scss";
 
 export const Main = () => {
+  const [openModal, setOpenmodal] = useState(false);
   return (
     <div className="container">
       <main className={s["main-content-section"]}>
@@ -23,7 +24,9 @@ export const Main = () => {
           <NavBar />
         </div>
       </main>
-      <ModalContainer />
+      {
+        openModal && <ModalContainer />
+      }
     </div>
   );
 }
