@@ -40,4 +40,4 @@ export const API_URL = {
   }
 };
 
-export const TOKEN = "auth_token";
+export const AUTH_DATA = "auth_data";

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router";
 import { Login, Main } from "../../layouts";
-import { localToken } from "../../utils/classes/LocalToken.class";
+import { localAuthData } from "../../utils/classes/LocalAuthData.class";
 
 export const MainRoter = () => {
-  const [tokenInComponent, setTokenInComponent] = useState(localToken.getToken());
+  const [tokenInComponent, setTokenInComponent] = useState(localAuthData.getToken());
   const state = useSelector(state => state.auth);
   useEffect(() => {
-    setTokenInComponent(localToken.getToken());
-  }, [state]);
+    setTokenInComponent(localAuthData.getToken());
+  }, []);
   return (
     <Switch>
       <Route path="/login">

@@ -3,7 +3,7 @@ import { authAwaitAction, authErrorAction, authSuccessAction } from "../store/ac
 import { REQUEST_AUTH } from "../store/actions/types/auth.type";
 import { API_URL } from "../../../constants";
 import { request } from "../../../utils/classes/Request.class";
-import { localToken } from "../../../utils/classes/LocalToken.class";
+import { localAuthData } from "../../../utils/classes/LocalAuthData.class";
 
 function* fetchAuth(data) {
   try {
@@ -16,11 +16,12 @@ function* fetchAuth(data) {
         body: payload
       })
     });
-    yield put(authSuccessAction(auth));
-    yield call(() => localToken.setToken(auth));
+    console.log("aurh: ", auth.data)
+    yield put(authSuccessAction(auth.data));
+    yield call(() => localAuthData.setAuthData(JSON.stringify(auth.data)));
   } catch(e) {
     yield put(authErrorAction(e));
-    yield call(() => localToken.removeToken());
+    // yield call(() => localAuthData.removeAuthData());
   }
 }
 
