@@ -9,7 +9,7 @@ export const MainRoter = () => {
   const state = useSelector(state => state.auth);
   useEffect(() => {
     setTokenInComponent(localAuthData.getToken());
-  }, []);
+  }, [state]);
   return (
     <Switch>
       <Route path="/login">

@@ -1,0 +1,1 @@
+export const CHOOSED_MONTH = "CHOOSED_MONTH";

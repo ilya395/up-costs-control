@@ -14,7 +14,10 @@ class Request {
       }
     })
     // .then(res => res.json())
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      localAuthData.removeAuthData();
+    })
   }
   post(data) {
     console.log("post", data)
@@ -29,7 +32,10 @@ class Request {
       data: JSON.stringify(body)
     })
     // .then(res => res.json())
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      localAuthData.removeAuthData();
+    })
   }
   delete(data) {
     const { url, body } = data;
@@ -43,7 +49,10 @@ class Request {
       body
     })
     // .then(res => res.json())
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      localAuthData.removeAuthData();
+    })
   }
   update(data) {
     const { url, body } = data;
@@ -57,7 +66,10 @@ class Request {
       body
     })
     // .then(res => res.json())
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      localAuthData.removeAuthData();
+    })
   }
 }
 

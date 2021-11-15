@@ -17,7 +17,8 @@ function* fetchGetCosts(data) {
         }
       })
     });
-    yield put(costsSuccessAction(response));
+    yield console.log("response: ", response)
+    yield put(costsSuccessAction(response.data.data));
   } catch(e) {
     console.log(e)
     yield put(costsErrorAction(e));

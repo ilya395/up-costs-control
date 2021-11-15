@@ -3,72 +3,20 @@ import s from "./ExpenseItemsList.module.scss";
 import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
 import { AddExpenseItem } from "../AddExpenseItem/AddExpenseItem.component";
 
-export const ExpenseItemsList = () => {
+export const ExpenseItemsList = props => {
+  console.log("prps: ", props);
   return (
     <div className={s["expense-items-list"]}>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <ExpenseItem />
-      </div>
-      <div className={s["expense-items-list__element"]}>
-        <AddExpenseItem />
-      </div>
+      {
+        props.costs &&
+        props.costs.map(item => (
+          <div className={s["expense-items-list__element"]} key={item.id}>
+            <ExpenseItem
+              data={item}
+            />
+          </div>
+        ))
+      }
     </div>
   );
 }

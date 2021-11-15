@@ -6,18 +6,21 @@ import { localAuthData } from "../../utils"; // не сработал норма
 
 export const ExpenseItemsListContainer = () => {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.costs);
+  const costs = useSelector(state => state.costs.data);
+  const choosedDate = useSelector(state => state.date.choosedDate);
   useEffect(() => {
     console.log("getCostsAction", localAuthData.getId())
     dispatch(getCostsAction({
       id: localAuthData.getId(),
-      date: (new Date()).getTime()
+      date: (choosedDate).getTime(),
     }));
-  }, []);
+  }, [choosedDate]);
   useEffect(() => {
-    console.log("costs state: ", state)
-  }, [state])
+    console.log("costs state: ", costs)
+  }, [costs])
   return (
-    <ExpenseItemsList />
+    <ExpenseItemsList
+      costs={costs}
+    />
   );
 }

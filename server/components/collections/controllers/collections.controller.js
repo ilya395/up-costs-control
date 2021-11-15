@@ -55,6 +55,7 @@ class CostsCollectionController {
               error: e
             });
           });
+        console.log(costs)
         const data = expenseItems.map(item => {
           return {
             ...item,
