@@ -60,6 +60,9 @@ class CostsCollectionController {
           return {
             ...item,
             costs: costs.filter(elem => +elem.expenseItemId === +item.id),
+            costsAmount: costs.filter(elem => +elem.expenseItemId === +item.id).reduce((previousValue, item, index, array) => {
+              return previousValue + item.amount
+            }, 0),
           }
         });
         return res.status(200).json({

@@ -17,6 +17,11 @@ export const ExpenseItemsList = props => {
           </div>
         ))
       }
+      <div className={s["expense-items-list__element"]}>
+        <AddExpenseItem
+          addNewExpenseItem={props.addNewExpenseItem}
+        />
+      </div>
     </div>
   );
 }

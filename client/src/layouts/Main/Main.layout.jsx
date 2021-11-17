@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
 import { ModalContainer } from "../../containers/ModalContainer/ModalContainer.container";
 import s from "./Main.module.scss";
 
 export const Main = () => {
-  const [openModal, setOpenmodal] = useState(false);
+  const modal = useSelector(state => state.modal);
   return (
     <div className="container">
       <main className={s["main-content-section"]}>
@@ -25,7 +26,9 @@ export const Main = () => {
         </div>
       </main>
       {
-        openModal && <ModalContainer />
+        modal && modal.open && <ModalContainer
+          componentName={modal.componentName}
+        />
       }
     </div>
   );

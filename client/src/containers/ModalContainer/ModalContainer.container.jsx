@@ -1,11 +1,43 @@
 import React from "react";
-import { Modal } from "../../components";
+import { AddCost, MainMenu, Modal, Support } from "../../components";
 import { ExpenseItemFormModel } from "../../forms";
+import { MODAL_EXPENSE_ITEM_ADD, MODAL_SUPPORT } from "../../modules/modal";
 
-export const ModalContainer = () => {
+export const ModalContainer = props => {
+  // const whatComponentWeNeed = ({ componentName, props }) => {
+  //   switch (componentName) {
+  //     case MODAL_EXPENSE_ITEM_ADD:
+  //       return props => <ExpenseItemFormModel props={{...props}}
+  //   }
+  // }
+  if (
+    props.componentName === MODAL_EXPENSE_ITEM_ADD ||
+    props.componentName === MODAL_EXPENSE_ITEM_EDIT ||
+    props.componentName === MODAL_EXPENSE_ITEM_DELETE
+  ) {
+    return (
+      <Modal
+        render={props => <ExpenseItemFormModel props={{...props}} />}
+      />
+    );
+  }
+  if (props.componentName === MODAL_COST_ADD) {
+    return (
+      <Modal
+        render={props => <AddCost props={{...props}} />}
+      />
+    );
+  }
+  if (props.componentName === MODAL_SUPPORT) {
+    return (
+      <Modal
+        render={props => <Support props={{...props}} />}
+      />
+    );
+  }
   return (
     <Modal
-      render={props => <ExpenseItemFormModel props={{...props}} />}
+      render={props => <MainMenu props={{...props}} />}
     />
   );
 }

@@ -21,21 +21,25 @@ export const costsSuccessAction = payload => ({
 
 export const getCostsAction = payload => ({
   type: GET_COSTS,
-  payload
+  payload,
 });
 
-export const addCostsAction = () => ({
+export const addCostsAction = payload => ({
   type: ADD_COSTS,
+  payload,
 });
 
-export const addExpenseItemAction = () => ({
-  type: ADD_EXPENSE_ITEM
+export const addExpenseItemAction = payload => ({
+  type: ADD_EXPENSE_ITEM,
+  payload,
 });
 
-export const deleteExpenseItemAction = () => ({
-  type: DELETE_EXPENSE_ITEM
+export const deleteExpenseItemAction = payload => ({
+  type: DELETE_EXPENSE_ITEM,
+  payload,
 });
 
-export const changeExpenseItemAction = () => ({
-  type: CHANGE_EXPENSE_ITEM
+export const changeExpenseItemAction = payload => ({
+  type: CHANGE_EXPENSE_ITEM,
+  payload,
 });

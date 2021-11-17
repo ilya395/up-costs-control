@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ExpenseItemsList } from "../../components";
 import { getCostsAction } from "../../modules/costs";
+import { modalAddExpenseItemAction } from "../../modules/modal";
 import { localAuthData } from "../../utils"; // не сработал нормально импорт
 
 export const ExpenseItemsListContainer = () => {
@@ -17,10 +18,17 @@ export const ExpenseItemsListContainer = () => {
   }, [choosedDate]);
   useEffect(() => {
     console.log("costs state: ", costs)
-  }, [costs])
+  }, [costs]);
+
+  const addNewExpenseItem = () => {
+    console.log("add new");
+    dispatch(modalAddExpenseItemAction());
+  }
+
   return (
     <ExpenseItemsList
       costs={costs}
+      addNewExpenseItem={addNewExpenseItem}
     />
   );
 }

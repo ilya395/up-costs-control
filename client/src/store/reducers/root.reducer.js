@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import { AuthReducer } from "../../modules/auth";
 import { CostsReducer } from "../../modules/costs";
-import { monthReducer } from "../../modules/month";
+import { ModalReducer } from "../../modules/modal";
+import { MonthReducer } from "../../modules/month";
 
 export const rootReducer = combineReducers({
   auth: AuthReducer,
   costs: CostsReducer,
-  date: monthReducer
+  date: MonthReducer,
+  modal: ModalReducer,
 });

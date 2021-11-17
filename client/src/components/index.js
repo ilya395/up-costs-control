@@ -8,3 +8,6 @@ export * from "./MonthPicker/MonthPicker.component";
 export * from "./NavBar/NavBar.component";
 export * from "./NavButton/NavButton.component";
 export * from "./Modal/Modal.component";
+export * from "./AddCost/AddCost.component";
+export * from "./Support/Support.component";
+export * from "./MainMenu/MainMenu.component";

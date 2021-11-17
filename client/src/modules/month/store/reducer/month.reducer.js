@@ -4,7 +4,7 @@ const initialMonthState = {
   choosedDate: new Date(),
 }
 
-export function monthReducer(state = initialMonthState, action) {
+export function MonthReducer(state = initialMonthState, action) {
   switch (action.type) {
     case CHOOSED_MONTH:
       return {
