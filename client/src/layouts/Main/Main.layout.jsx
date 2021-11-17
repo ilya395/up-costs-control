@@ -28,6 +28,7 @@ export const Main = () => {
       {
         modal && modal.open && <ModalContainer
           componentName={modal.componentName}
+          data={modal.data}
         />
       }
     </div>

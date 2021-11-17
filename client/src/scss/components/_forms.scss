@@ -26,6 +26,7 @@ $container_padding: $content_container_padding;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      height: 4rem;
     }
 
     &_column {
@@ -35,6 +36,7 @@ $container_padding: $content_container_padding;
 
   & .form-field__simple-text {
     margin-left: 0.9rem;
+    width: 100%;
   }
 
   &__input {

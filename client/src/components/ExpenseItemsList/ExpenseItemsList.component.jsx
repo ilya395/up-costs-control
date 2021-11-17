@@ -13,6 +13,7 @@ export const ExpenseItemsList = props => {
           <div className={s["expense-items-list__element"]} key={item.id}>
             <ExpenseItem
               data={item}
+              changeExpenseItem={props.changeExpenseItem}
             />
           </div>
         ))

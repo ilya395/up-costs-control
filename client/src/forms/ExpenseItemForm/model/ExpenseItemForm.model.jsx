@@ -1,11 +1,15 @@
 import React from "react";
 import { ExpenseItemFormView } from "../view/ExpenseItemForm.view";
 
-export const ExpenseItemFormModel = () => {
+export const ExpenseItemFormModel = props => {
+  console.log("ExpenseItemFormModel: ", props)
+  const { allProps } = props;
+  console.log(allProps)
   return (
     <>
-      3
-      <ExpenseItemFormView />
+      <ExpenseItemFormView
+        data={{...allProps}}
+      />
     </>
   );
 }
