@@ -26,7 +26,7 @@ class LocalAuthData {
     }
     return localStorage.getItem(AUTH_DATA) && localStorage.getItem(AUTH_DATA).login;
   }
-  getId() {
+  getUserId() {
     if (localStorage.getItem(AUTH_DATA)) {
       if (typeof localStorage.getItem(AUTH_DATA) === "string") {
         return JSON.parse(localStorage.getItem(AUTH_DATA)).id;

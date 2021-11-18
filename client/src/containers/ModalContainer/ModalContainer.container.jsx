@@ -1,13 +1,13 @@
 import React from "react";
 import { AddCost, MainMenu, Modal, Support } from "../../components";
-import { ExpenseItemFormModel } from "../../forms";
+import { ExpenseItemFormContainer } from "../../forms";
 import { MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_SUPPORT } from "../../modules/modal";
 
 export const ModalContainer = props => {
   // const whatComponentWeNeed = ({ componentName, props }) => {
   //   switch (componentName) {
   //     case MODAL_EXPENSE_ITEM_ADD:
-  //       return props => <ExpenseItemFormModel props={{...props}}
+  //       return props => <ExpenseItemFormContainer props={{...props}}
   //   }
   // }
   const { data } = props;
@@ -18,7 +18,7 @@ export const ModalContainer = props => {
   ) {
     return (
       <Modal
-        render={props => <ExpenseItemFormModel allProps={{...props, ...data}} />}
+        render={props => <ExpenseItemFormContainer allProps={{...props, ...data}} />}
       />
     );
   }

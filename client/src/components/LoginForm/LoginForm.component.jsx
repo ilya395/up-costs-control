@@ -11,7 +11,6 @@ export const LoginForm = () => {
     password: "",
   });
   const submitForm = (event) => {
-    console.log("submitForm")
     event.preventDefault();
 
     if (formData.password && formData.login) {

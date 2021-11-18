@@ -6,8 +6,12 @@
   border: 1px solid $link_color;
   background-color: $link_color;
   color: $white_color;
-  padding: 1.2rem 3.3rem 1.3rem 3.3rem;
+  padding: 1.2rem 2.3rem 1.3rem 2.3rem;
   cursor: pointer;
+
+  @media screen and (min-width: 410px) {
+    padding: 1.2rem 3.3rem 1.3rem 3.3rem;
+  }
 
   &.disable {
     border: 1px solid $disable_link_color;

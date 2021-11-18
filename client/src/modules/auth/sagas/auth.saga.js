@@ -7,7 +7,6 @@ import { localAuthData } from "../../../utils/classes/LocalAuthData.class";
 
 function* fetchAuth(data) {
   try {
-    console.log("fetchAuth")
     const { payload } = data;
     yield put(authAwaitAction());
     const auth = yield call(() => {
@@ -16,7 +15,6 @@ function* fetchAuth(data) {
         body: payload
       })
     });
-    console.log("aurh: ", auth.data)
     yield put(authSuccessAction(auth.data));
     yield call(() => localAuthData.setAuthData(JSON.stringify(auth.data)));
   } catch(e) {

@@ -5,22 +5,26 @@
 $container_padding: $content_container_padding;
 
 .simple-form { // repeat from LoginForm
-  margin: auto;
-  flex-grow: 0;
+  width: 100%;
 
-  @media screen and (max-width: 420px) {
-    width: 100%;
-    // padding-left: 2.4rem;
-    // padding-right: 2.4rem;
-  }
-  @media screen and (min-width: 576px) {
-    width: 420px;
-    // padding-left: 3.4rem;
-    // padding-right: 3.4rem;
+  &__outer-wrapper {
+    margin: auto;
+    flex-grow: 0;
+    @media screen and (max-width: 420px) {
+      width: 100%;
+      // padding-left: 2.4rem;
+      // padding-right: 2.4rem;
+    }
+    @media screen and (min-width: 576px) {
+      width: 420px;
+      // padding-left: 3.4rem;
+      // padding-right: 3.4rem;
+    }
   }
 
   &__form-field {
     display: flex;
+    margin-top: 4rem;
 
     &_row {
       flex-direction: row;
@@ -35,7 +39,7 @@ $container_padding: $content_container_padding;
   }
 
   & .form-field__simple-text {
-    margin-left: 0.9rem;
+    margin-left: 3rem; // 0.9rem;
     width: 100%;
   }
 
@@ -43,7 +47,7 @@ $container_padding: $content_container_padding;
     @extend .form-field__input;
 
     margin-top: 0;
-    margin-left: 2.5rem;
+    margin-left: 1.5rem; // 2.5rem;
     padding: 0.75rem 1.55rem;
   }
 
@@ -64,6 +68,7 @@ $container_padding: $content_container_padding;
     &__list-wrapper {
       display: block;
       width: 100%;
+      margin-top: 1.5rem;
     }
     &__list {
       display: flex;
@@ -109,6 +114,19 @@ $container_padding: $content_container_padding;
         user-select: none;
       // }
 
+    }
+  }
+
+  &__buttons-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & button {
+      margin-top: 3rem;
+      flex-grow: 1;
+      flex-shrink: 0;
+      flex-basis: 50%;
     }
   }
 }

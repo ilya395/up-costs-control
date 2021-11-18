@@ -59,21 +59,36 @@ class ExpenseItemController {
           status: "ERROR"
         });
       }
-      const { name, userId, index, color, } = req.body;
+      const { name, userId, color, } = req.body;
       // нужно проверить входные данные
       try {
+        const items = await ExpenseItemsModel
+          .findAll({
+            where: {
+              userId
+            },
+            raw: true
+          })
+          .catch(e => {
+            console.log(e)
+            return res.status(400).json({
+              status: "ERROR",
+              message: "Can not search expense items with model",
+              error: e
+            });
+          });
         const data = await ExpenseItemsModel
           .create({
             name,
             userId,
-            index,
+            index: items.length + 1,
             color,
           })
           .catch(e => {
             console.log(e)
             return res.status(400).json({
               status: "ERROR",
-              message: "Can not create with model",
+              message: "Can not create expense items with model",
               error: e
             });
           })

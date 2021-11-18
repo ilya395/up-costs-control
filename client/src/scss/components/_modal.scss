@@ -18,6 +18,8 @@ $container_padding: $content_container_padding;
     align-items: center;
     justify-content: center;
     width: 100%;
+    border-top: 1px solid $separator_color;
+    padding-top: 2.7rem;
   }
 
   &__content { // repeat from Main.module.scss
@@ -30,6 +32,11 @@ $container_padding: $content_container_padding;
     padding-top: 5.4rem;
     padding-left: $container_padding;
     padding-right: $container_padding;
+
+    // @media screen and (max-width: 428px) {
+    //   padding-left: 1.5rem;
+    //   padding-right: 1.5rem;
+    // }
   }
 }
 

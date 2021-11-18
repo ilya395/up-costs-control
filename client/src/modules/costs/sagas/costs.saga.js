@@ -1,11 +1,12 @@
 import { call, put, takeEvery } from "@redux-saga/core/effects";
-import { ADD_COSTS, ADD_EXPENSE_ITEM, CHANGE_EXPENSE_ITEM, costsAwaitAction, costsErrorAction, costsSuccessAction, DELETE_EXPENSE_ITEM, GET_COSTS } from "..";
+import { ADD_COSTS, ADD_EXPENSE_ITEM, awaitDeleteExpenseItemAction, CHANGE_EXPENSE_ITEM, costsAwaitAction, costsErrorAction, costsSuccessAction, DELETE_EXPENSE_ITEM, errorDeleteExpenseItemAction, getCostsAction, getCostsNowAction, GET_COSTS, successDeleteExpenseItemAction } from "..";
 import { API_URL } from "../../../constants";
+import { localAuthData } from "../../../utils";
 import { request } from "../../../utils/classes/Request.class";
+import { modalCloseExpenseItemAction } from "../../modal";
 
 function* fetchGetCosts(data) {
   try {
-    console.log("fetchGetCosts", data);
     const { id, date } = data.payload;
     yield put(costsAwaitAction());
     const response = yield call(() => {
@@ -17,10 +18,8 @@ function* fetchGetCosts(data) {
         }
       })
     });
-    yield console.log("response: ", response)
     yield put(costsSuccessAction(response.data.data));
   } catch(e) {
-    console.log(e)
     yield put(costsErrorAction(e));
   }
 }
@@ -40,9 +39,22 @@ export function* watchAddCosts() {
 
 function* fetchAddExpenseItem(data) {
   try {
-
+    const { name, color } = data.payload;
+    yield put(costsAwaitAction());
+    const response = yield call(() => {
+      return request.put({
+        url: API_URL.expenseItems.set,
+        body: {
+          userId: localAuthData.getUserId(),
+          name,
+          color
+        }
+      })
+    });
+    // yield put(costsSuccessAction(response.data.data));
+    yield put(modalCloseExpenseItemAction());
   } catch(e) {
-
+    yield put(costsErrorAction(e));
   }
 }
 export function* watchAddExpenseItem() {
@@ -51,8 +63,20 @@ export function* watchAddExpenseItem() {
 
 function* fetchDeleteExpenseItem(data) {
   try {
+    const { id } = data.payload;
+    yield put(awaitDeleteExpenseItemAction());
+    const response = yield call(() => {
+      return request.delete({
+        url: API_URL.expenseItems.delete,
+        body: {
+          id,
+        }
+      })
+    });
+    yield put(successDeleteExpenseItemAction(response.data.data));
+    yield put(modalCloseExpenseItemAction());
   } catch(e) {
-
+    yield put(errorDeleteExpenseItemAction(e));
   }
 }
 export function* watchDeleteExpenseItem() {

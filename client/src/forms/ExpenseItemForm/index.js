@@ -1,1 +1,1 @@
-export * from "./model/ExpenseItemForm.model";
+export * from "./container/ExpenseItemForm.container";

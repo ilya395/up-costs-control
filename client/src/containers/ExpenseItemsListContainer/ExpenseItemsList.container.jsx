@@ -6,29 +6,29 @@ import { modalAddExpenseItemAction, modalEditExpenseItemAction } from "../../mod
 import { localAuthData } from "../../utils"; // не сработал нормально импорт
 
 export const ExpenseItemsListContainer = () => {
+
   const dispatch = useDispatch();
+
   const costs = useSelector(state => state.costs.data);
   const choosedDate = useSelector(state => state.date.choosedDate);
-  useEffect(() => {
-    console.log("getCostsAction", localAuthData.getId())
+  const goDispatchChoosedDate = () => {
     dispatch(getCostsAction({
-      id: localAuthData.getId(),
+      id: localAuthData.getUserId(),
       date: (choosedDate).getTime(),
     }));
-  }, [choosedDate]);
+  }
+
+  const open = useSelector(state => state.modal.open);
   useEffect(() => {
-    console.log("costs state: ", costs)
-  }, [costs]);
+    goDispatchChoosedDate();
+  }, [open, choosedDate]);
 
   const addNewExpenseItem = () => {
-    console.log("add new");
     dispatch(modalAddExpenseItemAction());
   }
 
   const changeExpenseItem = id => {
-    console.log(id);
     const result = costs.find(item => +item.id === +id);
-    console.log("result: ", result)
     dispatch(modalEditExpenseItemAction(result));
   }
 

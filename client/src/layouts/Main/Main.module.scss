@@ -11,6 +11,11 @@ $nav_bar_height: 7.8rem;
   padding-left: $container_padding;
   padding-right: $container_padding;
 
+  // @media screen and (max-width: 428px) {
+  //   padding-left: 1.5rem;
+  //   padding-right: 1.5rem;
+  // }
+
   &__title {
     margin-bottom: 3rem;
     margin-top: 4.5rem;
