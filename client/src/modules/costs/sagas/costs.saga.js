@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from "@redux-saga/core/effects";
-import { ADD_COSTS, ADD_EXPENSE_ITEM, awaitDeleteExpenseItemAction, CHANGE_EXPENSE_ITEM, costsAwaitAction, costsErrorAction, costsSuccessAction, DELETE_EXPENSE_ITEM, errorDeleteExpenseItemAction, getCostsAction, getCostsNowAction, GET_COSTS, successDeleteExpenseItemAction } from "..";
+import { ADD_COSTS, ADD_EXPENSE_ITEM, awaitAddCostsAction, awaitAddExpenseItemAction, awaitChangeExpenseItemAction, awaitDeleteExpenseItemAction, CHANGE_EXPENSE_ITEM, costsAwaitAction, costsErrorAction, costsSuccessAction, DELETE_EXPENSE_ITEM, errorAddCostsAction, errorAddExpenseItemAction, errorChangeExpenseItemAction, errorDeleteExpenseItemAction, getCostsAction, getCostsNowAction, GET_COSTS, succesAddCostsAction, successAddExpenseItemAction, successChangeExpenseItemAction, successDeleteExpenseItemAction } from "..";
 import { API_URL } from "../../../constants";
 import { localAuthData } from "../../../utils";
 import { request } from "../../../utils/classes/Request.class";
-import { modalCloseExpenseItemAction } from "../../modal";
+import { modalCloseAction } from "../../modal";
 
 function* fetchGetCosts(data) {
   try {
@@ -29,8 +29,22 @@ export function* watchGetCosts() {
 
 function* fetchAddCosts(data) {
   try {
+    const { id, amount, expenseItemId, description } = data.payload;
+    yield put(awaitAddCostsAction());
+    const response = yield call(() => {
+      return request.put({
+        url: API_URL.cost.set,
+        body: {
+          userId: id,
+          amount,
+          expenseItemId,
+          description,
+        }
+      })
+    });
+    yield put(succesAddCostsAction(response.data.data));
   } catch(e) {
-
+    yield put(errorAddCostsAction(e));
   }
 }
 export function* watchAddCosts() {
@@ -40,7 +54,7 @@ export function* watchAddCosts() {
 function* fetchAddExpenseItem(data) {
   try {
     const { name, color } = data.payload;
-    yield put(costsAwaitAction());
+    yield put(awaitAddExpenseItemAction());
     const response = yield call(() => {
       return request.put({
         url: API_URL.expenseItems.set,
@@ -51,10 +65,10 @@ function* fetchAddExpenseItem(data) {
         }
       })
     });
-    // yield put(costsSuccessAction(response.data.data));
-    yield put(modalCloseExpenseItemAction());
+    yield put(successAddExpenseItemAction(response.data.data));
+    yield put(modalCloseAction());
   } catch(e) {
-    yield put(costsErrorAction(e));
+    yield put(errorAddExpenseItemAction(e));
   }
 }
 export function* watchAddExpenseItem() {
@@ -74,7 +88,7 @@ function* fetchDeleteExpenseItem(data) {
       })
     });
     yield put(successDeleteExpenseItemAction(response.data.data));
-    yield put(modalCloseExpenseItemAction());
+    yield put(modalCloseAction());
   } catch(e) {
     yield put(errorDeleteExpenseItemAction(e));
   }
@@ -85,8 +99,22 @@ export function* watchDeleteExpenseItem() {
 
 function* fetchChangeExpenseItem(data) {
   try {
+    const { id, name, color } = data.payload;
+    yield put(awaitChangeExpenseItemAction());
+    const response = yield call(() => {
+      return request.post({
+        url: API_URL.expenseItems.update,
+        body: {
+          id,
+          name,
+          color,
+        }
+      })
+    });
+    yield put(successChangeExpenseItemAction(response.data.data));
+    yield put(modalCloseAction());
   } catch(e) {
-
+    yield put(errorChangeExpenseItemAction(e));
   }
 }
 export function* watchChangeExpenseItem() {

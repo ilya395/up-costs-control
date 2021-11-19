@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { modalCloseExpenseItemAction } from "../../modules/modal";
+import { modalCloseAction } from "../../modules/modal";
 
 export const Modal = props => {
 
   const dispatch = useDispatch();
 
   const closeHandler = () => {
-    dispatch(modalCloseExpenseItemAction());
+    dispatch(modalCloseAction());
   }
 
   return (

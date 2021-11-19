@@ -1,6 +1,10 @@
-import { MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_EDIT, MODAL_EXPENSE_ITEM_DELETE, MODAL_CLOSE } from "../types/modal.type";
+import { MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_EDIT, MODAL_EXPENSE_ITEM_DELETE, MODAL_CLOSE, MODAL_OPEN } from "../types/modal.type";
 
-export const modalCloseExpenseItemAction = () => ({
+export const modalOpenAction = () => ({
+  type: MODAL_OPEN,
+});
+
+export const modalCloseAction = () => ({
   type: MODAL_CLOSE,
 });
 

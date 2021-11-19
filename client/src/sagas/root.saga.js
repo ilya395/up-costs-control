@@ -1,6 +1,6 @@
 import { all } from "@redux-saga/core/effects";
 import { watchAuth } from "../modules";
-import { watchAddExpenseItem, watchDeleteExpenseItem, watchGetCosts } from "../modules/costs";
+import { watchAddCosts, watchAddExpenseItem, watchChangeExpenseItem, watchDeleteExpenseItem, watchGetCosts } from "../modules/costs";
 
 export function* rootSaga() {
   yield all([
@@ -8,5 +8,7 @@ export function* rootSaga() {
     watchGetCosts(),
     watchDeleteExpenseItem(),
     watchAddExpenseItem(),
+    watchChangeExpenseItem(),
+    watchAddCosts(),
   ]);
 }

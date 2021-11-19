@@ -22,3 +22,5 @@ export const MODAL_COST_ADD = "MODAL_COST_ADD";
 // export const MODAL_COST_ADD_ERROR = "MODAL_COST_ADD_ERROR";
 
 export const MODAL_SUPPORT = "MODAL_SUPPORT";
+
+export const MODAL_MAIN_MENU = "MODAL_MAIN_MENU";

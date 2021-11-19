@@ -2,7 +2,7 @@ import React from "react";
 
 export const ExpenseItem = props => {
 
-  const returnExpenseItemId =() => {
+  const returnExpenseItemId = () => {
     const { data, changeExpenseItem } = props;
     return changeExpenseItem(data.id);
   }
