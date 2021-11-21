@@ -18,6 +18,7 @@ import {
   AWAIT_ADD_COSTS,
   SUCCESS_ADD_COSTS,
   ERROR_ADD_COSTS,
+  ADD_COSTS,
 } from "../types/costs.type";
 
 export const getCostsAction = payload => ({

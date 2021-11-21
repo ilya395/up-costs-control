@@ -26,7 +26,6 @@ class AuthController {
           raw: true,
         })
         .catch(e => {
-          console.log(e)
           return res.status(400).json({
             status: "ERROR",
             message: "Can not search with model",

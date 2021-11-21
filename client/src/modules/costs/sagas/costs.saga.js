@@ -29,20 +29,23 @@ export function* watchGetCosts() {
 
 function* fetchAddCosts(data) {
   try {
-    const { id, amount, expenseItemId, description } = data.payload;
+    const { userId, amount, expenseItemId, description, date } = data.payload;
+    const body = {
+      userId: userId || localAuthData.getUserId(),
+      amount,
+      expenseItemId,
+      description,
+    };
+    date ? (body.date = date) : body;
     yield put(awaitAddCostsAction());
     const response = yield call(() => {
       return request.put({
         url: API_URL.cost.set,
-        body: {
-          userId: id,
-          amount,
-          expenseItemId,
-          description,
-        }
+        body,
       })
     });
     yield put(succesAddCostsAction(response.data.data));
+    yield put(modalCloseAction());
   } catch(e) {
     yield put(errorAddCostsAction(e));
   }

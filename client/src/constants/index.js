@@ -42,3 +42,6 @@ export const API_URL = {
 };
 
 export const AUTH_DATA = "auth_data";
+
+export const CLICK_DURATION = 1.5 * 1000;
+export const CLICK_DELAY = 500;

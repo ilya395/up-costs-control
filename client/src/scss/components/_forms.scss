@@ -30,7 +30,7 @@ $container_padding: $content_container_padding;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      height: 4rem;
+      min-height: 4rem;
     }
 
     &_column {
@@ -49,6 +49,10 @@ $container_padding: $content_container_padding;
     margin-top: 0;
     margin-left: 1.5rem; // 2.5rem;
     padding: 0.75rem 1.55rem;
+
+    @media screen and (max-width: 428px) {
+      max-width: 20rem;
+    }
   }
 
   &__button-block {

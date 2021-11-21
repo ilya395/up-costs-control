@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ExpenseItemsList } from "../../components";
-import { getCostsAction } from "../../modules/costs";
-import { modalAddExpenseItemAction, modalEditExpenseItemAction, modalOpenAction } from "../../modules/modal";
+import { deleteExpenseItemAction, getCostsAction } from "../../modules/costs";
+import { modalAddCostAction, modalAddExpenseItemAction, modalDeleteExpenseItemAction, modalEditExpenseItemAction, modalOpenAction } from "../../modules/modal";
 import { localAuthData } from "../../utils"; // не сработал нормально импорт
 
 export const ExpenseItemsListContainer = () => {
@@ -27,9 +27,14 @@ export const ExpenseItemsListContainer = () => {
     dispatch(modalAddExpenseItemAction());
   }
 
-  const changeExpenseItem = id => {
-    const result = costs.find(item => +item.id === +id);
+  const changeExpenseItem = ({expenseItemId}) => {
+    const result = costs.find(item => +item.id === +expenseItemId);
     dispatch(modalEditExpenseItemAction(result));
+  }
+
+  const addCost = ({expenseItemId}) => {
+    const result = costs.find(item => +item.id === +expenseItemId);
+    dispatch(modalAddCostAction({expenseItemId, ...result}));
   }
 
   const openModal = () => {
@@ -37,11 +42,17 @@ export const ExpenseItemsListContainer = () => {
     dispatch(modalOpenAction());
   }
 
+  const deleteExpenseItem = ({expenseItemId}) => {
+    dispatch(modalDeleteExpenseItemAction({expenseItemId})); // modalDeleteExpenseItemAction
+  }
+
   return (
     <ExpenseItemsList
       costs={costs}
       addNewExpenseItem={addNewExpenseItem}
-      changeExpenseItem={openModal}
+      changeExpenseItem={changeExpenseItem}
+      addCost={addCost}
+      deleteExpenseItem={deleteExpenseItem}
     />
   );
 }

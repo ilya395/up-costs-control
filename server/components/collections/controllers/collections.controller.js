@@ -12,12 +12,15 @@ class CostsCollectionController {
         });
       }
       const { date, userId } = req.body;
+
       // нужно проверить входные данные
 
       try {
+        console.log("get collection: ", date)
         const now = new Date(+date);
-        const thisDate = new Date(now.getFullYear(), now.getMonth(), 2, 0, 0, 0, 0);
-        const nextDate = new Date(now.getFullYear(), now.getMonth(), 32, 23, 59, 59, 999);
+        const thisDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        const nextDate = new Date(now.getFullYear(), now.getMonth() + 1, -1);
+        console.log("stypid dates: ", thisDate, nextDate, now.getFullYear(), now.getMonth());
         const expenseItems = await expenseItemsModel
           .findAll({
             where: {
@@ -26,7 +29,6 @@ class CostsCollectionController {
             raw: true,
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not find expense items with model",
@@ -48,14 +50,13 @@ class CostsCollectionController {
             raw: true,
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not find costs with model",
               error: e
             });
           });
-        console.log(costs)
+        // console.log(costs)
         const data = expenseItems.map(item => {
           return {
             ...item,

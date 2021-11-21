@@ -19,7 +19,6 @@ class Request {
     })
   }
   post(data) {
-    console.log("post", data)
     const { url, body } = data;
     return axios({
       method: "post",

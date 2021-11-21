@@ -14,6 +14,8 @@ export const ExpenseItemsList = props => {
             <ExpenseItem
               data={item}
               changeExpenseItem={props.changeExpenseItem}
+              addCost={props.addCost}
+              deleteExpenseItem={props.deleteExpenseItem}
             />
           </div>
         ))

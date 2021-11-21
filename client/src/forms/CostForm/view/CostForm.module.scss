@@ -1,0 +1,9 @@
+@import "../../../scss/variables/variables";
+
+.month-picker { // повтор из MonthPicker.component.jsx
+  & input, span {
+    text-transform: lowercase;
+    color: $link_color;
+    text-decoration-line: underline;
+  }
+}

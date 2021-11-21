@@ -59,16 +59,20 @@ class CostsController {
           status: "ERROR"
         });
       }
-      const { amount, description, userId, expenseItemId } = req.body;
+      const { amount, description, userId, expenseItemId, date } = req.body;
       // нужно проверить входные данные
       try {
+        const newData = {
+          amount: +amount,
+          description,
+          userId,
+          expenseItemId
+        }
+        date ? (newData.createdAt = date) : false;
+        // date ? (newData.updatedAt = date) : false;
+        // console.log(newData)
         const data = await CostsModel
-          .create({
-            amount,
-            description,
-            userId,
-            expenseItemId
-          })
+          .create(newData)
           .catch(e => {
             console.log(e)
             return res.status(400).json({

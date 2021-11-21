@@ -1,4 +1,4 @@
-import { MODAL_CLOSE, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_OPEN } from "../actions";
+import { MODAL_CLOSE, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_OPEN, MODAL_COST_ADD } from "../actions";
 
 const initialModalState = {
   open: false,
@@ -27,6 +27,13 @@ export const ModalReducer = (state = initialModalState, action) => {
         ...state,
         open: true,
         componentName: MODAL_EXPENSE_ITEM_DELETE,
+        data: action.payload,
+      }
+    case MODAL_COST_ADD:
+      return {
+        ...state,
+        open: true,
+        componentName: MODAL_COST_ADD,
         data: action.payload,
       }
     case MODAL_OPEN:

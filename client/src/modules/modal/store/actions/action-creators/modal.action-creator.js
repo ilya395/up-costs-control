@@ -1,4 +1,4 @@
-import { MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_EDIT, MODAL_EXPENSE_ITEM_DELETE, MODAL_CLOSE, MODAL_OPEN } from "../types/modal.type";
+import { MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_EDIT, MODAL_EXPENSE_ITEM_DELETE, MODAL_CLOSE, MODAL_OPEN, MODAL_COST_ADD } from "../types/modal.type";
 
 export const modalOpenAction = () => ({
   type: MODAL_OPEN,
@@ -6,6 +6,11 @@ export const modalOpenAction = () => ({
 
 export const modalCloseAction = () => ({
   type: MODAL_CLOSE,
+});
+
+export const modalAddCostAction = payload => ({
+  type: MODAL_COST_ADD,
+  payload,
 });
 
 export const modalAddExpenseItemAction = payload => ({

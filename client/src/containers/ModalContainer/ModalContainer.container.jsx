@@ -1,6 +1,7 @@
 import React from "react";
-import { AddCost, MainMenu, Modal, Support } from "../../components";
+import { DeleteExpenseItem, MainMenu, Modal, Support } from "../../components";
 import { ExpenseItemFormContainer } from "../../forms";
+import { CostFormContainer } from "../../forms/CostForm";
 import { MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_MAIN_MENU, MODAL_SUPPORT } from "../../modules/modal";
 
 export const ModalContainer = props => {
@@ -13,8 +14,7 @@ export const ModalContainer = props => {
   const { data } = props;
   if (
     props.componentName === MODAL_EXPENSE_ITEM_ADD ||
-    props.componentName === MODAL_EXPENSE_ITEM_EDIT ||
-    props.componentName === MODAL_EXPENSE_ITEM_DELETE
+    props.componentName === MODAL_EXPENSE_ITEM_EDIT
   ) {
     return (
       <Modal
@@ -22,10 +22,17 @@ export const ModalContainer = props => {
       />
     );
   }
+  if (props.componentName === MODAL_EXPENSE_ITEM_DELETE) {
+    return (
+      <Modal
+        render={props => <DeleteExpenseItem allProps={{...props, ...data}} />}
+      />
+    );
+  }
   if (props.componentName === MODAL_COST_ADD) {
     return (
       <Modal
-        render={props => <AddCost props={{...props}} />}
+        render={props => <CostFormContainer allProps={{...props, ...data}} />}
       />
     );
   }
