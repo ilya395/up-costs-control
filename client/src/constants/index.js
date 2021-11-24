@@ -11,7 +11,6 @@ export const buttonColors = new Set([
   "#FF5FC9",
   "#FF5F5F",
   "#C15340",
-  "#e0e0e0", // убрать на проде
 ]);
 
 export const API_URL = {

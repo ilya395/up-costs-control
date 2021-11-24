@@ -9,7 +9,6 @@ export const CostFormContainer = props => {
   const { allProps } = props
 
   const dispatch = useDispatch();
-  // const state = useSelector(state => state.state);
 
   const onCancel = () => {
     dispatch(modalCloseAction());

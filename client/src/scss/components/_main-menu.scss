@@ -1,0 +1,18 @@
+@import "../variables/variables";
+
+.main-menu {
+  &__list {
+    padding-top: 4.5rem !important;
+  }
+  &__item {
+    margin-top: 3rem;
+
+    &:first-child {
+      margin-top: 0rem;
+    }
+
+    &:hover {
+      color: $link_color;
+    }
+  }
+}

@@ -44,8 +44,8 @@ function* fetchAddCosts(data) {
         body,
       })
     });
-    yield put(succesAddCostsAction(response.data.data));
     yield put(modalCloseAction());
+    yield put(succesAddCostsAction(response.data));
   } catch(e) {
     yield put(errorAddCostsAction(e));
   }
@@ -68,8 +68,8 @@ function* fetchAddExpenseItem(data) {
         }
       })
     });
-    yield put(successAddExpenseItemAction(response.data.data));
     yield put(modalCloseAction());
+    yield put(successAddExpenseItemAction(response.data));
   } catch(e) {
     yield put(errorAddExpenseItemAction(e));
   }
@@ -90,8 +90,8 @@ function* fetchDeleteExpenseItem(data) {
         }
       })
     });
-    yield put(successDeleteExpenseItemAction(response.data.data));
     yield put(modalCloseAction());
+    yield put(successDeleteExpenseItemAction(response.data));
   } catch(e) {
     yield put(errorDeleteExpenseItemAction(e));
   }
@@ -114,8 +114,8 @@ function* fetchChangeExpenseItem(data) {
         }
       })
     });
-    yield put(successChangeExpenseItemAction(response.data.data));
     yield put(modalCloseAction());
+    yield put(successChangeExpenseItemAction(response.data));
   } catch(e) {
     yield put(errorChangeExpenseItemAction(e));
   }

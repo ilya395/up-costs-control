@@ -1,7 +1,20 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { modalSupportAction } from "../../modules/modal";
 import { NavButton } from "../NavButton/NavButton.component";
 
 export const NavBar = () => {
+
+  const dispatch = useDispatch();
+
+  const openProfile = () => {
+    dispatch(modalSupportAction());
+  }
+
+  const openSupport = () => {}
+
+  const addObject = () => {}
+
   return (
     <nav className="nav-bar">
       <NavButton
@@ -15,6 +28,7 @@ export const NavBar = () => {
         }
         title={"профиль"}
         url={"/profile"}
+        callback={openProfile}
       />
       <NavButton
         icon={
@@ -29,6 +43,7 @@ export const NavBar = () => {
         }
         title={"поддержка"}
         url={"/support"}
+        callback={openSupport}
       />
       <NavButton
         icon={
@@ -40,6 +55,7 @@ export const NavBar = () => {
         }
         title={"добавить"}
         url={"/add"}
+        callback={addObject}
       />
     </nav>
   );

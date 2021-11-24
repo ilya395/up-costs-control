@@ -1,8 +1,14 @@
 import React from "react";
 
-export const NavButton = ({ icon, title, url }) => {
+export const NavButton = ({ icon, title, url, callback }) => {
+  const onClick = () => {
+    return callback && callback()
+  }
   return (
-    <button className="nav-bar-button">
+    <button
+      className="nav-bar-button"
+      onClick={onClick}
+    >
       <div className="nav-bar-button__icon">
         {icon()}
       </div>

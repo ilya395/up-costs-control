@@ -1,17 +1,14 @@
 import React from "react";
-import { DeleteExpenseItem, MainMenu, Modal, Support } from "../../components";
-import { ExpenseItemFormContainer } from "../../forms";
+import { MainMenu, Modal, Support } from "../../components";
+import { ExpenseItemFormContainer, DeleteExpenseItemFormContainer } from "../../forms";
 import { CostFormContainer } from "../../forms/CostForm";
+import { ProfileLayout } from "../../layouts";
 import { MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_MAIN_MENU, MODAL_SUPPORT } from "../../modules/modal";
 
 export const ModalContainer = props => {
-  // const whatComponentWeNeed = ({ componentName, props }) => {
-  //   switch (componentName) {
-  //     case MODAL_EXPENSE_ITEM_ADD:
-  //       return props => <ExpenseItemFormContainer props={{...props}}
-  //   }
-  // }
+
   const { data } = props;
+
   if (
     props.componentName === MODAL_EXPENSE_ITEM_ADD ||
     props.componentName === MODAL_EXPENSE_ITEM_EDIT
@@ -25,7 +22,7 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_EXPENSE_ITEM_DELETE) {
     return (
       <Modal
-        render={props => <DeleteExpenseItem allProps={{...props, ...data}} />}
+        render={props => <DeleteExpenseItemFormContainer allProps={{...props, ...data}} />}
       />
     );
   }
@@ -39,7 +36,7 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_SUPPORT) {
     return (
       <Modal
-        render={props => <Support props={{...props}} />}
+        render={props => <ProfileLayout render={newProps => <Support props={{...newProps, ...props}} />} />}
       />
     );
   }

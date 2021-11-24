@@ -12,7 +12,6 @@ class Request {
         'Authorization': `Bearer ${localAuthData.getToken()}`,
       }
     })
-    // .then(res => res.json())
     .catch(err => {
       console.log(err);
       localAuthData.removeAuthData();
@@ -29,7 +28,6 @@ class Request {
       },
       data: JSON.stringify(body)
     })
-    // .then(res => res.json())
     .catch(err => {
       console.log(err);
       localAuthData.removeAuthData();
@@ -46,7 +44,6 @@ class Request {
       },
       data: JSON.stringify(body)
     })
-    // .then(res => res.json())
     .catch(err => {
       console.log(err);
       localAuthData.removeAuthData();
@@ -63,7 +60,6 @@ class Request {
       },
       data: JSON.stringify(body)
     })
-    // .then(res => res.json())
     .catch(err => {
       console.log(err);
       localAuthData.removeAuthData();
@@ -80,7 +76,6 @@ class Request {
       },
       data: JSON.stringify(body)
     })
-    // .then(res => res.json())
     .catch(err => {
       console.log(err);
       localAuthData.removeAuthData();

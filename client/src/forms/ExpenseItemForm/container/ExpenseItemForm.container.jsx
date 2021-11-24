@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addExpenseItemAction, changeExpenseItemAction, deleteExpenseItemAction } from "../../../modules/costs";
+import { addExpenseItemAction, changeExpenseItemAction } from "../../../modules/costs";
 import { modalCloseAction } from "../../../modules/modal";
 import { ExpenseItemFormView } from "../view/ExpenseItemForm.view";
 
@@ -18,10 +18,6 @@ export const ExpenseItemFormContainer = props => {
     dispatch(changeExpenseItemAction(data));
   }
 
-  const onDelete = data => {
-    dispatch(deleteExpenseItemAction(data));
-  }
-
   const onAdd = data => {
     dispatch(addExpenseItemAction(data));
   }
@@ -32,7 +28,6 @@ export const ExpenseItemFormContainer = props => {
         data={{...allProps}}
         onCancel={onCancel}
         onChange={onChange}
-        onDelete={onDelete}
         onAdd={onAdd}
       />
     </>

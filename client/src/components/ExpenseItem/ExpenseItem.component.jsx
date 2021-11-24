@@ -5,7 +5,7 @@ export const ExpenseItem = props => {
 
   const [clickStartTime, setClickStartTime] = useState(null);
   const [clickEndTime, setClickEndTime] = useState(null);
-  // const [clickDelay, setClickDelay] = useState(null);
+
   const [timer, setTimer] = useState(null);
 
   const returnExpenseItemIdForChanging = () => {
@@ -41,8 +41,7 @@ export const ExpenseItem = props => {
 
   const onCustomDoubleClick = () => {
     console.log("onCustomDoubleClick")
-    // returnExpenseItemIdForChanging();
-    returnExpenseItemIdForDeleting();
+    returnExpenseItemIdForChanging();
   }
 
   const onMouseDown = () => {
@@ -52,22 +51,23 @@ export const ExpenseItem = props => {
   const onMouseUp = () => {
     const endTime = new Date().getTime();
     setClickEndTime(endTime);
-    // setClickDelay(endTime);
 
     const difference = Math.abs(clickStartTime - endTime);
-    console.log(clickStartTime, endTime, difference, CLICK_DURATION)
+    console.log(clickStartTime, endTime, difference, CLICK_DURATION, timer)
     if (difference > CLICK_DURATION) {
       onLongClick();
     } else {
-      if (!timer) {
+      if (!timer || (timer > CLICK_DELAY)) {
         const tmr = setTimeout(() => {
           onShortClick();
           clearTimeout(tmr);
+          setTimer(null);
         }, CLICK_DELAY);
         setTimer(tmr);
       } else {
-        clearTimeout(timer);
         onCustomDoubleClick();
+        clearTimeout(timer);
+        setTimer(null);
       }
     }
   }

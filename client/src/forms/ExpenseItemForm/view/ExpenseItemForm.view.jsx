@@ -10,7 +10,7 @@ export const ExpenseItemFormView = props => {
   const [nameValue, setNameValue] = useState(props.data && props.data.name ? props.data.name : "");
   const nameInput = useRef(null);
 
-  const [colorValue, setColorValue] = useState(props.data && props.data.color ? props.data.color : false);
+  const [colorValue, setColorValue] = useState(props.data && props.data.color ? props.data.color : buttonColors.values().next().value);
 
   useEffect(() => {
     if (!visibleNameField) {
@@ -52,13 +52,6 @@ export const ExpenseItemFormView = props => {
       array.push(arg);
     });
     return array;
-  }
-
-  const onDelete = event => {
-    event.preventDefault();
-    props.onDelete({
-      id: props.data.id
-    });
   }
 
   const onCancel = () => {
@@ -139,16 +132,6 @@ export const ExpenseItemFormView = props => {
           >
             Готово
           </button>
-          {
-            editMode ?
-              <button
-              className="big-button simple-title_other"
-                onClick={onDelete}
-              >
-                Удалить
-              </button> :
-              null
-          }
         </div>
       </form>
     </div>

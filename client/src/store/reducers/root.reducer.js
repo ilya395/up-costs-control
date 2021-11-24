@@ -6,19 +6,10 @@ import { MonthReducer } from "../../modules/month";
 
 export const rootReducer = combineReducers({
   auth: AuthReducer,
-  // costs: {
-  //   get: CostsReducer,
-  //   add: AddCostsReducer,
-  // },
   costsGet: CostsReducer,
   costsAdd: AddCostsReducer,
   date: MonthReducer,
   modal: ModalReducer,
-  // expenseItems: {
-  //   delete: DeleteExpenseItemsReducer,
-  //   add: AddExpenseItemsReducer,
-  //   change: ChangeExpenseItemsReducer,
-  // },
   expenseItemsDelete: DeleteExpenseItemsReducer,
   expenseItemsAdd: AddExpenseItemsReducer,
   expenseItemsChange: ChangeExpenseItemsReducer,
