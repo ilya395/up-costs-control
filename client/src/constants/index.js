@@ -37,6 +37,9 @@ export const API_URL = {
     set: "/api/costs/set",
     delete: "/api/costs/delete",
     update: "/api/costs/update",
+  },
+  user: {
+    get: "/api/users/get",
   }
 };
 

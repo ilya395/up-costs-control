@@ -20,9 +20,19 @@ class UsersController {
       }
       try {
         const entries = Object.entries(innerData);
-        const searchData = entries.length > 0 ?
-          { where: innerData, raw: true } :
-          { raw: true };
+        const searchData = entries.length > 0 ? // зачем это надо?
+          {
+            where: innerData,
+            attributes: ["id", "login", "email", "phone", "shortName", "surname"],
+            raw: true
+          } : false;
+          // {
+          //   attributes: ["id", "login", "email", "phone", "shortName", "surname"],
+          //   raw: true
+          // };
+        if (!searchData) {
+          return res.status(403).json({ status: "OK", message: 'Not data for searching!' });
+        }
         const users = await UsersModel
           .findAll(searchData)
           .catch(e => {

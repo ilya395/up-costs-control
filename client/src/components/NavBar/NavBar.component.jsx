@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { modalSupportAction } from "../../modules/modal";
+import { modalSupportAction, modalMainMenuAction } from "../../modules/modal";
 import { NavButton } from "../NavButton/NavButton.component";
 
 export const NavBar = () => {
@@ -8,10 +8,14 @@ export const NavBar = () => {
   const dispatch = useDispatch();
 
   const openProfile = () => {
-    dispatch(modalSupportAction());
+    console.log("openProfile")
+    dispatch(modalMainMenuAction());
   }
 
-  const openSupport = () => {}
+  const openSupport = () => {
+    console.log("openSupport")
+    dispatch(modalSupportAction());
+  }
 
   const addObject = () => {}
 

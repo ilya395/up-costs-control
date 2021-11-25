@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { UserReducer } from "../../modules";
 import { AuthReducer } from "../../modules/auth";
 import { AddCostsReducer, AddExpenseItemsReducer, ChangeExpenseItemsReducer, CostsReducer, DeleteExpenseItemsReducer } from "../../modules/costs";
 import { ModalReducer } from "../../modules/modal";
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   expenseItemsDelete: DeleteExpenseItemsReducer,
   expenseItemsAdd: AddExpenseItemsReducer,
   expenseItemsChange: ChangeExpenseItemsReducer,
+  user: UserReducer
 });
