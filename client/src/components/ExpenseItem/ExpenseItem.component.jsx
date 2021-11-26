@@ -53,7 +53,6 @@ export const ExpenseItem = props => {
     setClickEndTime(endTime);
 
     const difference = Math.abs(clickStartTime - endTime);
-    console.log(clickStartTime, endTime, difference, CLICK_DURATION, timer)
     if (difference > CLICK_DURATION) {
       onLongClick();
     } else {

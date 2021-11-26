@@ -8,12 +8,10 @@ export const NavBar = () => {
   const dispatch = useDispatch();
 
   const openProfile = () => {
-    console.log("openProfile")
     dispatch(modalMainMenuAction());
   }
 
   const openSupport = () => {
-    console.log("openSupport")
     dispatch(modalSupportAction());
   }
 

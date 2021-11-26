@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ChangePassword, Logout, MyData } from "..";
+import { mainMenuChangePasswordAction, mainMenuListAction, mainMenuLogoutAction, mainMenuMyDataAction } from "../../modules/main-menu";
 import { MainMenu } from "../MainMenu/MainMenu.component";
 
 export const Profile = props => {
-  console.log("Support: ", props)
 
   const { profile } = props.props;
 
-  const [visibleLogoutComponent, setVisibleLogoutComponent] = useState(false);
-  const [visibleChangePasswordComponent, setVisibleChangePasswordComponent] = useState(false);
-  const [visibleMyDataComponent, setVisibleMyDataComponent] = useState(false);
+  const dispatch = useDispatch();
+
+  const mainMenu = useSelector(state => state.mainMenu);
+  const open = useSelector(state => state.modal.open);
+  useEffect(() => {
+    open && dispatch(mainMenuListAction());
+  }, [open])
 
   const onLogout = () => {
-    setVisibleLogoutComponent(true);
-    setVisibleChangePasswordComponent(false);
-    setVisibleMyDataComponent(false);
+    dispatch(mainMenuLogoutAction());
   }
 
   const onChangePassword = () => {
-    setVisibleLogoutComponent(false);
-    setVisibleChangePasswordComponent(true);
-    setVisibleMyDataComponent(false);
+    dispatch(mainMenuChangePasswordAction());
   }
 
   const onGetMyData = () => {
-    setVisibleLogoutComponent(false);
-    setVisibleChangePasswordComponent(false);
-    setVisibleMyDataComponent(true);
+    dispatch(mainMenuMyDataAction());
   }
 
   return (
@@ -36,12 +36,26 @@ export const Profile = props => {
         }
       </h2>
       <div className="support-container">
-        <MainMenu
-          profile={profile}
-          onLogout={onLogout}
-          onChangePassword={onChangePassword}
-          onGetMyData={onGetMyData}
-        />
+        {
+          (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) ?
+          <MainMenu
+            profile={profile}
+            onLogout={onLogout}
+            onChangePassword={onChangePassword}
+            onGetMyData={onGetMyData}
+          /> :
+          null
+        }
+
+        {
+          mainMenu.logout && <Logout />
+        }
+        {
+          mainMenu.changePassword && <ChangePassword />
+        }
+        {
+          mainMenu.myData && <MyData />
+        }
       </div>
     </>
   );

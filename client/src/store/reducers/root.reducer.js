@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { UserReducer } from "../../modules";
 import { AuthReducer } from "../../modules/auth";
 import { AddCostsReducer, AddExpenseItemsReducer, ChangeExpenseItemsReducer, CostsReducer, DeleteExpenseItemsReducer } from "../../modules/costs";
+import { MainMenyReducer } from "../../modules/main-menu";
 import { ModalReducer } from "../../modules/modal";
 import { MonthReducer } from "../../modules/month";
 
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   expenseItemsDelete: DeleteExpenseItemsReducer,
   expenseItemsAdd: AddExpenseItemsReducer,
   expenseItemsChange: ChangeExpenseItemsReducer,
-  user: UserReducer
+  user: UserReducer,
+  mainMenu: MainMenyReducer,
 });

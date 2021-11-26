@@ -1,32 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
 export const ProfileLayout = props => {
-  console.log("ProfileLayout: ", props)
-
-  const [localProps, setLocalProps] = useState(props)
 
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.user.data);
 
   useEffect(() => {
-    console.log("start")
     dispatch(getUserAction({
       id: localAuthData.getUserId(),
     }));
   }, []);
-
-  // useEffect(() => {
-  //   console.log("user: ", user)
-  //   setLocalProps({
-  //     ...localProps,
-  //     profile: user,
-  //   });
-  //   console.log("localProps: ", localProps)
-  // }, [props, user]);
 
   return (
     <div className="profile-wrapper">

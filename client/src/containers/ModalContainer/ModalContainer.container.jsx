@@ -1,5 +1,5 @@
 import React from "react";
-import { MainMenu, Modal, Profile } from "../../components";
+import { MainMenu, Modal, Profile, Support } from "../../components";
 import { ExpenseItemFormContainer, DeleteExpenseItemFormContainer } from "../../forms";
 import { CostFormContainer } from "../../forms/CostForm";
 import { ProfileLayout } from "../../layouts";
@@ -36,14 +36,13 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_SUPPORT) {
     return (
       <Modal
-        render={props => <ProfileLayout props={{...props}} render={newProps => <Profile props={{...newProps}} />} />}
+        render={props => <ProfileLayout props={{...props}} render={newProps => <Support props={{...newProps}} />} />}
       />
     );
   }
   if (props.componentName === MODAL_MAIN_MENU) {
     return (
       <Modal
-        // render={props => <MainMenu props={{...props}} />}
         render={props => <ProfileLayout props={{...props}} render={newProps => <Profile props={{...newProps}} />} />}
       />
     );

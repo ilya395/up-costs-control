@@ -10,3 +10,7 @@ export * from "./NavButton/NavButton.component";
 export * from "./Modal/Modal.component";
 export * from "./Profile/Profile.component";
 export * from "./MainMenu/MainMenu.component";
+export * from "./Support/Support.component";
+export * from "./Logout/Logout.component";
+export * from "./ChangePassword/ChangePassword.component";
+export * from "./MyData/MyData.component";
