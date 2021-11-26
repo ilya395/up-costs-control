@@ -32,7 +32,13 @@ export const Profile = props => {
     <>
       <h2>
         {
-          profile ? `${profile.shortName} ${profile.surname}` : "... ..."
+          (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) ?
+          (profile ? `${profile.shortName} ${profile.surname}` : "... ...") :
+          (
+            (mainMenu.logout && "Выход") ||
+            (mainMenu.changePassword && "Смена пароля") ||
+            (mainMenu.myData && "Мои данные")
+          )
         }
       </h2>
       <div className="support-container">

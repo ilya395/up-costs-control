@@ -33,6 +33,11 @@ html {
     line-height: calc(#{$size} * 1.5);
   }
 }
+.simple-text_wide {
+  @extend .simple-text_main;
+
+  line-height: 3rem;
+}
 .simple-text_other {
   @extend .simple-text;
   font-size: 1.5rem;
