@@ -60,7 +60,7 @@ export const Profile = props => {
           mainMenu.changePassword && <ChangePassword />
         }
         {
-          mainMenu.myData && <MyData />
+          mainMenu.myData && <MyData profile={profile} />
         }
       </div>
     </>

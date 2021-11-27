@@ -13,7 +13,7 @@
     padding: 1.2rem 3.3rem 1.3rem 3.3rem;
   }
 
-  &.disable {
+  &.disable, &:disabled {
     border: 1px solid $disable_link_color;
     background-color: $disable_link_color;
     cursor: default;

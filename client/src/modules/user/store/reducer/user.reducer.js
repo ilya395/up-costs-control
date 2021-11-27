@@ -1,4 +1,4 @@
-import { AWAIT_GET_USER, ERROR_GET_USER, SUCCESS_GET_USER } from "../actions/types/user.type";
+import { AWAIT_GET_USER, AWAIT_SET_USER_DATA, ERROR_GET_USER, ERROR_SET_USER_DATA, SUCCESS_GET_USER, SUCCESS_SET_USER_DATA } from "..";
 
 export const initialGetUser = {
   data: null,
@@ -25,6 +25,41 @@ export const UserReducer = (state = initialGetUser, action) => {
       return {
         ...state,
         data: null,
+        await: false,
+        error: action.payload,
+      }
+    default:
+      return {
+        ...state
+      }
+  }
+}
+
+export const UserDataReducer = (
+    state = {
+      data: null,
+      await: false,
+      error: false
+    },
+    action
+  ) => {
+  switch (action.type) {
+    case AWAIT_SET_USER_DATA:
+      return {
+        ...state,
+        await: true,
+        error: false,
+      }
+    case SUCCESS_SET_USER_DATA:
+      return {
+        ...state,
+        data: action.payload,
+        await: false,
+        error: false,
+      }
+    case ERROR_SET_USER_DATA:
+      return {
+        ...state,
         await: false,
         error: action.payload,
       }

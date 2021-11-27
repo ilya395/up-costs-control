@@ -69,6 +69,7 @@ export const ExpenseItem = props => {
         setTimer(null);
       }
     }
+    console.log(timer)
   }
 
   return (

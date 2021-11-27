@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { UserReducer } from "../../modules";
+import { UserDataReducer, UserReducer } from "../../modules";
 import { AuthReducer } from "../../modules/auth";
 import { AddCostsReducer, AddExpenseItemsReducer, ChangeExpenseItemsReducer, CostsReducer, DeleteExpenseItemsReducer } from "../../modules/costs";
 import { MainMenyReducer } from "../../modules/main-menu";
@@ -17,4 +17,5 @@ export const rootReducer = combineReducers({
   expenseItemsChange: ChangeExpenseItemsReducer,
   user: UserReducer,
   mainMenu: MainMenyReducer,
+  userData: UserDataReducer,
 });

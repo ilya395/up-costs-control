@@ -1,5 +1,5 @@
 import { all } from "@redux-saga/core/effects";
-import { watchAuth, watchUser } from "../modules";
+import { watchAuth, watchUser, watchUserData } from "../modules";
 import { watchAddCosts, watchAddExpenseItem, watchChangeExpenseItem, watchDeleteExpenseItem, watchGetCosts } from "../modules/costs";
 
 export function* rootSaga() {
@@ -11,5 +11,6 @@ export function* rootSaga() {
     watchChangeExpenseItem(),
     watchAddCosts(),
     watchUser(),
+    watchUserData(),
   ]);
 }

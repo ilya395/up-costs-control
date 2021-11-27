@@ -2,3 +2,8 @@ export const GET_USER = "GET_USER";
 export const AWAIT_GET_USER = "AWAIT_GET_USER";
 export const SUCCESS_GET_USER = "SUCCESS_GET_USER";
 export const ERROR_GET_USER = "ERROR_GET_USER";
+
+export const SET_USER_DATA = "SET_USER_DATA";
+export const AWAIT_SET_USER_DATA = "AWAIT_SET_USER_DATA";
+export const SUCCESS_SET_USER_DATA = "SUCCESS_SET_USER_DATA";
+export const ERROR_SET_USER_DATA = "ERROR_SET_USER_DATA";

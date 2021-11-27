@@ -1,5 +1,5 @@
 import React from "react";
-import { MainMenu, Modal, Profile, Support } from "../../components";
+import { Modal, Profile, Support } from "../../components";
 import { ExpenseItemFormContainer, DeleteExpenseItemFormContainer } from "../../forms";
 import { CostFormContainer } from "../../forms/CostForm";
 import { ProfileLayout } from "../../layouts";

@@ -14,3 +14,4 @@ export * from "./Support/Support.component";
 export * from "./Logout/Logout.component";
 export * from "./ChangePassword/ChangePassword.component";
 export * from "./MyData/MyData.component";
+export * from "./SimpleFormFieldRow/SimpleFormFieldRow.component";

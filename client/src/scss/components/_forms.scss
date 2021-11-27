@@ -33,6 +33,16 @@ $container_padding: $content_container_padding;
       min-height: 4rem;
     }
 
+    &_little-row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 3rem;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
     &_column {
       flex-direction: column;
     }
