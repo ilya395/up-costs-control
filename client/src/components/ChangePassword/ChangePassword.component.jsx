@@ -1,49 +1,58 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { SimpleFormFieldColumn } from "../SimpleFormFieldColumn/SimpleFormFieldColumn.component";
 
 export const ChangePassword = () => {
 
-  const [shortNameValue, setShortNameValue] = useState("1");
-  const [visibleShortName, setVisibleShortName] = useState(true);
-  const shortNameRef = useRef(null);
+  const [newPasswordValue, setNewPasswordValue] = useState("");
+  const getNewPasswordValue = data => {
+    setNewPasswordValue(data);
+  }
+
+  const [confirmationPassword, setConfirmationPassword] = useState("");
+  const getConfirmationValue = data => {
+    setConfirmationPassword(data)
+  }
+
+  const [activeButton, setActiveButton] = useState(true);
   useEffect(() => {
-    if (visibleShortName) {
-      shortNameRef.current.focus();
+    if (confirmationPassword === newPasswordValue && newPasswordValue && confirmationPassword) {
+      setActiveButton(false);
+    } else {
+      setActiveButton(true);
     }
-  }, [visibleShortName])
-  const clickOnShortName = () => {
-    setVisibleShortName(false);
-  }
-  const onChangeShortName = event => {
-    setShortNameValue(event.target.value);
-  }
-  const onBlurShortName = () => {
-    setVisibleShortName(true);
+  }, [newPasswordValue, confirmationPassword])
+
+  const onSubmit = event => {
+    event.preventDefault();
+    if (confirmationPassword === newPasswordValue && newPasswordValue && confirmationPassword) {
+      console.log("go")
+    }
   }
 
   return (
     <form className="simple-form">
-      <div className="simple-form__form-field simple-form__form-field_row">
-        <label htmlFor="shortName" className="simple-text_main">
-          Имя:
-        </label>
-        <span
-          className="simple-text_main form-field__simple-text"
-          style={{display: visibleShortName ? "block" : "none"}}
-          onClick={clickOnShortName}
+      <SimpleFormFieldColumn
+        ident={"newPassword"}
+        label={"Введите новый пароль"}
+        value={newPasswordValue}
+        getValue={getNewPasswordValue}
+        type={"password"}
+      />
+      <SimpleFormFieldColumn
+        ident={"confirmationPassword"}
+        label={"Повторите новый пароль"}
+        value={confirmationPassword}
+        getValue={getConfirmationValue}
+        type={"password"}
+      />
+      <div className="simple-form__buttons-block">
+        <button
+          className="little-button simple-title_other"
+          disabled={activeButton}
+          onClick={onSubmit}
         >
-          {shortNameValue}
-        </span>
-        <input
-          type="text"
-          className="simple-form__input simple-text_main"
-          id="shortName"
-          name="shortName"
-          style={{display: visibleShortName ? "none" : "block"}}
-          value={shortNameValue}
-          ref={shortNameRef}
-          onChange={onChangeShortName}
-          onBlur={onBlurShortName}
-        />
+          Готово
+        </button>
       </div>
     </form>
   );

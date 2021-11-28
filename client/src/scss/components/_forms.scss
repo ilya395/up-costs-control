@@ -63,6 +63,12 @@ $container_padding: $content_container_padding;
     @media screen and (max-width: 428px) {
       max-width: 20rem;
     }
+
+    &_all-width {
+      width: 100%;
+      margin-left: 0;
+      max-width: none;
+    }
   }
 
   &__button-block {
