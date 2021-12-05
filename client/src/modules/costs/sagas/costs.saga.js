@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from "@redux-saga/core/effects";
 import { ADD_COSTS, ADD_EXPENSE_ITEM, awaitAddCostsAction, awaitAddExpenseItemAction, awaitChangeExpenseItemAction, awaitDeleteExpenseItemAction, CHANGE_EXPENSE_ITEM, costsAwaitAction, costsErrorAction, costsSuccessAction, DELETE_EXPENSE_ITEM, errorAddCostsAction, errorAddExpenseItemAction, errorChangeExpenseItemAction, errorDeleteExpenseItemAction, getCostsAction, getCostsNowAction, GET_COSTS, succesAddCostsAction, successAddExpenseItemAction, successChangeExpenseItemAction, successDeleteExpenseItemAction } from "..";
+import { modalClearAction, modalCloseAction } from "../..";
 import { API_URL } from "../../../constants";
 import { localAuthData } from "../../../utils";
 import { request } from "../../../utils/classes/Request.class";
-import { modalCloseAction } from "../../modal";
 
 function* fetchGetCosts(data) {
   try {
@@ -45,6 +45,7 @@ function* fetchAddCosts(data) {
       })
     });
     yield put(modalCloseAction());
+    yield put(modalClearAction());
     yield put(succesAddCostsAction(response.data));
   } catch(e) {
     yield put(errorAddCostsAction(e));
@@ -69,6 +70,7 @@ function* fetchAddExpenseItem(data) {
       })
     });
     yield put(modalCloseAction());
+    yield put(modalClearAction());
     yield put(successAddExpenseItemAction(response.data));
   } catch(e) {
     yield put(errorAddExpenseItemAction(e));
@@ -91,6 +93,7 @@ function* fetchDeleteExpenseItem(data) {
       })
     });
     yield put(modalCloseAction());
+    yield put(modalClearAction());
     yield put(successDeleteExpenseItemAction(response.data));
   } catch(e) {
     yield put(errorDeleteExpenseItemAction(e));
@@ -115,6 +118,7 @@ function* fetchChangeExpenseItem(data) {
       })
     });
     yield put(modalCloseAction());
+    yield put(modalClearAction());
     yield put(successChangeExpenseItemAction(response.data));
   } catch(e) {
     yield put(errorChangeExpenseItemAction(e));

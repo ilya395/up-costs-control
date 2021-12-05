@@ -155,7 +155,7 @@ class UsersController {
       .json({ status: "ERROR", message: "Not authorized" });
   }
   async updateUser(req, res) {
-    // if (req.user) {
+    if (req.user) {
       if(!req.body) {
         return res.status(400).json({
           message: "Something wrong",
@@ -212,10 +212,10 @@ class UsersController {
           error: e
         });
       }
-    // }
-    // return res
-    //   .status(401)
-    //   .json({ status: "ERROR", message: "Not authorized" });
+    }
+    return res
+      .status(401)
+      .json({ status: "ERROR", message: "Not authorized" });
   }
 }
 

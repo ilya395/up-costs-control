@@ -3,6 +3,19 @@
 $container_padding: $content_container_padding;
 
 .modal {
+  &__outer-wrap {
+    &.entering {
+      & .modal__wrap {
+        animation: show-modal .6s forwards;
+      }
+    }
+    &.exiting {
+      & .modal__wrap {
+        animation: show-modal .6s reverse;
+      }
+    }
+  }
+
   &__wrap {
     position: fixed;
     z-index: 100;
@@ -44,4 +57,16 @@ $container_padding: $content_container_padding;
   width: 100%;
   padding: 0.2rem;
   background-color: transparent;
+}
+
+@keyframes show-modal {
+  0% {
+    transform: translateY(100vh);
+  }
+  // 50% {
+  //   transform: translateY(50vh);
+  // }
+  100% {
+    transform: translateY(0vh);
+  }
 }

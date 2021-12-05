@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { modalClearAction, modalCloseAction } from "../../../modules";
 import { addExpenseItemAction, changeExpenseItemAction } from "../../../modules/costs";
-import { modalCloseAction } from "../../../modules/modal";
 import { ExpenseItemFormView } from "../view/ExpenseItemForm.view";
 
 export const ExpenseItemFormContainer = props => {
@@ -12,6 +12,7 @@ export const ExpenseItemFormContainer = props => {
 
   const onCancel = () => {
     dispatch(modalCloseAction());
+    dispatch(modalClearAction());
   }
 
   const onChange = data => {

@@ -1,12 +1,23 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
 import { ModalContainer } from "../../containers/ModalContainer/ModalContainer.container";
 import s from "./Main.module.scss";
+import { Transition } from 'react-transition-group';
+import { modalClearAction, modalCloseAction } from "../../modules";
+import { mainMenuListAction } from "../../modules/main-menu";
 
 export const Main = () => {
+
+  const dispatch = useDispatch();
+
   const modal = useSelector(state => state.modal);
+
+  const closeModal = () => {
+    dispatch(modalCloseAction());
+  }
+
   return (
     <div className="container">
       <main className={s["main-content-section"]}>
@@ -25,12 +36,26 @@ export const Main = () => {
           <NavBar />
         </div>
       </main>
-      {
-        modal && modal.open && <ModalContainer
-          componentName={modal.componentName}
-          data={modal.data}
-        />
-      }
+      <Transition
+        in={modal && modal.open}
+        timeout={600}
+        mountOnEnter
+        unmountOnExit
+        onExited={() => {
+          dispatch(modalClearAction());
+          dispatch(mainMenuListAction());
+        }}
+      >
+        {
+          classState => <div className={`modal__outer-wrap ${classState}`}>
+                          <ModalContainer
+                            componentName={modal.componentName}
+                            data={modal.data}
+                            closeModal={closeModal}
+                          />
+                        </div>
+        }
+      </Transition>
     </div>
   );
 }

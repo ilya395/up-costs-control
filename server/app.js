@@ -10,6 +10,7 @@ const { HOST, PORT, TOKEN_KEY } = require("./constants");
 const jwt = require('jsonwebtoken');
 const sequelize = require("./connectors/sequelize.conector");
 const { usersModel } = require("./components/index");
+const hash = require("./utils");
 
 const app = () => {
   // создаем объект приложения
@@ -18,6 +19,8 @@ const app = () => {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+
 
   // для проверки jwt
   app.use(async (req, res, next) => {
@@ -57,6 +60,18 @@ const app = () => {
 
   // синхронизация с бд, после успшной синхронизации запускаем сервер
   sequelize.sync().then(()=>{
+    console.log(
+      "pass: ",
+      hash("root_root_1")
+    )
+    console.log(
+      "pass: ",
+      hash("root_root")
+    )
+    console.log(
+      "pass: ",
+      hash("root")
+    )
     app.listen(PORT, () => {
       console.log(`Server listens http://${HOST}:${PORT}`)
     });

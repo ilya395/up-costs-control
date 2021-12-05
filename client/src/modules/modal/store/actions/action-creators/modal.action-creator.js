@@ -6,14 +6,19 @@ import {
   MODAL_COST_ADD,
   MODAL_SUPPORT,
   MODAL_MAIN_MENU,
+  MODAL_CLEAR
 } from "../types/modal.type";
 
-export const modalOpenAction = () => ({
-  type: MODAL_OPEN,
-});
+// export const modalOpenAction = () => ({
+//   type: MODAL_OPEN,
+// });
 
 export const modalCloseAction = () => ({
   type: MODAL_CLOSE,
+});
+
+export const modalClearAction = () => ({
+  type: MODAL_CLEAR
 });
 
 export const modalAddCostAction = payload => ({

@@ -3,7 +3,7 @@ import { GET_USER, SET_USER_DATA } from "../store";
 import { API_URL } from "../../../constants";
 import { errorGetUserAction, successGetUserAction, awaitGetUserAction, awaitSetUserDataAction, successSetUserDataAction, errorSetUserDataAction } from "../store";
 import { request } from "../../../utils";
-import { modalCloseAction, modalMainMenuAction } from "../..";
+import { modalClearAction, modalCloseAction, modalMainMenuAction } from "../..";
 
 function* fetchUser(data) {
   try {
@@ -37,6 +37,7 @@ function* fetchUserData(data) {
     });
     yield put(successSetUserDataAction(user.data.data));
     yield put(modalCloseAction());
+    yield put(modalClearAction());
     yield put(modalMainMenuAction());
   } catch(e) {
     yield put(errorSetUserDataAction(e));

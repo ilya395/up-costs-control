@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUserDataAction } from "../../modules";
+import { localAuthData } from "../../utils";
 import { SimpleFormFieldColumn } from "../SimpleFormFieldColumn/SimpleFormFieldColumn.component";
 
 export const ChangePassword = () => {
+
+  const dispatch = useDispatch();
 
   const [newPasswordValue, setNewPasswordValue] = useState("");
   const getNewPasswordValue = data => {
@@ -26,6 +31,11 @@ export const ChangePassword = () => {
     event.preventDefault();
     if (confirmationPassword === newPasswordValue && newPasswordValue && confirmationPassword) {
       console.log("go")
+
+      dispatch(setUserDataAction({
+        id: localAuthData.getUserId(),
+        password: confirmationPassword,
+      }));
     }
   }
 

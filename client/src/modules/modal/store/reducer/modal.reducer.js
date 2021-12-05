@@ -7,6 +7,7 @@ import {
   MODAL_COST_ADD,
   MODAL_SUPPORT,
   MODAL_MAIN_MENU,
+  MODAL_CLEAR,
 } from "../actions";
 
 const initialModalState = {
@@ -59,14 +60,19 @@ export const ModalReducer = (state = initialModalState, action) => {
         componentName: MODAL_MAIN_MENU,
         data: null,
       }
-    case MODAL_OPEN:
+    // case MODAL_OPEN:
+    //   return {
+    //     ...state,
+    //     open: true,
+    //     componentName: null,
+    //     data: null,
+    //   }
+    case MODAL_CLOSE:
       return {
         ...state,
-        open: true,
-        componentName: null,
-        data: null,
+        open: false,
       }
-    case MODAL_CLOSE:
+    case MODAL_CLEAR:
       return {
         ...state,
         ...initialModalState

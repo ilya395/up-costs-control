@@ -64,3 +64,37 @@
 .paragraph {
   margin-bottom: 4.5rem;
 }
+
+.block-show {
+  animation: block-show .4s forwards;
+}
+.block-hide {
+  animation: block-hide .4s forwards; // block-show .4s reverse;
+}
+
+@keyframes block-show {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes block-hide {
+  0% {
+    transform: translateY(0vh);
+
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(20vh);
+    opacity: 0;
+  }
+}

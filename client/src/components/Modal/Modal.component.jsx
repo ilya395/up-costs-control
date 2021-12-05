@@ -1,13 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { modalCloseAction } from "../../modules/modal";
+import { useSelector } from "react-redux";
+import { CSSTransition } from "react-transition-group";
+import s from "./Modal.module.scss";
 
 export const Modal = props => {
 
-  const dispatch = useDispatch();
+  const mainMenu = useSelector(state => state.mainMenu);
+  console.log(mainMenu)
 
   const closeHandler = () => {
-    dispatch(modalCloseAction());
+    props.closeModal();
   }
 
   return (

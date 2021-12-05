@@ -13,7 +13,7 @@ export const Logout = () => {
   }
 
   return (
-    <>
+    <div>
       <p className="simple-text_wide paragraph">
         Уверены, что хотите покинуть приложение? Ваши расходы сохранятся.
       </p>
@@ -23,6 +23,6 @@ export const Logout = () => {
       >
         Выйти
       </button>
-    </>
+    </div>
   );
 }

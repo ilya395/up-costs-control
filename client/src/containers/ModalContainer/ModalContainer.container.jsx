@@ -7,7 +7,7 @@ import { MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODA
 
 export const ModalContainer = props => {
 
-  const { data } = props;
+  const { data, closeModal } = props;
 
   if (
     props.componentName === MODAL_EXPENSE_ITEM_ADD ||
@@ -15,6 +15,7 @@ export const ModalContainer = props => {
   ) {
     return (
       <Modal
+        closeModal={closeModal}
         render={props => <ExpenseItemFormContainer allProps={{...props, ...data}} />}
       />
     );
@@ -22,6 +23,7 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_EXPENSE_ITEM_DELETE) {
     return (
       <Modal
+        closeModal={closeModal}
         render={props => <DeleteExpenseItemFormContainer allProps={{...props, ...data}} />}
       />
     );
@@ -29,6 +31,7 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_COST_ADD) {
     return (
       <Modal
+        closeModal={closeModal}
         render={props => <CostFormContainer allProps={{...props, ...data}} />}
       />
     );
@@ -36,6 +39,7 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_SUPPORT) {
     return (
       <Modal
+        closeModal={closeModal}
         render={props => <ProfileLayout props={{...props}} render={newProps => <Support props={{...newProps}} />} />}
       />
     );
@@ -43,12 +47,14 @@ export const ModalContainer = props => {
   if (props.componentName === MODAL_MAIN_MENU) {
     return (
       <Modal
+        closeModal={closeModal}
         render={props => <ProfileLayout props={{...props}} render={newProps => <Profile props={{...newProps}} />} />}
       />
     );
   }
   return (
     <Modal
+      closeModal={closeModal}
       render={props => <>тут должны быть кнопки</>}
     />
   );
