@@ -68,7 +68,7 @@ export function DeleteExpenseItemsReducer(
     case SUCCESS_DELETE_EXPENSE_ITEM:
       return {
         ...state,
-        data: payload,
+        data: action.payload,
         await: false,
         error: false,
       }
@@ -101,7 +101,7 @@ export function AddExpenseItemsReducer(
     case SUCCESS_ADD_EXPENSE_ITEM:
       return {
         ...state,
-        data: payload,
+        data: action.payload,
         await: false,
         error: false,
       }
@@ -134,7 +134,7 @@ export function ChangeExpenseItemsReducer(
     case SUCCESS_CHANGE_EXPENSE_ITEM:
       return {
         ...state,
-        data: payload,
+        data: action.payload,
         await: false,
         error: false,
       }
@@ -167,7 +167,7 @@ export function AddCostsReducer(
     case SUCCESS_ADD_COSTS:
       return {
         ...state,
-        data: payload,
+        data: action.payload,
         await: false,
         error: false,
       }

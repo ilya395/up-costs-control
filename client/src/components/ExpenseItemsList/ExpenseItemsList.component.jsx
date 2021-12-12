@@ -9,8 +9,8 @@ export const ExpenseItemsList = props => {
       {
         props.costs &&
         Array.isArray(props.costs) &&
-        props.costs.map(item => (
-          <div className={s["expense-items-list__element"]} key={item.id}>
+        props.costs.map((item, index) => (
+          <div className={s["expense-items-list__element"]} key={item.id} style={{animationDelay: `${index * 200}ms`}}>
             <ExpenseItem
               data={item}
               changeExpenseItem={props.changeExpenseItem}

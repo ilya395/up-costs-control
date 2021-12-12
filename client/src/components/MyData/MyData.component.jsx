@@ -63,7 +63,6 @@ export const MyData = props => {
       data.phone = newPhone;
     }
     if (Object.entries(data).length > 0) {
-      console.log("save")
       data.id = localAuthData.getUserId();
       dispatch(setUserDataAction(data));
     } else {

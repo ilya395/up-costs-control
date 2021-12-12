@@ -13,8 +13,10 @@ class Request {
       }
     })
     .catch(err => {
-      console.log(err);
-      localAuthData.removeAuthData();
+      if (err.response.status == 401) {
+        localAuthData.removeAuthData();
+      }
+      return {error: err.message};
     })
   }
   post(data) {
@@ -29,8 +31,10 @@ class Request {
       data: JSON.stringify(body)
     })
     .catch(err => {
-      console.log(err);
-      localAuthData.removeAuthData();
+      if (err.response.status == 401) {
+        localAuthData.removeAuthData();
+      }
+      return {error: err.message};
     })
   }
   delete(data) {
@@ -45,8 +49,10 @@ class Request {
       data: JSON.stringify(body)
     })
     .catch(err => {
-      console.log(err);
-      localAuthData.removeAuthData();
+      if (err.response.status == 401) {
+        localAuthData.removeAuthData();
+      }
+      return {error: err.message};
     })
   }
   update(data) {
@@ -61,8 +67,10 @@ class Request {
       data: JSON.stringify(body)
     })
     .catch(err => {
-      console.log(err);
-      localAuthData.removeAuthData();
+      if (err.response.status == 401) {
+        localAuthData.removeAuthData();
+      }
+      return {error: err.message};
     })
   }
   put(data) {
@@ -77,8 +85,10 @@ class Request {
       data: JSON.stringify(body)
     })
     .catch(err => {
-      console.log(err);
-      localAuthData.removeAuthData();
+      if (err.response.status == 401) {
+        localAuthData.removeAuthData();
+      }
+      return {error: err.message};
     })
   }
 }

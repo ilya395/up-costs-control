@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "@redux-saga/core/effects";
 import { ADD_COSTS, ADD_EXPENSE_ITEM, awaitAddCostsAction, awaitAddExpenseItemAction, awaitChangeExpenseItemAction, awaitDeleteExpenseItemAction, CHANGE_EXPENSE_ITEM, costsAwaitAction, costsErrorAction, costsSuccessAction, DELETE_EXPENSE_ITEM, errorAddCostsAction, errorAddExpenseItemAction, errorChangeExpenseItemAction, errorDeleteExpenseItemAction, getCostsAction, getCostsNowAction, GET_COSTS, succesAddCostsAction, successAddExpenseItemAction, successChangeExpenseItemAction, successDeleteExpenseItemAction } from "..";
-import { modalClearAction, modalCloseAction } from "../..";
-import { API_URL } from "../../../constants";
+import { modalClearAction, modalCloseAction, notificationMessageAction } from "../..";
+import { API_URL, NOTIFICATION_ERROR } from "../../../constants";
 import { localAuthData } from "../../../utils";
 import { request } from "../../../utils/classes/Request.class";
 
@@ -18,9 +18,20 @@ function* fetchGetCosts(data) {
         }
       })
     });
-    yield put(costsSuccessAction(response.data.data));
+    if (!response.error) {
+      yield put(costsSuccessAction(response.data.data));
+    } else {
+      yield put(notificationMessageAction({
+        message: auth.error,
+        notificationType: NOTIFICATION_ERROR
+      }));
+    }
   } catch(e) {
     yield put(costsErrorAction(e));
+    yield put(notificationMessageAction({
+      message: e.message,
+      notificationType: NOTIFICATION_ERROR
+    }));
   }
 }
 export function* watchGetCosts() {
@@ -44,11 +55,22 @@ function* fetchAddCosts(data) {
         body,
       })
     });
-    yield put(modalCloseAction());
-    yield put(modalClearAction());
-    yield put(succesAddCostsAction(response.data));
+    if (!response.error) {
+      yield put(modalCloseAction());
+      yield put(modalClearAction());
+      yield put(succesAddCostsAction(response.data));
+    } else {
+      yield put(notificationMessageAction({
+        message: response.error,
+        notificationType: NOTIFICATION_ERROR
+      }));
+    }
   } catch(e) {
     yield put(errorAddCostsAction(e));
+    yield put(notificationMessageAction({
+      message: e.message,
+      notificationType: NOTIFICATION_ERROR
+    }));
   }
 }
 export function* watchAddCosts() {
@@ -69,11 +91,22 @@ function* fetchAddExpenseItem(data) {
         }
       })
     });
-    yield put(modalCloseAction());
-    yield put(modalClearAction());
-    yield put(successAddExpenseItemAction(response.data));
+    if (!response.error) {
+      yield put(modalCloseAction());
+      yield put(modalClearAction());
+      yield put(successAddExpenseItemAction(response.data));
+    } else {
+      yield put(notificationMessageAction({
+        message: response.error,
+        notificationType: NOTIFICATION_ERROR
+      }));
+    }
   } catch(e) {
     yield put(errorAddExpenseItemAction(e));
+    yield put(notificationMessageAction({
+      message: e.message,
+      notificationType: NOTIFICATION_ERROR
+    }));
   }
 }
 export function* watchAddExpenseItem() {
@@ -92,11 +125,22 @@ function* fetchDeleteExpenseItem(data) {
         }
       })
     });
-    yield put(modalCloseAction());
-    yield put(modalClearAction());
-    yield put(successDeleteExpenseItemAction(response.data));
+    if (!response.error) {
+      yield put(modalCloseAction());
+      yield put(modalClearAction());
+      yield put(successDeleteExpenseItemAction(response.data));
+    } else {
+      yield put(notificationMessageAction({
+        message: response.error,
+        notificationType: NOTIFICATION_ERROR
+      }));
+    }
   } catch(e) {
     yield put(errorDeleteExpenseItemAction(e));
+    yield put(notificationMessageAction({
+      message: e.message,
+      notificationType: NOTIFICATION_ERROR
+    }));
   }
 }
 export function* watchDeleteExpenseItem() {
@@ -117,11 +161,22 @@ function* fetchChangeExpenseItem(data) {
         }
       })
     });
-    yield put(modalCloseAction());
-    yield put(modalClearAction());
-    yield put(successChangeExpenseItemAction(response.data));
+    if (!response.error) {
+      yield put(modalCloseAction());
+      yield put(modalClearAction());
+      yield put(successChangeExpenseItemAction(response.data));
+    } else {
+      yield put(notificationMessageAction({
+        message: response.error,
+        notificationType: NOTIFICATION_ERROR
+      }));
+    }
   } catch(e) {
     yield put(errorChangeExpenseItemAction(e));
+    yield put(notificationMessageAction({
+      message: e.message,
+      notificationType: NOTIFICATION_ERROR
+    }));
   }
 }
 export function* watchChangeExpenseItem() {

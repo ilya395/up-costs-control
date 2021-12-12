@@ -48,3 +48,15 @@ export const AUTH_DATA = "auth_data";
 
 export const CLICK_DURATION = 1.5 * 1000;
 export const CLICK_DELAY = 500;
+
+export const transitionMode = {
+  outIn: "out-in",
+  inOut: "in-out",
+}
+
+export const NOTIFICATION_LIFE_TIME = 1500;
+
+export const NOTIFICATION_ERROR = "NOTIFICATION_ERROR";
+export const NOTIFICATION_WARNING = "NOTIFICATION_WARNING";
+export const NOTIFICATION_INFO = "NOTIFICATION_INFO";
+export const NOTIFICATION_SUCCESS = "NOTIFICATION_SUCCESS";

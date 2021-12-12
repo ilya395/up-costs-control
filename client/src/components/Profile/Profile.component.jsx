@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { ChangePassword, Logout, MyData } from "..";
+import { transitionMode } from "../../constants";
 import { modalClearAction } from "../../modules";
 import { mainMenuChangePasswordAction, mainMenuListAction, mainMenuLogoutAction, mainMenuMyDataAction } from "../../modules/main-menu";
 import { MainMenu } from "../MainMenu/MainMenu.component";
@@ -13,12 +14,12 @@ export const Profile = props => {
   const dispatch = useDispatch();
 
   const mainMenu = useSelector(state => state.mainMenu);
-  const open = useSelector(state => state.modal.open);
+  // const open = useSelector(state => state.modal.open);
   // useEffect(() => {
   //   !open && dispatch(mainMenuListAction());
   // }, [open])
 
-  const [mode, setMode] = useState("out-in");
+  const [mode, setMode] = useState(transitionMode.outIn);
   const [modeState, setModeState] = useState(true);
   useEffect(() => {
     if (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) {
@@ -26,7 +27,6 @@ export const Profile = props => {
     } else {
       setModeState(false);
     }
-    console.log(mainMenu)
   }, [mainMenu.logout, mainMenu.changePassword, mainMenu.myData])
 
   const onLogout = () => {

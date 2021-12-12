@@ -30,7 +30,6 @@ export const ChangePassword = () => {
   const onSubmit = event => {
     event.preventDefault();
     if (confirmationPassword === newPasswordValue && newPasswordValue && confirmationPassword) {
-      console.log("go")
 
       dispatch(setUserDataAction({
         id: localAuthData.getUserId(),

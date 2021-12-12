@@ -3,6 +3,8 @@ import { buttonColors } from "../../../constants";
 
 export const ExpenseItemFormView = props => {
 
+  const { disabled } = props;
+
   const [editMode, setEditMode] = useState(props.data && props.data.id ? true : false);
 
   const [visibleNameField, setVisibleNameField] = useState(props.data && props.data.name ? true : false);
@@ -129,6 +131,7 @@ export const ExpenseItemFormView = props => {
           <button
             className="little-button simple-title_other"
             onClick={onChange}
+            disabled={disabled}
           >
             Готово
           </button>

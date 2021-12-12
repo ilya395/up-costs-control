@@ -1,12 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { CSSTransition } from "react-transition-group";
-import s from "./Modal.module.scss";
 
 export const Modal = props => {
 
   const mainMenu = useSelector(state => state.mainMenu);
-  console.log(mainMenu)
 
   const closeHandler = () => {
     props.closeModal();

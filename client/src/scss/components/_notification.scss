@@ -1,0 +1,74 @@
+@import "../variables/variables";
+
+.notification {
+
+  &-container {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    bottom: auto;
+    left: auto;
+    z-index: 115;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    @media screen and (max-width: 576px) {
+      left: 1.5rem
+    }
+  }
+
+  padding: 1rem 1.5rem;
+  background-color: $link_color;
+  border: 1px solid $link_color;
+  border-radius: 8px;
+  color: $white_color;
+
+  &.show {
+    animation: show .4s forwards;
+  }
+  &.hide {
+    animation: hide .4s forwards;
+  }
+
+
+  &.error {
+    background-color: $expense_item_color_11;
+    border: 1px solid $expense_item_color_11;
+  }
+  &.success {
+    background-color: $expense_item_color_4;
+    border: 1px solid $expense_item_color_4;
+  }
+  &.warning {
+    background-color: $expense_item_color_2;
+    border: 1px solid $expense_item_color_2;
+    color: $black_color;
+  }
+  &.info {
+    background-color: $expense_item_color_5;
+    border: 1px solid $expense_item_color_5;
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translateY(calc(-1.5rem - 100%));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(calc(-1.5rem - 100%));
+  }
+}

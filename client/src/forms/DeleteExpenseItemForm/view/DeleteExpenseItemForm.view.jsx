@@ -2,6 +2,8 @@ import React from "react";
 
 export const DeleteExpenseItemFormView = props => {
 
+  const { disabled } = props;
+
   const clickHandler = event => {
     event.preventDefault();
     props.onDelete()
@@ -23,6 +25,7 @@ export const DeleteExpenseItemFormView = props => {
             <button
               className="big-button simple-title_other"
               onClick={clickHandler}
+              disabled={disabled}
             >
               Да, удалить
             </button>

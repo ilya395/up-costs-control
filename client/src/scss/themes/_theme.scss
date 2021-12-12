@@ -98,3 +98,38 @@
     opacity: 0;
   }
 }
+
+.page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+// .page-enter {
+// }
+.page-enter-active {
+  animation: page-show .5s forwards;
+}
+// .page-exit {
+// }
+.page-exit-active {
+  animation: page-show .5s reverse;
+}
+
+@keyframes page-show {
+  0% {
+    opacity: 0;
+    // transform: matrix(0, -1, -1, -1, 0, -1);
+    transform: translateX(-400px);
+  }
+  // 50% {
+  //   opacity: 1;
+  // }
+  100% {
+    opacity: 1;
+    // transform: matrix(1, 0, 0, 0, 0, 0);
+    transform: translateX(0px);
+  }
+}

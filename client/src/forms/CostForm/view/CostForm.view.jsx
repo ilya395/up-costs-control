@@ -7,7 +7,9 @@ import cn from "classnames";
 import { useSelector } from "react-redux";
 registerLocale("ru", ru);
 
-export const CostFormView = ({props, onCancel, onSave}) => {
+export const CostFormView = ({props, onCancel, onSave, disabled}) => {
+
+  const [disableNumberField, setDisableNumberField] = useState(false);
 
   const [amount, setAmount] = useState("");
 
@@ -19,7 +21,13 @@ export const CostFormView = ({props, onCancel, onSave}) => {
   const [dateVisible, setDateVisible] = useState(false);
 
   const onChangeAmount = event => {
-    return setAmount(event.target.value);
+    const amount = event.target.value;
+    if (Number(+amount)) {
+      setAmount(event.target.value);
+      setDisableNumberField(false);
+      return;
+    }
+    setDisableNumberField(true);
   }
 
   const onChangeDescription = event => {
@@ -107,6 +115,7 @@ export const CostFormView = ({props, onCancel, onSave}) => {
             <button
               className="little-button simple-title_other"
               onClick={onSaveCost}
+              disabled={disabled || disableNumberField}
             >
               Готово
             </button>

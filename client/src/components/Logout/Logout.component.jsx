@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { authEndAction } from "../../modules";
+import { authEndAction, modalClearAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
 export const Logout = () => {
@@ -9,6 +9,7 @@ export const Logout = () => {
 
   const onLogout = () => {
     dispatch(authEndAction());
+    dispatch(modalClearAction());
     localAuthData.removeAuthData();
   }
 

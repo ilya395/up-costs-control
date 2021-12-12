@@ -11,10 +11,13 @@ class LocalAuthData {
     return localStorage.removeItem(AUTH_DATA);
   }
   getToken() {
-    if (localStorage.getItem(AUTH_DATA)) {
-      if (typeof localStorage.getItem(AUTH_DATA) === "string") {
-        return JSON.parse(localStorage.getItem(AUTH_DATA)).token;
-      }
+    // if (localStorage.getItem(AUTH_DATA)) {
+    //   if (typeof localStorage.getItem(AUTH_DATA) === "string" && typeof localStorage.getItem(AUTH_DATA) !== "undefined") {
+    //     return JSON.parse(localStorage.getItem(AUTH_DATA)).token;
+    //   }
+    // }
+    if (localStorage.getItem(AUTH_DATA) !== "undefined" && typeof localStorage.getItem(AUTH_DATA) === "string" && typeof localStorage.getItem(AUTH_DATA) !== "undefined") {
+      return JSON.parse(localStorage.getItem(AUTH_DATA)).token;
     }
     return localStorage.getItem(AUTH_DATA) && localStorage.getItem(AUTH_DATA).token;
   }

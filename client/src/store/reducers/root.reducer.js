@@ -5,6 +5,7 @@ import { AddCostsReducer, AddExpenseItemsReducer, ChangeExpenseItemsReducer, Cos
 import { MainMenyReducer } from "../../modules/main-menu";
 import { ModalReducer } from "../../modules/modal";
 import { MonthReducer } from "../../modules/month";
+import { NotificationReducer } from "../../modules/notification";
 
 export const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -18,4 +19,5 @@ export const rootReducer = combineReducers({
   user: UserReducer,
   mainMenu: MainMenyReducer,
   userData: UserDataReducer,
+  notification: NotificationReducer,
 });
