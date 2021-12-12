@@ -149,7 +149,7 @@ export function* watchDeleteExpenseItem() {
 
 function* fetchChangeExpenseItem(data) {
   try {
-    const { id, name, color } = data.payload;
+    const { id, name, color, index } = data.payload;
     yield put(awaitChangeExpenseItemAction());
     const response = yield call(() => {
       return request.post({
@@ -158,6 +158,8 @@ function* fetchChangeExpenseItem(data) {
           id,
           name,
           color,
+          index,
+          userId: localAuthData.getUserId(),
         }
       })
     });

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ExpenseItemsList } from "../../components";
 import { getCostsAction } from "../../modules/costs";
 import { modalAddCostAction, modalAddExpenseItemAction, modalDeleteExpenseItemAction, modalEditExpenseItemAction } from "../../modules/modal";
+import { changeExpenseItemAction } from "../../modules";
 import { localAuthData } from "../../utils"; // не сработал нормально импорт
 
 export const ExpenseItemsListContainer = () => {
@@ -32,6 +33,10 @@ export const ExpenseItemsListContainer = () => {
     dispatch(modalEditExpenseItemAction(result));
   }
 
+  const changeExpenseItemIndex = ({id, index}) => {
+    dispatch(changeExpenseItemAction({id, index}));
+  }
+
   const addCost = ({expenseItemId}) => {
     const result = costs.find(item => +item.id === +expenseItemId);
     dispatch(modalAddCostAction({expenseItemId, ...result}));
@@ -49,6 +54,7 @@ export const ExpenseItemsListContainer = () => {
       changeExpenseItem={changeExpenseItem}
       addCost={addCost}
       deleteExpenseItem={deleteExpenseItem}
+      changeExpenseItemIndex={changeExpenseItemIndex}
     />
   );
 }

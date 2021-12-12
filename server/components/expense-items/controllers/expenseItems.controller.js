@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const ExpenseItemsModel = require("../models/expenseItems.model");
 
 class ExpenseItemController {
@@ -180,12 +181,168 @@ class ExpenseItemController {
             message: "No data for update",
           });
         }
+        console.log(innerData)
+
+        if (innerData && innerData.index) {
+          const oldItem = await ExpenseItemsModel
+            .findOne({
+              where: {
+                id: +innerData.id,
+                userId: +innerData.userId,
+              },
+              raw: true,
+            })
+            .catch(e => {
+              console.log(e)
+              return res.status(400).json({
+                status: "ERROR",
+                message: "Can not find this model",
+                error: e
+              });
+            });
+          console.log("oldItem: ", oldItem)
+          console.log(+oldItem.index - +innerData.index )
+
+          if (+oldItem.index - +innerData.index > 0) { // от большего к меньшему
+            const items = await ExpenseItemsModel
+              .findAll({
+                where: {
+                  index: {
+                    [Op.gte]: +innerData.index,
+                    [Op.lte]: +oldItem.index
+                  },
+                  userId: +innerData.userId,
+                },
+                raw: true,
+              })
+              .catch(e => {
+                console.log(e)
+                return res.status(400).json({
+                  status: "ERROR",
+                  message: "Can not find models",
+                  error: e
+                });
+              });
+            console.log(items)
+            const result = items.map(item => {
+              // if (+item.id == +innerData.id) {
+              //   item.index += 1;
+              //   return item;
+              // }
+              if (+item.id == +innerData.id) {
+                item.index = +innerData.index;
+                return item;
+              } else {
+                item.index += 1;
+                return item;
+              }
+              // if (+item.index > +innerData.index && +item.index < +innerData.index) {
+              //   item.index += 1;
+              //   return item;
+              // }
+              // return item;
+            });
+            console.log(result)
+            for (let i = 0; i < result.length; i++) {
+              console.log(+result[i].id, +result[i].index)
+              const request = await ExpenseItemsModel
+                .update(
+                  {
+                    index: +result[i].index
+                  },
+                  {
+                    where: {
+                      id: +result[i].id,
+                      userId: +innerData.userId,
+                    }
+                  }
+                )
+                .catch(e => {
+                  console.log(e)
+                  return res.status(400).json({
+                    status: "ERROR",
+                    message: "Can not update model in queue",
+                    error: e
+                  });
+                });
+            }
+            return res.status(200).json({
+              status: "OK"
+            });
+          }
+          if (+oldItem.index - +innerData.index < 0) { // от меньшего к большему
+            const items = await ExpenseItemsModel
+              .findAll({
+                where: {
+                  index: {
+                    [Op.gte]: +oldItem.index,
+                    [Op.lte]: +innerData.index,
+                  },
+                  userId: +innerData.userId,
+                },
+                raw: true,
+              })
+              .catch(e => {
+                console.log(e)
+                return res.status(400).json({
+                  status: "ERROR",
+                  message: "Can not find models",
+                  error: e
+                });
+              });
+            const result = items.map(item => {
+              if (+item.id == +innerData.id) {
+                item.index = +innerData.index;
+                return item;
+              } else {
+                item.index -= 1;
+                return item;
+              }
+              // if (+item.index < +innerData.index && +item.index > +innerData.index) {
+              //   item.index -= 1;
+              //   return item;
+              // }
+              // if (+item.id == +innerData.id) {
+              //   item.index -= 1;
+              //   return item;
+              // }
+              // return item;
+            });
+            for (let i = 0; i < result.length; i++) {
+              console.log(+result[i].id, +result[i].index)
+              const request = await ExpenseItemsModel
+                .update(
+                  {
+                    index: +result[i].index
+                  },
+                  {
+                    where: {
+                      id: +result[i].id,
+                      userId: +innerData.userId,
+                    }
+                  }
+                )
+                .catch(e => {
+                  console.log(e)
+                  return res.status(400).json({
+                    status: "ERROR",
+                    message: "Can not update model in queue",
+                    error: e
+                  });
+                });
+            }
+            return res.status(200).json({
+              status: "OK"
+            });
+          }
+        }
         const item = await ExpenseItemsModel
           .update({
               ...innerData,
             }, {
             where: {
-              id: +innerData.id
+              id: +innerData.id,
+              userId: +innerData.userId,
             }
           })
           .catch(e => {
