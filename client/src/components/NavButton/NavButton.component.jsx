@@ -1,6 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 
-export const NavButton = ({ icon, title, url, callback }) => {
+export const NavButton = memo(({ icon, title, url, callback }) => {
+  console.log("NavButton")
   const onClick = () => {
     return callback && callback()
   }
@@ -19,4 +20,4 @@ export const NavButton = ({ icon, title, url, callback }) => {
       </div>
     </button>
   );
-}
+});

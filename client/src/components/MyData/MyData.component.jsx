@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SimpleFormFieldRow } from "..";
-import { setUserDataAction } from "../../modules";
+import { NOTIFICATION_WARNING } from "../../constants";
+import { notificationMessageAction, setUserDataAction } from "../../modules";
 import { localAuthData, strangeNumber } from "../../utils";
 
-export const MyData = props => {
+export const MyData = memo(props => {
+  console.log("MyData")
   const { profile } = props;
 
   const dispatch = useDispatch();
@@ -66,7 +68,10 @@ export const MyData = props => {
       data.id = localAuthData.getUserId();
       dispatch(setUserDataAction(data));
     } else {
-      console.log("not changes")
+      dispatch(notificationMessageAction({
+        message: "Нет изменений в данных!",
+        notificationType: NOTIFICATION_WARNING,
+      }));
     }
   }
 
@@ -109,4 +114,4 @@ export const MyData = props => {
       </div>
     </form>
   );
-}
+});

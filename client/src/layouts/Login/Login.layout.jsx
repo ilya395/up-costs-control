@@ -5,6 +5,7 @@ import { LoginForm, LoginHelp, WelcomeHeader } from "../../components";
 
 
 export const Login = () => {
+  console.log("Login")
   return (
     <div className="container">
       <div className={cn(s["login-main-section"])}>

@@ -1,10 +1,11 @@
 import React from "react";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { authEndAction, modalClearAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
-export const Logout = () => {
-
+export const Logout = memo(() => {
+  console.log("Logout")
   const dispatch = useDispatch();
 
   const onLogout = () => {
@@ -26,4 +27,4 @@ export const Logout = () => {
       </button>
     </div>
   );
-}
+});

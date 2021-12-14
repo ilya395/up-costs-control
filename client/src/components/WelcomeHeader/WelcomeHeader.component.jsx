@@ -1,7 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import s from "./WelcomeHeader.module.scss";
 
-export const WelcomeHeader = () => {
+export const WelcomeHeader = memo(() => {
+  console.log("WelcomeHeader")
   return (
     <div className={s["welcom-header-block"]}>
       <div className={s["welcom-header-block__icon"]}>
@@ -17,4 +18,4 @@ export const WelcomeHeader = () => {
       </div>
     </div>
   );
-}
+});

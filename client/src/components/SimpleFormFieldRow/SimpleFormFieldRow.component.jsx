@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { strangeNumber } from "../../utils";
 
 export const SimpleFormFieldRow = props => {
-
+  console.log("SimpleFormFieldRow")
   const { ident, label, value: val, getValue, type = "text" } = props;
 
   const [value, setValue] = useState(strangeNumber(type, val));

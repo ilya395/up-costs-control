@@ -4,7 +4,7 @@ import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
 
 export const ExpenseItem = props => {
-
+  console.log("ExpenseItem")
   const [clickStartTime, setClickStartTime] = useState(null);
   const [clickEndTime, setClickEndTime] = useState(null);
 

@@ -1,6 +1,7 @@
 import React from "react";
 
 export const AddExpenseItem = props => {
+  console.log("AddExpenseItem")
   const addNew = () => {
     props.addNewExpenseItem();
   }

@@ -5,6 +5,7 @@ import { Login, Main } from "../../layouts";
 import { localAuthData } from "../../utils/classes/LocalAuthData.class";
 
 export const MainRoter = () => {
+  console.log("MainRoter")
   const [tokenInComponent, setTokenInComponent] = useState(localAuthData.getToken());
   const state = useSelector(state => state.auth);
   useEffect(() => {

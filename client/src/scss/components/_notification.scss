@@ -19,16 +19,27 @@
   }
 
   padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
   background-color: $link_color;
   border: 1px solid $link_color;
   border-radius: 8px;
   color: $white_color;
+  opacity: 0;
+  transform: translateY(calc(-1.5rem - 100%));
 
   &.show {
     animation: show .4s forwards;
   }
+  &.showed {
+    opacity: 1;
+    transform: translateY(0);
+  }
   &.hide {
     animation: hide .4s forwards;
+  }
+  &.hided {
+    opacity: 0;
+    transform: translateY(calc(-1.5rem - 100%));
   }
 
 

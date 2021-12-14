@@ -60,18 +60,6 @@ const app = () => {
 
   // синхронизация с бд, после успшной синхронизации запускаем сервер
   sequelize.sync().then(()=>{
-    console.log(
-      "pass: ",
-      hash("root_root_1")
-    )
-    console.log(
-      "pass: ",
-      hash("root_root")
-    )
-    console.log(
-      "pass: ",
-      hash("root")
-    )
     app.listen(PORT, () => {
       console.log(`Server listens http://${HOST}:${PORT}`)
     });

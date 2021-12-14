@@ -5,14 +5,19 @@ import { getCostsAction } from "../../modules/costs";
 import { modalAddCostAction, modalAddExpenseItemAction, modalDeleteExpenseItemAction, modalEditExpenseItemAction } from "../../modules/modal";
 import { changeExpenseItemAction } from "../../modules";
 import { localAuthData } from "../../utils"; // не сработал нормально импорт
+import { memo } from "react";
 
-export const ExpenseItemsListContainer = () => {
+export const ExpenseItemsListContainer = memo(() => {
+  console.log("ExpenseItemsListContainer")
 
   const dispatch = useDispatch();
 
   const costs = useSelector(state => state.costsGet.data);
+
   const choosedDate = useSelector(state => state.date.choosedDate);
+
   const goDispatchChoosedDate = () => {
+    console.log("ExpenseItemsListContainer: goDispatchChoosedDate")
     dispatch(getCostsAction({
       id: localAuthData.getUserId(),
       date: (choosedDate).getTime(),
@@ -20,6 +25,7 @@ export const ExpenseItemsListContainer = () => {
   }
 
   const open = useSelector(state => state.modal.open);
+
   useEffect(() => {
     goDispatchChoosedDate();
   }, [open, choosedDate]);
@@ -57,4 +63,4 @@ export const ExpenseItemsListContainer = () => {
       changeExpenseItemIndex={changeExpenseItemIndex}
     />
   );
-}
+});

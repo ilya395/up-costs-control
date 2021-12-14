@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export const Modal = props => {
-
+  console.log("Modal")
   const mainMenu = useSelector(state => state.mainMenu);
 
   const closeHandler = () => {

@@ -8,7 +8,7 @@ import { mainMenuChangePasswordAction, mainMenuListAction, mainMenuLogoutAction,
 import { MainMenu } from "../MainMenu/MainMenu.component";
 
 export const Profile = props => {
-
+  console.log("Profile")
   const { profile } = props.props;
 
   const dispatch = useDispatch();

@@ -7,6 +7,7 @@ import { cheekiBreekiValidator, throttle } from "../../../utils";
 
 
 export const CostFormContainer = props => {
+  console.log("CostFormContainer")
 
   const { allProps } = props;
 

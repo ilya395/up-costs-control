@@ -1,9 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import { modalSupportAction, modalMainMenuAction } from "../../modules/modal";
 import { NavButton } from "../NavButton/NavButton.component";
 
-export const NavBar = () => {
+export const NavBar = memo(() => {
+  console.log("NavBar")
 
   const dispatch = useDispatch();
 
@@ -61,4 +62,4 @@ export const NavBar = () => {
       />
     </nav>
   );
-}
+});

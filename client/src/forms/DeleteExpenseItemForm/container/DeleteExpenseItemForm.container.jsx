@@ -4,6 +4,7 @@ import { deleteExpenseItemAction } from "../../../modules/costs";
 import { DeleteExpenseItemFormView } from "../view/DeleteExpenseItemForm.view";
 
 export const DeleteExpenseItemFormContainer = props => {
+  console.log("DeleteExpenseItemFormContainer")
 
   const { allProps } = props;
 

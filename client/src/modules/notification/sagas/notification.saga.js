@@ -1,4 +1,4 @@
-import { call, put, takeEvery, delay } from "redux-saga/effects";
+import { put, takeEvery, delay } from "redux-saga/effects";
 import { addNotificationMessageAction, NOTIFICATION_MESSAGE, removeNotificationMessageAction } from "..";
 import { NOTIFICATION_LIFE_TIME } from "../../../constants";
 

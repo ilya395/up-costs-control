@@ -9,7 +9,9 @@ export const NotificationReducer = (state = initialNotificationState, action) =>
     case ADD_NOTIFICATION_MESSAGE:
       return {
         ...state,
-        messages: [
+        messages: state.messages.find(item => item.message === action.payload.message) ? [
+          ...state.messages,
+        ] : [
           ...state.messages,
           {
             active: true,

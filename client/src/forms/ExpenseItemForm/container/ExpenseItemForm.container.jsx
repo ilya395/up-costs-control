@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { modalClearAction, modalCloseAction } from "../../../modules";
+import { NOTIFICATION_WARNING } from "../../../constants";
+import { modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { addExpenseItemAction, changeExpenseItemAction } from "../../../modules/costs";
 import { cheekiBreekiValidator } from "../../../utils";
 import { ExpenseItemFormView } from "../view/ExpenseItemForm.view";
 
 export const ExpenseItemFormContainer = props => {
+  console.log("ExpenseItemFormContainer")
 
   const { allProps } = props;
+
+  const refName = useRef(null);
 
   const expenseItemsAddAwait = useSelector(state => state.expenseItemsAdd.await);
   const expenseItemsChangeAwait = useSelector(state => state.expenseItemsChange.await);
@@ -20,11 +24,34 @@ export const ExpenseItemFormContainer = props => {
     dispatch(modalClearAction());
   }
 
+  const compareName = (newData, oldDate) => {
+    console.log(newData, oldDate)
+    if ((newData.name === oldDate.name) && (newData.color === oldDate.color)) {
+      return true;
+    }
+    return false;
+  }
+
   const onChange = data => {
+    console.log("ExpenseItemFormContainer: onChange")
+    if (!validateExpenseItem(data)) {
+      return;
+    }
+    if (compareName(data, allProps)) {
+      dispatch(notificationMessageAction({
+        message: "Данные не изменились!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      return;
+    }
     dispatch(changeExpenseItemAction(data));
   }
 
   const onAdd = data => {
+    console.log("ExpenseItemFormContainer: onAdd")
+    if (!validateExpenseItem(data)) {
+      return;
+    }
     dispatch(addExpenseItemAction(data));
   }
 
@@ -55,6 +82,7 @@ export const ExpenseItemFormContainer = props => {
         onChange={onChange}
         onAdd={onAdd}
         disabled={expenseItemsAddAwait || expenseItemsChangeAwait}
+        refName={refName}
       />
     </>
   );

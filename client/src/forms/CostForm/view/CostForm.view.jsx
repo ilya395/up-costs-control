@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 registerLocale("ru", ru);
 
 export const CostFormView = ({props, onCancel, onSave, disabled}) => {
+  console.log("CostFormView")
 
   const [disableNumberField, setDisableNumberField] = useState(false);
 

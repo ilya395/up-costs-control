@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { buttonColors } from "../../../constants";
 
 export const ExpenseItemFormView = props => {
+  console.log("ExpenseItemFormView")
 
   const { disabled } = props;
 
@@ -10,13 +11,12 @@ export const ExpenseItemFormView = props => {
   const [visibleNameField, setVisibleNameField] = useState(props.data && props.data.name ? true : false);
 
   const [nameValue, setNameValue] = useState(props.data && props.data.name ? props.data.name : "");
-  const nameInput = useRef(null);
 
   const [colorValue, setColorValue] = useState(props.data && props.data.color ? props.data.color : buttonColors.values().next().value);
 
   useEffect(() => {
     if (!visibleNameField) {
-      nameInput.current.focus();
+      props.refName.current.focus();
     }
   }, [visibleNameField]);
   const onChangeNameField = event => {
@@ -34,7 +34,7 @@ export const ExpenseItemFormView = props => {
     }
   }
 
-  const getColorButtons = () => {
+  const getColorButtons = useMemo(() => { // вызываем как переменную, если вызывать как метод, то => useCallback
     const array = [];
     buttonColors.forEach(item => {
       const arg = (
@@ -54,7 +54,7 @@ export const ExpenseItemFormView = props => {
       array.push(arg);
     });
     return array;
-  }
+  }, [buttonColors]);
 
   const onCancel = () => {
     props.onCancel();
@@ -108,7 +108,7 @@ export const ExpenseItemFormView = props => {
               onChange={onChangeNameField}
               onBlur={clickOnInputField}
               value={nameValue}
-              ref={nameInput}
+              ref={props.refName}
             />
         </div>
         <div className="simple-form__form-field simple-form__form-field_column">
@@ -116,7 +116,7 @@ export const ExpenseItemFormView = props => {
           <div className="form-field__list-wrapper">
             <div className="form-field__list">
               {
-                getColorButtons()
+                getColorButtons
               }
             </div>
           </div>

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 
-export const MainMenu = props => {
-
+export const MainMenu = memo(props => {
+  console.log("MainMenu")
   const logoutHandler = () => props.onLogout();
 
   const myDataHandler = () => props.onGetMyData();
@@ -21,4 +21,4 @@ export const MainMenu = props => {
       </li>
     </ul>
   );
-}
+});

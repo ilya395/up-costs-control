@@ -3,20 +3,30 @@ import { useDispatch } from 'react-redux';
 import cn from "classnames";
 import s from "./LoginForm.module.scss";
 import { requestAuthAction } from "../../modules/auth/store/actions/action-creators/auth.action-creator";
+import { cheekiBreekiValidator } from "../../utils";
+import { notificationMessageAction } from "../../modules";
+import { NOTIFICATION_WARNING } from "../../constants";
 
 export const LoginForm = () => {
+  console.log("LoginForm")
   const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     login: "",
     password: "",
   });
+
   const submitForm = (event) => {
     event.preventDefault();
 
     if (formData.password && formData.login) {
+      if (!validateForm(formData)) {
+        return;
+      }
       dispatch(requestAuthAction(formData));
     }
   }
+
   const changeValue = (event) => {
     const field = event.target;
     const value = field.value;
@@ -28,6 +38,26 @@ export const LoginForm = () => {
     setFormData(data);
 
   }
+
+  const validateForm = ({login, password}) => {
+    let result = true;
+    if (!cheekiBreekiValidator.checkName(login)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните поле логина!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    if (!cheekiBreekiValidator.checkPassword(password)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните поле пароля!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    return result;
+  }
+
   return (
     <form className={s["login-form"]} onSubmit={submitForm}>
       <div className="form-field">

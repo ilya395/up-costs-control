@@ -5,6 +5,7 @@ import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
 import { AddExpenseItem } from "../AddExpenseItem/AddExpenseItem.component";
 
 export const ExpenseItemsList = props => {
+  console.log("ExpenseItemsList")
   const { costs } = props;
   // const costs = [...props.costs];
   const [localCosts, setLocalCosts] = useState(costs);

@@ -3,16 +3,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { MainRoter } from './routes';
 import cn from "classnames";
 import s from "./App.scss";
-import { Notification } from './components';
+import { Notification, PreloaderContainer } from './components';
 
 const App = () => {
-
+  console.log("App")
   return (
     <>
       <BrowserRouter>
         <MainRoter />
       </BrowserRouter>
       <Notification />
+      <PreloaderContainer />
     </>
   );
 }
