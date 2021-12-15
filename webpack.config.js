@@ -93,7 +93,7 @@ const jsLoaders = () => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
-      title: 'Progressive Web Application',
+      title: 'Web Application',
       environment: process.env.NODE_ENV,
       filename: 'index.html',
       template: './templates/index.html',
@@ -110,10 +110,6 @@ const plugins = () => {
           from: path.resolve(__dirname, './client/src/images/**/*').replace(/\\/g, "/"), // в win пути с другими слэшами,
           to: path.resolve(__dirname, './client/dist/assets/'),
         },
-        {
-          from: path.resolve(__dirname, './client/src/public/*.json').replace(/\\/g, "/"), // в win пути с другими слэшами
-          to: path.resolve(__dirname, './client/dist/').replace("/public/", "/")
-      },
       ]
     }),
     new MiniCssExtractPlugin({
