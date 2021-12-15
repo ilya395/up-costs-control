@@ -1,17 +1,53 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { LOADING_APP, LOADING_DATA } from "../../../constants";
+import { addCostsAwaitSelector, authAwaitSelector, costsAwaitSelector, expenseItemsAddAwaitSelector, expenseItemsChangeAwaitSelector, expenseItemsDeleteAwaitSelector } from "../../../modules";
 import { PreloaderView } from "../view/Preloader.view";
 
 export const PreloaderContainer = () => {
-  const [active, setActive] = useState(true);
+
+  const [status, setStatus] = useState({
+    active: true,
+    mode: LOADING_APP,
+  });
+
   useEffect(() => {
-    setTimeout(() => {
-      setActive(!active);
-    }, 3000);
-  }, [])
+    setStatus({
+      ...status,
+      active: false,
+      mode: LOADING_APP,
+    });
+  }, []);
+
+  const authAwait = useSelector(authAwaitSelector);
+  const getCostsAwait = useSelector(costsAwaitSelector);
+  const expenseItemsDeleteAwait = useSelector(expenseItemsDeleteAwaitSelector);
+  const expenseItemsAddAwait = useSelector(expenseItemsAddAwaitSelector);
+  const expenseItemsChangeAwait = useSelector(expenseItemsChangeAwaitSelector);
+  const addCostsAwait = useSelector(addCostsAwaitSelector);
+
+  const awaitOrNot = () => {
+    if (
+      authAwait || getCostsAwait || expenseItemsDeleteAwait ||
+      expenseItemsAddAwait || expenseItemsChangeAwait || addCostsAwait
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  useEffect(() => {
+    console.log(awaitOrNot())
+    console.log(authAwait, getCostsAwait, expenseItemsDeleteAwait, expenseItemsAddAwait, expenseItemsChangeAwait, addCostsAwait)
+    setStatus({
+      active: awaitOrNot() ? true : false,
+      mode: LOADING_DATA,
+    });
+  }, [authAwait, getCostsAwait, expenseItemsDeleteAwait, expenseItemsAddAwait, expenseItemsChangeAwait, addCostsAwait]);
+
   return (
     <PreloaderView
-      active={active}
+      status={status}
     />
   );
 }

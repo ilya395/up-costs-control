@@ -93,6 +93,8 @@ const jsLoaders = () => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
+      title: 'Progressive Web Application',
+      environment: process.env.NODE_ENV,
       filename: 'index.html',
       template: './templates/index.html',
       baseUrl: process.env.NODE_ENV === 'development'? '/' : '/up-realty/',
@@ -108,6 +110,10 @@ const plugins = () => {
           from: path.resolve(__dirname, './client/src/images/**/*').replace(/\\/g, "/"), // в win пути с другими слэшами,
           to: path.resolve(__dirname, './client/dist/assets/'),
         },
+        {
+          from: path.resolve(__dirname, './client/src/public/*.json').replace(/\\/g, "/"), // в win пути с другими слэшами
+          to: path.resolve(__dirname, './client/dist/').replace("/public/", "/")
+      },
       ]
     }),
     new MiniCssExtractPlugin({
@@ -137,6 +143,7 @@ module.exports = {
   },
   output: {                                       // куда складывать результаты работы
     filename: 'assets/js/' + filename('js'),      // итоговый файл, после сборкивсех js файлов
+    chunkFilename: 'assets/js/' + filename('chunk.js'),
     path: path.resolve(__dirname, 'client/dist'), // отталкиваясь от текущей директории, складывать все в dist
     publicPath: '/',                              // относительная ссылка, которая будет подставляться из браузера
   },

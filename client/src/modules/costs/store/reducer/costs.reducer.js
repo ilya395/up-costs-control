@@ -50,6 +50,10 @@ export function CostsReducer(state = initialCostsState, action) {
   }
 }
 
+export const costsDataSelector = state => state.costsGet.data;
+export const costsAwaitSelector = state => state.costsGet.await;
+export const costsErrorSelector = state => state.costsGet.error;
+
 export function DeleteExpenseItemsReducer(
     state = {
       data: null,
@@ -76,12 +80,16 @@ export function DeleteExpenseItemsReducer(
       return {
         ...state,
         await: false,
-        error: true,
+        error: action.payload,
       }
     default:
       return state;
   }
 }
+
+export const expenseItemsDeleteDataSelector = state => state.expenseItemsDelete.data;
+export const expenseItemsDeleteAwaitSelector = state => state.expenseItemsDelete.await;
+export const expenseItemsDeleteErrorSelector = state => state.expenseItemsDelete.error;
 
 export function AddExpenseItemsReducer(
     state = {
@@ -109,12 +117,16 @@ export function AddExpenseItemsReducer(
       return {
         ...state,
         await: false,
-        error: true,
+        error: action.payload,
       }
     default:
       return state;
   }
 }
+
+export const expenseItemsAddDataSelector = state => state.expenseItemsAdd.data;
+export const expenseItemsAddAwaitSelector = state => state.expenseItemsAdd.await;
+export const expenseItemsAddErrorSelector = state => state.expenseItemsAdd.error;
 
 export function ChangeExpenseItemsReducer(
     state = {
@@ -142,12 +154,16 @@ export function ChangeExpenseItemsReducer(
       return {
         ...state,
         await: false,
-        error: true,
+        error: action.payload,
       }
     default:
       return state;
   }
 }
+
+export const expenseItemsChangeDataSelector = state => state.expenseItemsChange.data;
+export const expenseItemsChangeAwaitSelector = state => state.expenseItemsChange.await;
+export const expenseItemsChangeErrorSelector = state => state.expenseItemsChange.error;
 
 export function AddCostsReducer(
     state = {
@@ -175,9 +191,13 @@ export function AddCostsReducer(
       return {
         ...state,
         await: false,
-        error: true,
+        error: action.payload,
       }
     default:
       return state;
   }
 }
+
+export const addCostsDataSelector = state => state.costsAdd.data;
+export const addCostsAwaitSelector = state => state.costsAdd.await;
+export const addCostsErrorSelector = state => state.costsAdd.error;

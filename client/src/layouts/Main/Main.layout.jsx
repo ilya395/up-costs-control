@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
@@ -8,7 +8,7 @@ import { Transition } from 'react-transition-group';
 import { modalClearAction, modalCloseAction } from "../../modules";
 import { mainMenuListAction } from "../../modules/main-menu";
 
-export const Main = () => {
+const Main = () => {
   console.log("Main")
 
   const dispatch = useDispatch();
@@ -60,3 +60,5 @@ export const Main = () => {
     </div>
   );
 }
+
+export default Main;

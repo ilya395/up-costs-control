@@ -3,8 +3,7 @@ import cn from "classnames";
 import s from "./Login.module.scss";
 import { LoginForm, LoginHelp, WelcomeHeader } from "../../components";
 
-
-export const Login = () => {
+const Login = () => {
   console.log("Login")
   return (
     <div className="container">
@@ -16,3 +15,5 @@ export const Login = () => {
     </div>
   );
 }
+
+export default Login;

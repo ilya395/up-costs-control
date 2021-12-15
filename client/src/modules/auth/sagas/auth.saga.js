@@ -20,6 +20,7 @@ function* fetchAuth(data) {
       yield put(authSuccessAction(auth.data));
       yield call(() => localAuthData.setAuthData(JSON.stringify(auth.data)));
     } else {
+      yield put(authErrorAction(auth.error));
       yield put(notificationMessageAction({
         message: auth.error,
         notificationType: NOTIFICATION_ERROR
