@@ -11,3 +11,13 @@ ReactDOM.render(
   <Provider store={store}><App /></Provider>,
   document.getElementById('root')
 );
+
+window.addEventListener("load", async () => {
+  if (navigator.serviceWorker) {
+    try {
+      const worker = await navigator.serviceWorker.register("./main.sw.js");
+    } catch(e) {
+      console.log("ServiceWorker is bad :(")
+    }
+  }
+});

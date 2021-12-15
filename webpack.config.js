@@ -97,7 +97,7 @@ const plugins = () => {
       environment: process.env.NODE_ENV,
       filename: 'index.html',
       template: './templates/index.html',
-      baseUrl: process.env.NODE_ENV === 'development'? '/' : '/up-realty/',
+      // baseUrl: process.env.NODE_ENV === 'development'? '/' : '/up-realty/',
       minify: {
         collapseWhitespace: !isProd
       },
@@ -111,9 +111,17 @@ const plugins = () => {
           to: path.resolve(__dirname, './client/dist/assets/'),
         },
         {
-          from: path.resolve(__dirname, './client/src/public/*.json').replace(/\\/g, "/"), // в win пути с другими слэшами
-          to: path.resolve(__dirname, './client/dist/').replace("/public/", "/")
-      },
+          from: path.resolve(__dirname, './client/src/public/**/*').replace(/\\/g, "/"), // в win пути с другими слэшами,
+          to: path.resolve(__dirname, './client/dist/'),
+        },
+        {
+          from: path.resolve(__dirname, './client/src/*.json').replace(/\\/g, "/"), // в win пути с другими слэшами
+          to: path.resolve(__dirname, './client/dist/')
+        },
+        {
+          from: path.resolve(__dirname, './client/src/*.sw.js').replace(/\\/g, "/"), // в win пути с другими слэшами
+          to: path.resolve(__dirname, './client/dist/')
+        },
       ]
     }),
     new MiniCssExtractPlugin({

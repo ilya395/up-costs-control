@@ -25,7 +25,7 @@ const app = () => {
 
   // обслуживание статических ресурсов
   app.get(
-    /\.(js|css|map|ico)$/,
+    /\.(js|css|map|ico|json|png|jpg|jpeg)$/,
     express.static(
       `${__dirname}/../client/dist`
     )
