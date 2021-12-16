@@ -43,9 +43,9 @@ function* fetchAddCosts(data) {
   try {
     const { userId, amount, expenseItemId, description, date } = data.payload;
     const body = {
-      userId: userId || localAuthData.getUserId(),
-      amount,
-      expenseItemId,
+      userId: +userId || +localAuthData.getUserId(),
+      amount: +amount,
+      expenseItemId: +expenseItemId,
       description,
     };
     date ? (body.date = date) : body;
@@ -125,6 +125,7 @@ function* fetchDeleteExpenseItem(data) {
         url: API_URL.expenseItems.delete,
         body: {
           id,
+          userId: localAuthData.getUserId(),
         }
       })
     });

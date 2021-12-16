@@ -1,10 +1,11 @@
 import React from "react";
 
 export const AddExpenseItem = props => {
-  console.log("AddExpenseItem")
+
   const addNew = () => {
     props.addNewExpenseItem();
   }
+
   return (
     <button className="add-expense-item-button" onClick={addNew}>
       <div className="add-expense-item-button__icon">

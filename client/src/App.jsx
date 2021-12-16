@@ -6,7 +6,6 @@ import s from "./App.scss";
 import { Notification, PreloaderContainer } from './components';
 
 const App = () => {
-  console.log("App")
   return (
     <>
       <BrowserRouter>

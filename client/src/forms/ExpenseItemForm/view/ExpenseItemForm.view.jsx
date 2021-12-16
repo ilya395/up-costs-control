@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { buttonColors } from "../../../constants";
 
 export const ExpenseItemFormView = props => {
-  console.log("ExpenseItemFormView")
 
   const { disabled } = props;
 
@@ -54,7 +53,7 @@ export const ExpenseItemFormView = props => {
       array.push(arg);
     });
     return array;
-  }, [buttonColors]);
+  }, [buttonColors, colorValue]);
 
   const onCancel = () => {
     props.onCancel();

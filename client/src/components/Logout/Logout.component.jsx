@@ -5,7 +5,7 @@ import { authEndAction, modalClearAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
 export const Logout = memo(() => {
-  console.log("Logout")
+
   const dispatch = useDispatch();
 
   const onLogout = () => {

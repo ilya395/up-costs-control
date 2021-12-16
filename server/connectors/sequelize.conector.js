@@ -12,7 +12,7 @@ module.exports = new Sequelize(
     define: {
       charset: 'utf8',
       collate: 'utf8_general_ci',
-      timestamps: true, // ?
+      timestamps: true, // для автозаполнения полей создания и обновления
     }
   }
 );

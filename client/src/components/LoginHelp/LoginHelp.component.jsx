@@ -4,7 +4,6 @@ import s from "./LoginHelp.module.scss";
 import { memo } from "react";
 
 export const LoginHelp = memo(() => {
-  console.log("LoginHelp")
   return (
     <div className={cn(s["login-help"], "simple-text_other")}>
       <span>Забыли пароль?</span>&nbsp;

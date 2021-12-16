@@ -63,3 +63,5 @@ export const NOTIFICATION_SUCCESS = "NOTIFICATION_SUCCESS";
 
 export const LOADING_DATA = "LOADING_DATA";
 export const LOADING_APP = "LOADING_APP";
+
+export const BAD_WORDS = ['@', 'http', 'https', 'ws'];

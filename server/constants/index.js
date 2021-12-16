@@ -13,6 +13,8 @@ const DB_NAME = process.env.DB_NAME;
 const TOKEN_KEY = process.env.TOKEN_KEY;
 const TOKEN_LIFE_TIME = process.env.TOKEN_LIFE_TIME;
 
+const BAD_WORDS = ['@', 'http', 'https', 'ws'];
+
 module.exports = {
   HOST,
   PORT,
@@ -22,5 +24,6 @@ module.exports = {
   DB_PORT,
   DB_NAME,
   TOKEN_KEY,
-  TOKEN_LIFE_TIME
+  TOKEN_LIFE_TIME,
+  BAD_WORDS,
 }

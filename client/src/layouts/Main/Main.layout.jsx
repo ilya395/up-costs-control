@@ -9,7 +9,6 @@ import { modalClearAction, modalCloseAction } from "../../modules";
 import { mainMenuListAction } from "../../modules/main-menu";
 
 const Main = () => {
-  console.log("Main")
 
   const dispatch = useDispatch();
 
