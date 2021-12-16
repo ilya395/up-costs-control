@@ -195,11 +195,12 @@ class UsersController {
         });
       }
       const data = req.body;
+      const { id, login, password, email, phone, shortName, surname } = data;
       // нужно проверить входные данные
       if (
         !checkUserValidate({
           keys: ["id", "login", "password", "email", "phone", "shortName", "surname"],
-          data: {id, login, password, email, phone, shortName, surname},
+          data: {...data},
         })
       ) {
         return res.status(400).json({

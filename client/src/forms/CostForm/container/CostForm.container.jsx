@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CostFormView } from "..";
+import { CostFormView } from "../view/CostForm.view";
 import { CLICK_DELAY, NOTIFICATION_WARNING } from "../../../constants";
 import { addCostsAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { cheekiBreekiValidator, throttle } from "../../../utils";

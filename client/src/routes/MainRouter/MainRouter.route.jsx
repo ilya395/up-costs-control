@@ -8,6 +8,7 @@ const Login = lazy(() => import("../../layouts/Login/Login.layout"));
 const Main = lazy(() => import("../../layouts/Main/Main.layout"));
 
 export const MainRoter = () => {
+
   const [tokenInComponent, setTokenInComponent] = useState(localAuthData.getToken());
 
   const state = useSelector(state => state.auth);

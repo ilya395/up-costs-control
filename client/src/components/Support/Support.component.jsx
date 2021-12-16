@@ -1,9 +1,11 @@
 import React, { memo } from "react";
 
-export const Support = memo(() => {
+const Support = memo(() => {
   return (
     <>
       "Support"
     </>
   );
 });
+
+export default Support;
