@@ -4,7 +4,6 @@ import { modalSupportAction, modalMainMenuAction } from "../../modules/modal";
 import { NavButton } from "../NavButton/NavButton.component";
 
 export const NavBar = memo(() => {
-  console.log("NavBar")
 
   const dispatch = useDispatch();
 

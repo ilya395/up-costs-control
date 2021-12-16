@@ -93,6 +93,8 @@ const jsLoaders = () => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
+      title: 'Web Application',
+      environment: process.env.NODE_ENV,
       filename: 'index.html',
       template: './templates/index.html',
       baseUrl: process.env.NODE_ENV === 'development'? '/' : '/up-realty/',
@@ -137,6 +139,7 @@ module.exports = {
   },
   output: {                                       // куда складывать результаты работы
     filename: 'assets/js/' + filename('js'),      // итоговый файл, после сборкивсех js файлов
+    chunkFilename: 'assets/js/' + filename('chunk.js'),
     path: path.resolve(__dirname, 'client/dist'), // отталкиваясь от текущей директории, складывать все в dist
     publicPath: '/',                              // относительная ссылка, которая будет подставляться из браузера
   },

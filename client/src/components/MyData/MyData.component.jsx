@@ -6,7 +6,7 @@ import { notificationMessageAction, setUserDataAction } from "../../modules";
 import { localAuthData, strangeNumber } from "../../utils";
 
 export const MyData = memo(props => {
-  console.log("MyData")
+
   const { profile } = props;
 
   const dispatch = useDispatch();

@@ -38,3 +38,7 @@ export const MainMenyReducer = (state = initialNainMenuState, action) => {
       return state;
   }
 }
+
+export const menuDataSelector = state => state.mainMenu.myData;
+export const menuChangePasswordSelector = state => state.mainMenu.changePassword;
+export const menuLogoutSelector = state => state.mainMenu.logout;

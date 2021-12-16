@@ -1,4 +1,5 @@
 import validator from "validator";
+import { BAD_WORDS } from "../../constants";
 
 class Validator {
   checkEmail(arg) {
@@ -16,6 +17,16 @@ class Validator {
   checkPhone(arg) {
     return arg && validator.isNumeric(arg.toString());
     // return arg && validator.isMobilePhone(arg.toString(), 'ru-RU');
+  }
+  checkText(arg) {
+    let validate = true;
+    for (let i = 0; i < BAD_WORDS.length; i++) {
+      if (arg.indexOf(BAD_WORDS[i]) !== -1) {
+          validate = false;
+          break;
+      }
+    }
+    return validate;
   }
 }
 

@@ -45,3 +45,5 @@ export const NotificationReducer = (state = initialNotificationState, action) =>
       }
   }
 }
+
+export const notificationMessagesSelector = state => state.notification.messages;

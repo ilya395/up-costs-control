@@ -3,7 +3,6 @@ import {
   MODAL_EXPENSE_ITEM_ADD,
   MODAL_EXPENSE_ITEM_DELETE,
   MODAL_EXPENSE_ITEM_EDIT,
-  MODAL_OPEN,
   MODAL_COST_ADD,
   MODAL_SUPPORT,
   MODAL_MAIN_MENU,
@@ -60,13 +59,6 @@ export const ModalReducer = (state = initialModalState, action) => {
         componentName: MODAL_MAIN_MENU,
         data: null,
       }
-    // case MODAL_OPEN:
-    //   return {
-    //     ...state,
-    //     open: true,
-    //     componentName: null,
-    //     data: null,
-    //   }
     case MODAL_CLOSE:
       return {
         ...state,
@@ -81,3 +73,7 @@ export const ModalReducer = (state = initialModalState, action) => {
       return state;
   }
 }
+
+export const modalOpenSelector = state => state.modal.open;
+export const modalComponentSelector = state => state.modal.componentName;
+export const modalDataSelector = state => state.modal.data;

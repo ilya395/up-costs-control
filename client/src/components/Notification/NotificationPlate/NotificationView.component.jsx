@@ -4,8 +4,9 @@ import { CSSTransition } from "react-transition-group";
 import { NOTIFICATION_ERROR, NOTIFICATION_INFO, NOTIFICATION_WARNING } from "../../../constants";
 
 export const NotificationPlate = ({ message, delay, active, type, clearNotification }) => {
-  console.log("NotificationPlate", delay)
+
   const [localDelay, setLocalDelay] = useState(delay);
+
   const setType = type => {
     switch (type) {
       case NOTIFICATION_ERROR:
@@ -31,11 +32,7 @@ export const NotificationPlate = ({ message, delay, active, type, clearNotificat
       }}
       mountOnEnter
       unmountOnExit
-      onExiting={() => console.log("onExiting", localDelay)}
-      onExited={() => {
-        console.log("onExited", localDelay)
-        clearNotification(message)
-      }}
+      onExited={() => clearNotification(message)}
     >
       <div className={`notification simple-text_main show ${setType(type)}`} style={{animationDelay: `${localDelay}ms`}}>
           {message}

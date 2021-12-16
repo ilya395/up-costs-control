@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 export const SimpleFormFieldColumn = props => {
-  console.log("SimpleFormFieldColumn")
   const { ident, label, value: val, type = "text", getValue } = props;
 
   const [value, setValue] = useState(val);

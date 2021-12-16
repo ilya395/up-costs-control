@@ -8,7 +8,7 @@ import { notificationMessageAction } from "../../modules";
 import { NOTIFICATION_WARNING } from "../../constants";
 
 export const LoginForm = () => {
-  console.log("LoginForm")
+
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({

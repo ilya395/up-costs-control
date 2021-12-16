@@ -4,7 +4,6 @@ import { getUserAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
 export const ProfileLayout = props => {
-  console.log("ProfileLayout")
 
   const dispatch = useDispatch();
 

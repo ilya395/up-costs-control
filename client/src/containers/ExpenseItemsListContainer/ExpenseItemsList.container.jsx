@@ -8,7 +8,6 @@ import { localAuthData } from "../../utils"; // не сработал норма
 import { memo } from "react";
 
 export const ExpenseItemsListContainer = memo(() => {
-  console.log("ExpenseItemsListContainer")
 
   const dispatch = useDispatch();
 
@@ -17,7 +16,6 @@ export const ExpenseItemsListContainer = memo(() => {
   const choosedDate = useSelector(state => state.date.choosedDate);
 
   const goDispatchChoosedDate = () => {
-    console.log("ExpenseItemsListContainer: goDispatchChoosedDate")
     dispatch(getCostsAction({
       id: localAuthData.getUserId(),
       date: (choosedDate).getTime(),

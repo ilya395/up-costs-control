@@ -60,3 +60,8 @@ export const NOTIFICATION_ERROR = "NOTIFICATION_ERROR";
 export const NOTIFICATION_WARNING = "NOTIFICATION_WARNING";
 export const NOTIFICATION_INFO = "NOTIFICATION_INFO";
 export const NOTIFICATION_SUCCESS = "NOTIFICATION_SUCCESS";
+
+export const LOADING_DATA = "LOADING_DATA";
+export const LOADING_APP = "LOADING_APP";
+
+export const BAD_WORDS = ['@', 'http', 'https', 'ws'];

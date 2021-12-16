@@ -6,7 +6,6 @@ import { ProfileLayout } from "../../layouts";
 import { MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_MAIN_MENU, MODAL_SUPPORT } from "../../modules/modal";
 
 export const ModalContainer = props => {
-  console.log("ModalContainer")
 
   const { data, closeModal } = props;
 

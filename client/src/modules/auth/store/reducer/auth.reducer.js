@@ -47,3 +47,7 @@ export function AuthReducer(state = initialLoginState, action) {
       }
   }
 }
+
+export const authStatusSelector = state => state.auth.auth;
+export const authAwaitSelector = state => state.auth.await;
+export const authErrorSelector = state => state.auth.error;

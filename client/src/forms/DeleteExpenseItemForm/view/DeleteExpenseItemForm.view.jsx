@@ -1,7 +1,6 @@
 import React from "react";
 
 export const DeleteExpenseItemFormView = props => {
-  console.log("DeleteExpenseItemFormView")
 
   const { disabled } = props;
 

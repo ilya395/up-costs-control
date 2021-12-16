@@ -6,7 +6,7 @@ import { localAuthData } from "../../utils";
 import { SimpleFormFieldColumn } from "../SimpleFormFieldColumn/SimpleFormFieldColumn.component";
 
 export const ChangePassword = memo(() => {
-  console.log("ChangePassword")
+
   const dispatch = useDispatch();
 
   const [newPasswordValue, setNewPasswordValue] = useState("");

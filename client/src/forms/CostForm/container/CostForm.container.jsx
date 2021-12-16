@@ -5,9 +5,7 @@ import { CLICK_DELAY, NOTIFICATION_WARNING } from "../../../constants";
 import { addCostsAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { cheekiBreekiValidator, throttle } from "../../../utils";
 
-
 export const CostFormContainer = props => {
-  console.log("CostFormContainer")
 
   const { allProps } = props;
 
@@ -33,14 +31,23 @@ export const CostFormContainer = props => {
   const validateCost = ({ amount, description }) => {
 
     let result = true;
+
     if (!cheekiBreekiValidator.checkNumber(+amount)) {
-      console.log("validateCost")
       dispatch(notificationMessageAction({
         message: "Корректно заполните поле стоимости!",
         notificationType: NOTIFICATION_WARNING
       }));
       result = false;
     }
+
+    if (description && !cheekiBreekiValidator.checkText()) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните поле описания!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+
     return result;
   }
 

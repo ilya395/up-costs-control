@@ -4,8 +4,9 @@ import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
 
 export const ExpenseItem = props => {
-  console.log("ExpenseItem")
+
   const [clickStartTime, setClickStartTime] = useState(null);
+
   const [clickEndTime, setClickEndTime] = useState(null);
 
   const [timer, setTimer] = useState(null);
@@ -32,17 +33,14 @@ export const ExpenseItem = props => {
   }
 
   const onShortClick = () => {
-    console.log("onShortClick")
     returnDataForCreateCost();
   }
 
   const onLongClick = () => {
-    console.log("onLongClick")
     returnExpenseItemIdForDeleting();
   }
 
   const onCustomDoubleClick = () => {
-    console.log("onCustomDoubleClick")
     returnExpenseItemIdForChanging();
   }
 
@@ -73,27 +71,10 @@ export const ExpenseItem = props => {
     }
   }
 
-  // const [articleClasses, setArticleClasses] = useState(cn({"expense-item-button": true,}));
-
-  // useEffect(() => {
-  //   if (readyToDAndD) {
-  //     setArticleClasses(cn({
-  //       ...articleClasses,
-  //       "ready-to-drag-and-drop": true,
-  //     }));
-  //   } else {
-  //     setArticleClasses(cn({
-  //       ...articleClasses,
-  //       "ready-to-drag-and-drop": false,
-  //     }));
-  //   }
-  // }, [readyToDAndD])
-
   const [readyToDAndD, setReadyToDAndD] = useState(false);
 
   const onDragStart = (event) => {
     const target = event.target;
-    console.log("onDragStart",)
     setReadyToDAndD(true);
     props.getDroppableElement({
       id: target.id,
@@ -102,7 +83,6 @@ export const ExpenseItem = props => {
   }
 
   const onDragEnd = () => {
-    console.log("onDragEnd")
     setReadyToDAndD(false);
     props.getDroppableElement(null);
   }

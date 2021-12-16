@@ -21,6 +21,7 @@ function* fetchGetCosts(data) {
     if (!response.error) {
       yield put(costsSuccessAction(response.data.data));
     } else {
+      yield put(costsErrorAction(response.error));
       yield put(notificationMessageAction({
         message: auth.error,
         notificationType: NOTIFICATION_ERROR
@@ -42,9 +43,9 @@ function* fetchAddCosts(data) {
   try {
     const { userId, amount, expenseItemId, description, date } = data.payload;
     const body = {
-      userId: userId || localAuthData.getUserId(),
-      amount,
-      expenseItemId,
+      userId: +userId || +localAuthData.getUserId(),
+      amount: +amount,
+      expenseItemId: +expenseItemId,
       description,
     };
     date ? (body.date = date) : body;
@@ -60,6 +61,7 @@ function* fetchAddCosts(data) {
       yield put(modalClearAction());
       yield put(succesAddCostsAction(response.data));
     } else {
+      yield put(errorAddCostsAction(response.error));
       yield put(notificationMessageAction({
         message: response.error,
         notificationType: NOTIFICATION_ERROR
@@ -96,6 +98,7 @@ function* fetchAddExpenseItem(data) {
       yield put(modalClearAction());
       yield put(successAddExpenseItemAction(response.data));
     } else {
+      yield put(errorAddExpenseItemAction(response.error));
       yield put(notificationMessageAction({
         message: response.error,
         notificationType: NOTIFICATION_ERROR
@@ -122,6 +125,7 @@ function* fetchDeleteExpenseItem(data) {
         url: API_URL.expenseItems.delete,
         body: {
           id,
+          userId: localAuthData.getUserId(),
         }
       })
     });
@@ -130,6 +134,7 @@ function* fetchDeleteExpenseItem(data) {
       yield put(modalClearAction());
       yield put(successDeleteExpenseItemAction(response.data));
     } else {
+      yield put(errorDeleteExpenseItemAction(response.error));
       yield put(notificationMessageAction({
         message: response.error,
         notificationType: NOTIFICATION_ERROR
@@ -168,6 +173,7 @@ function* fetchChangeExpenseItem(data) {
       yield put(modalClearAction());
       yield put(successChangeExpenseItemAction(response.data));
     } else {
+      yield put(errorChangeExpenseItemAction(response.error));
       yield put(notificationMessageAction({
         message: response.error,
         notificationType: NOTIFICATION_ERROR
