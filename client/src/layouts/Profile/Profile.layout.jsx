@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
-export const ProfileLayout = props => {
+const ProfileLayout = props => {
 
   const dispatch = useDispatch();
 
@@ -33,3 +33,5 @@ export const ProfileLayout = props => {
     </div>
   );
 }
+
+export default ProfileLayout;

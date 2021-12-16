@@ -1,2 +1,1 @@
-export * from "./container/CostForm.container";
-export * from "./view/CostForm.view";
+export { CostFormContainer as default } from "./container/CostForm.container";

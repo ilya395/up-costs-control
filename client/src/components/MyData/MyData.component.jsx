@@ -36,6 +36,7 @@ export const MyData = memo(props => {
   }
 
   const [activeButton, setActiveButton] = useState(true);
+
   useEffect(() => {
     if (
       (profile.surname === newSurname || newSurname === null) &&
@@ -46,8 +47,6 @@ export const MyData = memo(props => {
       setActiveButton(true);
     }
   }, [newShortName, newSurname, newEmail, newPhone]);
-
-
 
   const onSubmit = event => {
     event.preventDefault();

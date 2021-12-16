@@ -5,7 +5,7 @@ import { ChangePassword, Logout, MyData } from "..";
 import { mainMenuChangePasswordAction, mainMenuLogoutAction, mainMenuMyDataAction } from "../../modules/main-menu";
 import { MainMenu } from "../MainMenu/MainMenu.component";
 
-export const Profile = props => {
+const Profile = props => {
 
   const { profile } = props.props;
 
@@ -88,3 +88,5 @@ export const Profile = props => {
     </>
   );
 }
+
+export default Profile;
