@@ -1,9 +1,13 @@
 @import "../variables/variables";
 
 .main-menu {
-  // &__list {
-  //   padding-top: 4.5rem !important;
-  // }
+  &__list {
+    padding-top: 4.5rem !important;
+
+    @media screen and (max-width: 375px) {
+      padding-top: 2.5rem !important;
+    }
+  }
   &__item {
     margin-top: 3rem;
 

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CostFormView } from "../view/CostForm.view";
 import { CLICK_DELAY, NOTIFICATION_WARNING } from "../../../constants";
 import { addCostsAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { cheekiBreekiValidator, throttle } from "../../../utils";
+import { ModalContext } from "../../../context";
 
 export const CostFormContainer = props => {
 
@@ -64,7 +65,11 @@ export const CostFormContainer = props => {
     onThrottleSave(data);
   }
 
+  const modalCcontext = useContext(ModalContext);
 
+  const focusHandler = (arg) => {
+    modalCcontext.setFocusing(arg);
+  }
 
   return (
     <CostFormView
@@ -72,6 +77,7 @@ export const CostFormContainer = props => {
       onCancel={onCancel}
       onSave={onSave}
       disabled={costsAddAwait || localThrottle}
+      focusHandler={focusHandler}
     />
   );
 }

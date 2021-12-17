@@ -7,7 +7,7 @@ import cn from "classnames";
 import { useSelector } from "react-redux";
 registerLocale("ru", ru);
 
-export const CostFormView = ({props, onCancel, onSave, disabled}) => {
+export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) => {
 
   const [disableNumberField, setDisableNumberField] = useState(false);
 
@@ -50,6 +50,10 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
     return onSave && onSave(data);
   }
 
+  const onFocus = () => focusHandler(true);
+
+  const onBlur = () => focusHandler(false);
+
   return (
     <>
       <div className="simple-form__outer-wrapper">
@@ -59,7 +63,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
         <form className="simple-form">
           <div className="simple-form__form-field simple-form__form-field_row">
             <label htmlFor="amount" className="simple-text_main">
-              Сумма, руб:
+              Сумма,&nbsp;руб:
             </label>
             <input
               type="text"
@@ -69,6 +73,8 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
               value={amount}
               onChange={onChangeAmount}
               required={true}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
           <div className="simple-form__form-field simple-form__form-field_row">
@@ -83,6 +89,8 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
               className="simple-form__input simple-text_main"
               value={description}
               onChange={onChangeDescription}
+              onFocus={onFocus}
+              onBlur={onBlur}
             ></textarea>
           </div>
           <div className="simple-form__form-field simple-form__form-field_row">

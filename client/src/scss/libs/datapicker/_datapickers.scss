@@ -12,6 +12,17 @@
   }
 }
 
+.simple-form__form-field {
+  & .react-datepicker__input-container {
+    & input {
+      @media screen and (max-width: 375px) {
+        padding-left: 40%;
+      }
+    }
+  }
+}
+
+
 .react-datepicker__month-container {
   width: 100%;
 }
