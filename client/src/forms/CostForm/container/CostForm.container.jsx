@@ -65,10 +65,10 @@ export const CostFormContainer = props => {
     onThrottleSave(data);
   }
 
-  const modalCcontext = useContext(ModalContext);
+  const modalContext = useContext(ModalContext);
 
   const focusHandler = (arg) => {
-    modalCcontext.setFocusing(arg);
+    modalContext.setUiFocusing(arg);
   }
 
   return (

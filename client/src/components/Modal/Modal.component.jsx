@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import cn from "classnames";
 import { ModalContext } from "../../context";
+import { useModalFocus } from "../../hooks";
 
 export const Modal = props => {
 
-  const [focusing, setFocusing] = useState(false);
+  const {uiFocusing, setUiFocusing} = useModalFocus(false);
 
   const closeHandler = () => {
     props.closeModal();
@@ -12,9 +13,9 @@ export const Modal = props => {
 
   return (
     <ModalContext.Provider
-      value={{focusing, setFocusing}}
+      value={{uiFocusing, setUiFocusing}}
     >
-      <div className={cn("modal__wrap", {"focusing": focusing})}>
+      <div className={cn("modal__wrap", {"focusing": uiFocusing})}>
         <div className="modal__content">
           <div className="modal__upper-panel">
             <button className="upper-panel__row" onClick={closeHandler}>
