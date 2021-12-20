@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ModalContext } from "../../context";
 
 export const SimpleFormFieldColumn = props => {
   const { ident, label, value: val, type = "text", getValue } = props;
@@ -9,6 +10,13 @@ export const SimpleFormFieldColumn = props => {
     setValue(event.target.value);
     getValue(event.target.value);
   }
+
+  const modalContext = useContext(ModalContext);
+
+  const onFocus = () => modalContext.setUiFocusing(true);
+
+  const onBlur = () => modalContext.setUiFocusing(false);
+
   return (
     <div className="simple-form__form-field simple-form__form-field_column">
       <label htmlFor={ident} className="simple-text_main">
@@ -23,6 +31,8 @@ export const SimpleFormFieldColumn = props => {
           value={value}
           onChange={onChange}
           required={true}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </div>
     </div>

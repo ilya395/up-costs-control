@@ -1,29 +1,42 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { ModalContext } from "../../context";
 import { strangeNumber } from "../../utils";
 
 export const SimpleFormFieldRow = props => {
+
   const { ident, label, value: val, getValue, type = "text" } = props;
 
   const [value, setValue] = useState(strangeNumber(type, val));
 
   const [visibleValue, setVisibleValue] = useState(true);
+
   const valueRef = useRef(null);
+
   useEffect(() => {
     if (!visibleValue) {
       valueRef.current.focus();
     }
-  }, [visibleValue])
+  }, [visibleValue]);
+
   const clickOnValue = () => {
     setVisibleValue(false);
   }
+
   const onChangeValue = event => {
     const data = event.target.value;
     setValue(data);
     getValue(data);
   }
+
   const onBlurValue = () => {
     setVisibleValue(true);
   }
+
+  const modalContext = useContext(ModalContext);
+
+  const onFocus = () => modalContext.setUiFocusing(true);
+
+  const onBlur = () => modalContext.setUiFocusing(false);
 
   return (
     <div className="simple-form__form-field simple-form__form-field_row simple-form__form-field_little-row">
@@ -48,6 +61,8 @@ export const SimpleFormFieldRow = props => {
         onChange={onChangeValue}
         onBlur={onBlurValue}
         required={true}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
     </div>
   );

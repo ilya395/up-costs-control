@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItemsList.module.scss";
 import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
@@ -13,6 +13,8 @@ export const ExpenseItemsList = props => {
   useEffect(() => {
     costs && setLocalCosts([...costs].sort((a, b) => +a.index - +b.index));
   }, [costs]);
+
+  // <!-- потенциальный кастомный хук -->
 
   const [droppableElement, setDroppableElement] = useState(null);
 
@@ -96,8 +98,41 @@ export const ExpenseItemsList = props => {
     setCanDrop(false);
   }
 
+  // <!-- /потенциальный кастомный хук -->
+
+  const [coordinates, setCoordinates] = useState(null); // это пертаскиваемый объект
+
+  const [acceptor, setAcceptor] = useState(null);
+
+  const refList = useRef(null);
+
+  const onTouchCancelHandler = () => {console.log("onTouchCancel")}
+
+  const onTouchEndHandler = () => {
+    console.log("onTouchEnd")
+
+    droppingElement({
+      from: {
+        id: coordinates && coordinates.id,
+        index: coordinates && coordinates.index,
+      },
+      to: {
+        id: acceptor && acceptor.id,
+        index: acceptor && acceptor.index,
+      }
+    });
+    setCanDrop(false);
+  }
+
+  const onTouchMoveHandler = arg => {
+    // console.log("onTouchMove")
+    setCanDrop(arg);
+  }
+
+  const onTouchStartHandler = () => {console.log("onTouchStart")}
+
   return (
-    <div className={s["expense-items-list"]}>
+    <div className={s["expense-items-list"]} ref={refList}>
       {
         localCosts &&
         localCosts.map((item, index) => (
@@ -116,6 +151,17 @@ export const ExpenseItemsList = props => {
               dragEnter={dragEnter}
               dragLeave={dragLeave}
               dragDrop={dragDrop}
+              onTouchCancelHandler={onTouchCancelHandler}
+              onTouchEndHandler={onTouchEndHandler}
+              onTouchMoveHandler={onTouchMoveHandler}
+              onTouchStartHandler={onTouchStartHandler}
+              coordinates={
+                // (coordinates && +item.id === +coordinates.id) ? coordinates : null
+                coordinates
+              }
+              setCoordinates={setCoordinates}
+              parentRef={refList}
+              setAcceptor={setAcceptor}
             />
           </div>
         ))

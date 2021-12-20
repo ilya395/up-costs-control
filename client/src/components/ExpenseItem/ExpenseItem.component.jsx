@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CLICK_DELAY, CLICK_DURATION } from "../../constants";
 import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
+import { debounce, inMobile, throttle } from "../../utils";
 
 export const ExpenseItem = props => {
 
@@ -32,23 +33,7 @@ export const ExpenseItem = props => {
     });
   }
 
-  const onShortClick = () => {
-    returnDataForCreateCost();
-  }
-
-  const onLongClick = () => {
-    returnExpenseItemIdForDeleting();
-  }
-
-  const onCustomDoubleClick = () => {
-    returnExpenseItemIdForChanging();
-  }
-
-  const onMouseDown = () => {
-    setClickStartTime(new Date().getTime());
-  }
-
-  const onMouseUp = () => {
+  const makeMove = () => {
     const endTime = new Date().getTime();
     setClickEndTime(endTime);
 
@@ -71,6 +56,32 @@ export const ExpenseItem = props => {
     }
   }
 
+  const onShortClick = () => {
+    returnDataForCreateCost();
+  }
+
+  const onLongClick = () => {
+    returnExpenseItemIdForDeleting();
+  }
+
+  const onCustomDoubleClick = () => {
+    returnExpenseItemIdForChanging();
+  }
+
+  const onMouseDown = () => { // убрать для мобилки
+    if (!inMobile()) {
+    console.log("onMouseDown")
+    setClickStartTime(new Date().getTime());
+    }
+  }
+
+  const onMouseUp = () => { // убрать для мобилки
+    if (!inMobile()) {
+      console.log("onMouseUp")
+      makeMove();
+    }
+  }
+
   const [readyToDAndD, setReadyToDAndD] = useState(false);
 
   const onDragStart = (event) => {
@@ -87,12 +98,131 @@ export const ExpenseItem = props => {
     props.getDroppableElement(null);
   }
 
+  const [itemCoordinates, setItemCoordinates] = useState(null); // координаты периметра
+  const refItem = useRef(null);
+  useEffect(() => {
+    // console.log(props.coordinates && props.coordinates.touch)
+    const elem = refItem.current;
+
+    if (readyToDAndD) { // это пертаскиваемый объект
+      setItemCoordinates({
+        top: props.coordinates && props.coordinates.elem && props.coordinates.elem.top, // itemCoordinates && itemCoordinates.top, // + props.coordinates.offset.top, // touch or element
+        left: props.coordinates && props.coordinates.elem && props.coordinates.elem.left, // itemCoordinates && itemCoordinates.left, // + props.coordinates.offset.left,
+      });
+    }
+
+    // условие попадания центра объекта в периметр зоны дропа
+    if (!readyToDAndD && props.coordinates) { // это статичный объект
+      const elem = refItem.current;
+      const itemCoords = {
+        top: 0, //elem.getBoundingClientRect().top,
+        left: 0, //elem.getBoundingClientRect().left,
+      };
+      console.log(itemCoords)
+      setItemCoordinates(itemCoords);
+      if (
+        props.coordinates.top > itemCoords.bottom && props.coordinates.top < itemCoords.top &&
+        props.coordinates.left > itemCoords.left && props.coordinates.right < itemCoords.right
+      ) {
+        props.setAcceptor({
+          id: props.data.id,
+          index: props.data.index,
+        });
+        props.onTouchMoveHandler(true);
+      } else {
+        props.setAcceptor(null);
+        props.onTouchMoveHandler(false)
+      }
+    }
+
+  }, [props.coordinates])
+
+  const onTouchStart = (event) => {
+    if (inMobile()) {
+      // console.log("onTouchStart")
+      setClickStartTime(new Date().getTime());
+      setReadyToDAndD(true);
+      props.getDroppableElement({
+        id: event.target.id,
+        index: event.target.getAttribute("index"),
+      });
+
+      const touch = event.targetTouches[0]; // 1 finger
+      const coords = {
+        id: +event.target.id,
+        index: +event.target.getAttribute("index"),
+        touch: {
+          left: touch.clientX,
+          top: touch.clientY,
+          right: "auto",
+          bottom: "auto",
+        },
+        elem: {
+          top: 0,
+          left: 0,
+        },
+        offset: {
+          left: 0,
+          top: 0,
+        }
+      };
+      props.setCoordinates(coords);
+    }
+  }
+
+  const onTouchEnd = () => {
+    if (inMobile()) {
+      // console.log("onTouchEnd")
+      makeMove();
+
+      props.onTouchEndHandler();
+
+      props.setCoordinates(null);
+
+      setReadyToDAndD(false);
+
+      props.getDroppableElement(null);
+    }
+  }
+
+  const onTouchMove = event => {
+    if (
+      // +event.target.id == +props.data.id
+      readyToDAndD
+    ) {
+
+      const touch = event.targetTouches[0]; // 1 finger
+
+      const offsetX = touch.clientX - (props.coordinates && props.coordinates.touch && props.coordinates.touch.left ? props.coordinates.touch.left : touch.clientX);
+      const offsetY = touch.clientY - (props.coordinates && props.coordinates.touch && props.coordinates.touch.top ? props.coordinates.touch.top : touch.clientY);
+      const coords = {
+        id: +event.target.id,
+        index: +event.target.getAttribute("index"),
+        touch: {
+          left: touch.clientX, // event.target.getBoundingClientRect().left + props.coordinates.offset.left, //touch.pageX - parentContainer.left - (event.target.getBoundingClientRect().left - parentContainer.left), // - event.target.offsetWidth * 1.5,
+          top: touch.clientY, // event.target.getBoundingClientRect().top + props.coordinates.offset.top, // touch.pageY - parentContainer.top - (event.target.getBoundingClientRect().top - parentContainer.top), // - event.target.offsetWidth * 1.5,
+          right: "auto",
+          bottom: "auto",
+        },
+        elem: {
+          top: itemCoordinates.top + offsetY,
+          left: itemCoordinates.left + offsetX,
+        },
+        offset: {
+          left: offsetX,
+          top: offsetY,
+        }
+      };
+
+      return throttle(() => props.setCoordinates(coords))();
+    }
+  }
+
   return (
     <article
       id={props.data.id}
       index={props.data.index}
       className={cn("expense-item-button", { [s["ready-to-drag-and-drop"]]: readyToDAndD })}
-      style={{backgroundColor: props.data.color}}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       draggable={true}
@@ -102,6 +232,18 @@ export const ExpenseItem = props => {
       onDragEnter={props.dragEnter}
       onDragLeave={props.dragLeave}
       onDrop={props.dragDrop}
+      // onTouchCancel={props.onTouchCancel}
+      onTouchEnd={onTouchEnd}
+      onTouchMove={onTouchMove}
+      onTouchStart={onTouchStart}
+      style={{
+        backgroundColor: props.data.color,
+        position: readyToDAndD && itemCoordinates ? "fixed" : "relative",
+        top: readyToDAndD && itemCoordinates ? `${itemCoordinates.top}px` : "",
+        left: readyToDAndD && itemCoordinates ? `${itemCoordinates.left}px` : "",
+        // zIndex: readyToDAndD ? "149" : "-1",
+      }}
+      ref={refItem}
     >
       <h3 className="expense-item-button__title simple-text_other lowercase" style={{pointerEvents: "none"}}>
         {props.data.name}
