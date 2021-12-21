@@ -1,20 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import cn from "classnames";
-import s from "./ExpenseItemsList.module.scss";
-import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
-import { AddExpenseItem } from "../AddExpenseItem/AddExpenseItem.component";
+import { useEffect, useState } from "react";
 
-export const ExpenseItemsList = props => {
-
-  const { costs } = props;
+export const useDesctopDragging = (data) => {
+  const { costs, changeExpenseItemIndexCallback = null } = data;
 
   const [localCosts, setLocalCosts] = useState(costs);
-
-  useEffect(() => {
-    costs && setLocalCosts([...costs].sort((a, b) => +a.index - +b.index));
-  }, [costs]);
-
-  // <!-- потенциальный кастомный хук -->
 
   const [droppableElement, setDroppableElement] = useState(null);
 
@@ -58,7 +47,7 @@ export const ExpenseItemsList = props => {
       });
     }
     setLocalCosts(result.sort((a, b) => +a.index - +b.index));
-    props.changeExpenseItemIndex({
+    changeExpenseItemIndexCallback && changeExpenseItemIndexCallback({
       id: innerData.from.id,
       index: innerData.to.index,
     });
@@ -94,66 +83,13 @@ export const ExpenseItemsList = props => {
     setCanDrop(false);
   }
 
-  // <!-- /потенциальный кастомный хук -->
-
-  const [coordinates, setCoordinates] = useState(null); // это пертаскиваемый объект
-
-  const [acceptor, setAcceptor] = useState(null);
-
-  const onTouchEndHandler = () => {
-    console.log("onTouchEndHandler")
-
-    coordinates &&
-    acceptor &&
-    droppingElement({
-      from: {
-        id: coordinates && coordinates.id,
-        index: coordinates && coordinates.index,
-      },
-      to: {
-        id: acceptor && acceptor.id,
-        index: acceptor && acceptor.index,
-      }
-    });
-    setCanDrop(false);
-    setCoordinates(null);
-    setAcceptor(null)
+  return {
+    getDroppableElement: (arg) => setDroppableElement(arg),
+    dragOver: event => dragOver(event),
+    dragEnter: event => dragEnter(event),
+    dragLeave: () => dragLeave(),
+    dragDrop: () => dragDrop(),
+    setLocalCosts,
+    localCosts,
   }
-
-  return (
-    <div className={s["expense-items-list"]}>
-      {
-        localCosts &&
-        localCosts.map((item, index) => (
-          <div
-            className={cn(s["expense-items-list__element"], { [s["can-drop"]]: canDrop && (canDrop.id == item.id) })}
-            key={item.id}
-            style={{animationDelay: `${index * 200}ms`}}
-          >
-            <ExpenseItem
-              data={item}
-              changeExpenseItem={props.changeExpenseItem}
-              addCost={props.addCost}
-              deleteExpenseItem={props.deleteExpenseItem}
-              getDroppableElement={setDroppableElement}
-              dragOver={dragOver}
-              dragEnter={dragEnter}
-              dragLeave={dragLeave}
-              dragDrop={dragDrop}
-              onTouchEndHandler={onTouchEndHandler}
-              onTouchMoveHandler={setCanDrop}
-              coordinates={coordinates}
-              setCoordinates={setCoordinates}
-              setAcceptor={setAcceptor}
-            />
-          </div>
-        ))
-      }
-      <div className={s["expense-items-list__element"]}>
-        <AddExpenseItem
-          addNewExpenseItem={props.addNewExpenseItem}
-        />
-      </div>
-    </div>
-  );
 }

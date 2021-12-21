@@ -6,12 +6,12 @@ $container_padding: $content_container_padding;
   &__outer-wrap {
     &.entering {
       & .modal__wrap {
-        animation: show-modal .6s forwards;
+        animation: show-modal .65s forwards;
       }
     }
     &.exiting {
       & .modal__wrap {
-        animation: show-modal .6s reverse;
+        animation: show-modal .65s reverse;
       }
     }
   }

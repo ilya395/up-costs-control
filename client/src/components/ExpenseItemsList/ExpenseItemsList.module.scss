@@ -9,7 +9,7 @@ $item_padding: 1.5rem;
   flex-direction: row;
   // overflow-y: hidden;
   overflow: hidden;
-  position: relative;
+  // position: relative;
 
   @media screen and (max-width: 369px) {
     margin-left: -$item_padding;
@@ -27,6 +27,7 @@ $item_padding: 1.5rem;
   &__element {
     opacity: 0;
     animation: show-element .4s forwards;
+    position: relative;
 
     @media screen and (max-width: 369px) {
       flex-basis: 50%;

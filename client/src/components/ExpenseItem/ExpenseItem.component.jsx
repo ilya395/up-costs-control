@@ -3,14 +3,9 @@ import { CLICK_DELAY, CLICK_DURATION } from "../../constants";
 import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
 import { debounce, inMobile, throttle } from "../../utils";
+import { useClicks } from "../../hooks";
 
 export const ExpenseItem = props => {
-
-  const [clickStartTime, setClickStartTime] = useState(null);
-
-  const [clickEndTime, setClickEndTime] = useState(null);
-
-  const [timer, setTimer] = useState(null);
 
   const returnExpenseItemIdForChanging = () => {
     const { data, changeExpenseItem } = props;
@@ -33,29 +28,6 @@ export const ExpenseItem = props => {
     });
   }
 
-  const makeMove = () => {
-    const endTime = new Date().getTime();
-    setClickEndTime(endTime);
-
-    const difference = Math.abs(clickStartTime - endTime);
-    if (difference > CLICK_DURATION) {
-      onLongClick();
-    } else {
-      if (!timer || (timer > CLICK_DELAY)) {
-        const tmr = setTimeout(() => {
-          onShortClick();
-          clearTimeout(tmr);
-          setTimer(null);
-        }, CLICK_DELAY);
-        setTimer(tmr);
-      } else {
-        onCustomDoubleClick();
-        clearTimeout(timer);
-        setTimer(null);
-      }
-    }
-  }
-
   const onShortClick = () => {
     returnDataForCreateCost();
   }
@@ -68,14 +40,21 @@ export const ExpenseItem = props => {
     returnExpenseItemIdForChanging();
   }
 
-  const onMouseDown = () => { // убрать для мобилки
+  const { setValueClickStartTime, setNullClickStartTime, makeMove } = useClicks({
+    shortClickCallback: onShortClick,
+    doubleClickCallback: onCustomDoubleClick,
+    longClickCallback: onLongClick,
+  });
+
+  const onMouseDown = () => {
     if (!inMobile()) {
-    console.log("onMouseDown")
-    setClickStartTime(new Date().getTime());
+      console.log("onMouseDown")
+      // setClickStartTime(new Date().getTime());
+      setValueClickStartTime();
     }
   }
 
-  const onMouseUp = () => { // убрать для мобилки
+  const onMouseUp = () => {
     if (!inMobile()) {
       console.log("onMouseUp")
       makeMove();
@@ -84,71 +63,128 @@ export const ExpenseItem = props => {
 
   const [readyToDAndD, setReadyToDAndD] = useState(false);
 
-  const onDragStart = (event) => {
-    const target = event.target;
+  const startHandler = (event) => {
     setReadyToDAndD(true);
     props.getDroppableElement({
-      id: target.id,
-      index: target.getAttribute("index"),
+      id: event.target.id,
+      index: event.target.getAttribute("index"),
     });
   }
 
-  const onDragEnd = () => {
+  const endHandler = () => {
     setReadyToDAndD(false);
     props.getDroppableElement(null);
   }
 
-  const [itemCoordinates, setItemCoordinates] = useState(null); // координаты периметра
-  const refItem = useRef(null);
-  useEffect(() => {
-    // console.log(props.coordinates && props.coordinates.touch)
-    const elem = refItem.current;
+  const onDragStart = (event) => startHandler(event);
 
+  const onDragEnd = () => endHandler();
+
+  const [itemCoordinates, setItemCoordinates] = useState(null); // координаты периметра
+
+  const refItem = useRef(null);
+
+  useEffect(() => {
     if (readyToDAndD) { // это пертаскиваемый объект
       setItemCoordinates({
-        top: props.coordinates && props.coordinates.elem && props.coordinates.elem.top, // itemCoordinates && itemCoordinates.top, // + props.coordinates.offset.top, // touch or element
-        left: props.coordinates && props.coordinates.elem && props.coordinates.elem.left, // itemCoordinates && itemCoordinates.left, // + props.coordinates.offset.left,
+        top: props.coordinates && props.coordinates.elem && props.coordinates.elem.top,
+        left: props.coordinates && props.coordinates.elem && props.coordinates.elem.left,
       });
     }
 
     // условие попадания центра объекта в периметр зоны дропа
-    if (!readyToDAndD && props.coordinates) { // это статичный объект
+    if (!readyToDAndD && props.coordinates && (props.coordinates.id !== props.data.id)) { // это статичный объект
+      console.log("статика")
       const elem = refItem.current;
       const itemCoords = {
-        top: 0, //elem.getBoundingClientRect().top,
-        left: 0, //elem.getBoundingClientRect().left,
+        top: elem.getBoundingClientRect().top,
+        left: elem.getBoundingClientRect().left,
+        bottom: elem.getBoundingClientRect().bottom,
+        right: elem.getBoundingClientRect().right,
       };
       console.log(itemCoords)
-      setItemCoordinates(itemCoords);
+
+      setItemCoordinates(props.data.id, itemCoords);
       if (
-        props.coordinates.top > itemCoords.bottom && props.coordinates.top < itemCoords.top &&
-        props.coordinates.left > itemCoords.left && props.coordinates.right < itemCoords.right
+        props.coordinates.position.y < itemCoords.bottom &&
+        props.coordinates.position.y > itemCoords.top &&
+        props.coordinates.position.x > itemCoords.left &&
+        props.coordinates.position.x < itemCoords.right
       ) {
-        props.setAcceptor({
-          id: props.data.id,
-          index: props.data.index,
-        });
-        props.onTouchMoveHandler(true);
+        console.log("go!")
+        return debounce(() => {
+          props.setAcceptor({
+            id: props.data.id,
+            index: props.data.index,
+          });
+          props.onTouchMoveHandler(true);
+          setItemCoordinates(null);
+        })();
       } else {
         props.setAcceptor(null);
         props.onTouchMoveHandler(false)
+        return;
       }
     }
 
-  }, [props.coordinates])
+  }, [props.coordinates]);
 
   const onTouchStart = (event) => {
     if (inMobile()) {
-      // console.log("onTouchStart")
-      setClickStartTime(new Date().getTime());
-      setReadyToDAndD(true);
-      props.getDroppableElement({
-        id: event.target.id,
-        index: event.target.getAttribute("index"),
-      });
+      console.log("onTouchStart")
+
+      // setClickStartTime(new Date().getTime());
+      setValueClickStartTime();
+
+      startHandler(event);
+    }
+  }
+
+  const onTouchEnd = () => {
+    if (inMobile()) {
+      console.log("onTouchEnd")
+      makeMove();
+
+      props.onTouchEndHandler();
+
+      endHandler();
+
+      props.setCoordinates(null);
+    }
+  }
+
+  const onTouchMove = event => {
+    if (readyToDAndD) {
+
+      // setClickStartTime(null);
+      setNullClickStartTime();
 
       const touch = event.targetTouches[0]; // 1 finger
-      const coords = {
+
+      const offsetX = touch.clientX - (props.coordinates && props.coordinates.touch && props.coordinates.touch.left ? props.coordinates.touch.left : touch.clientX);
+      const offsetY = touch.clientY - (props.coordinates && props.coordinates.touch && props.coordinates.touch.top ? props.coordinates.touch.top : touch.clientY);
+      const coords = props.coordinates ? {
+        id: +event.target.id,
+        index: +event.target.getAttribute("index"),
+        touch: {
+          left: touch.clientX,
+          top: touch.clientY,
+          right: "auto",
+          bottom: "auto",
+        },
+        elem: {
+          top: itemCoordinates.top + offsetY,
+          left: itemCoordinates.left + offsetX,
+        },
+        position: {
+          x: event.target.getBoundingClientRect().left + event.target.getBoundingClientRect().width / 2,
+          y: event.target.getBoundingClientRect().top + event.target.getBoundingClientRect().height / 2,
+        },
+        offset: {
+          left: offsetX,
+          top: offsetY,
+        }
+      } : {
         id: +event.target.id,
         index: +event.target.getAttribute("index"),
         touch: {
@@ -161,59 +197,15 @@ export const ExpenseItem = props => {
           top: 0,
           left: 0,
         },
+        position: {
+          x: event.target.getBoundingClientRect().left + event.target.getBoundingClientRect().width / 2,
+          y: event.target.getBoundingClientRect().top + event.target.getBoundingClientRect().height / 2,
+        },
         offset: {
           left: 0,
           top: 0,
         }
-      };
-      props.setCoordinates(coords);
-    }
-  }
-
-  const onTouchEnd = () => {
-    if (inMobile()) {
-      // console.log("onTouchEnd")
-      makeMove();
-
-      props.onTouchEndHandler();
-
-      props.setCoordinates(null);
-
-      setReadyToDAndD(false);
-
-      props.getDroppableElement(null);
-    }
-  }
-
-  const onTouchMove = event => {
-    if (
-      // +event.target.id == +props.data.id
-      readyToDAndD
-    ) {
-
-      const touch = event.targetTouches[0]; // 1 finger
-
-      const offsetX = touch.clientX - (props.coordinates && props.coordinates.touch && props.coordinates.touch.left ? props.coordinates.touch.left : touch.clientX);
-      const offsetY = touch.clientY - (props.coordinates && props.coordinates.touch && props.coordinates.touch.top ? props.coordinates.touch.top : touch.clientY);
-      const coords = {
-        id: +event.target.id,
-        index: +event.target.getAttribute("index"),
-        touch: {
-          left: touch.clientX, // event.target.getBoundingClientRect().left + props.coordinates.offset.left, //touch.pageX - parentContainer.left - (event.target.getBoundingClientRect().left - parentContainer.left), // - event.target.offsetWidth * 1.5,
-          top: touch.clientY, // event.target.getBoundingClientRect().top + props.coordinates.offset.top, // touch.pageY - parentContainer.top - (event.target.getBoundingClientRect().top - parentContainer.top), // - event.target.offsetWidth * 1.5,
-          right: "auto",
-          bottom: "auto",
-        },
-        elem: {
-          top: itemCoordinates.top + offsetY,
-          left: itemCoordinates.left + offsetX,
-        },
-        offset: {
-          left: offsetX,
-          top: offsetY,
-        }
-      };
-
+      }
       return throttle(() => props.setCoordinates(coords))();
     }
   }
