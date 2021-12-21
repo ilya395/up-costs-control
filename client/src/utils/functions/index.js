@@ -24,7 +24,6 @@ export function debounce(callback, delay = CLICK_DELAY) {
 export function throttle(callback, delay = CLICK_DELAY) {
   let trottle = false;
 
-
   function wrapper() {
     if (trottle) {
       return;
@@ -38,4 +37,15 @@ export function throttle(callback, delay = CLICK_DELAY) {
   }
 
   return wrapper;
+}
+
+export function inMobile() {
+  if (
+    // /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+    (window.matchMedia("(max-width:767px)").matches)
+  ) {
+    // код для мобильных устройств
+    return true;
+  }
+  return false;
 }

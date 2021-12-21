@@ -15,7 +15,7 @@ export const Logout = memo(() => {
   }
 
   return (
-    <div>
+    <div className="logout-block">
       <p className="simple-text_wide paragraph">
         Уверены, что хотите покинуть приложение? Ваши расходы сохранятся.
       </p>
