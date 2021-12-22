@@ -107,13 +107,12 @@ export const ExpenseItem = props => {
         props.coordinates.position.x > itemCoords.left &&
         props.coordinates.position.x < itemCoords.right
       ) { // из всех статичных объектов должен отработать один
-        return debounce(() => {
-          setItemCoordinates(null);
-          props.onTouchMoveHandler({
-            id: props.data.id,
-            index: props.data.index,
-          });
-        })();
+        // или debounce или проверять в род.методе заполненность или сравнивать данные в род.методе
+        setItemCoordinates(null);
+        props.onTouchMoveHandler({
+          id: props.data.id,
+          index: props.data.index,
+        });
       }
     }
 
@@ -142,7 +141,6 @@ export const ExpenseItem = props => {
   const onTouchMove = event => {
     if (readyToDAndD) {
 
-      // setClickStartTime(null);
       setNullClickStartTime();
 
       const touch = event.targetTouches[0]; // 1 finger
