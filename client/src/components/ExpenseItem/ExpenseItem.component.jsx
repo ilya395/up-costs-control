@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CLICK_DELAY, CLICK_DURATION } from "../../constants";
 import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
 import { debounce, inMobile, throttle } from "../../utils";
@@ -48,15 +47,12 @@ export const ExpenseItem = props => {
 
   const onMouseDown = () => {
     if (!inMobile()) {
-      console.log("onMouseDown")
-      // setClickStartTime(new Date().getTime());
       setValueClickStartTime();
     }
   }
 
   const onMouseUp = () => {
     if (!inMobile()) {
-      console.log("onMouseUp")
       makeMove();
     }
   }
@@ -94,36 +90,30 @@ export const ExpenseItem = props => {
 
     // условие попадания центра объекта в периметр зоны дропа
     if (!readyToDAndD && props.coordinates && (props.coordinates.id !== props.data.id)) { // это статичный объект
-      console.log("статика")
       const elem = refItem.current;
+
       const itemCoords = {
         top: elem.getBoundingClientRect().top,
         left: elem.getBoundingClientRect().left,
         bottom: elem.getBoundingClientRect().bottom,
         right: elem.getBoundingClientRect().right,
       };
-      console.log(itemCoords)
 
       setItemCoordinates(props.data.id, itemCoords);
+
       if (
         props.coordinates.position.y < itemCoords.bottom &&
         props.coordinates.position.y > itemCoords.top &&
         props.coordinates.position.x > itemCoords.left &&
         props.coordinates.position.x < itemCoords.right
-      ) {
-        console.log("go!")
+      ) { // из всех статичных объектов должен отработать один
         return debounce(() => {
-          props.setAcceptor({
+          setItemCoordinates(null);
+          props.onTouchMoveHandler({
             id: props.data.id,
             index: props.data.index,
           });
-          props.onTouchMoveHandler(true);
-          setItemCoordinates(null);
         })();
-      } else {
-        props.setAcceptor(null);
-        props.onTouchMoveHandler(false)
-        return;
       }
     }
 
@@ -131,9 +121,6 @@ export const ExpenseItem = props => {
 
   const onTouchStart = (event) => {
     if (inMobile()) {
-      console.log("onTouchStart")
-
-      // setClickStartTime(new Date().getTime());
       setValueClickStartTime();
 
       startHandler(event);
@@ -142,7 +129,6 @@ export const ExpenseItem = props => {
 
   const onTouchEnd = () => {
     if (inMobile()) {
-      console.log("onTouchEnd")
       makeMove();
 
       props.onTouchEndHandler();

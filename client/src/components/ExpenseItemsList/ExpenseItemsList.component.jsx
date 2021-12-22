@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItemsList.module.scss";
 import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
@@ -11,8 +11,8 @@ export const ExpenseItemsList = props => {
   const [localCosts, setLocalCosts] = useState(costs);
 
   useEffect(() => {
-    costs && setLocalCosts([...costs].sort((a, b) => +a.index - +b.index));
-  }, [costs]);
+    costs && setLocalCosts(JSON.parse(JSON.stringify(costs)).sort((a, b) => +a.index - +b.index));
+  }, [costs, canDrop]);
 
   // <!-- потенциальный кастомный хук -->
 
@@ -22,7 +22,9 @@ export const ExpenseItemsList = props => {
 
   const droppingElement = (innerData) => { // меняем данные
     const data = JSON.parse(JSON.stringify(localCosts));
+
     let result = null;
+
     if (+innerData.from.index - +innerData.to.index > 0) { // вперед // от большего к меньшему
       result = data.map(item => {
         if (+item.id == +innerData.to.id) {
@@ -57,11 +59,15 @@ export const ExpenseItemsList = props => {
         return item;
       });
     }
+
     setLocalCosts(result.sort((a, b) => +a.index - +b.index));
+
     props.changeExpenseItemIndex({
       id: innerData.from.id,
       index: innerData.to.index,
     });
+
+    setCanDrop(false);
   }
 
   const dragOver = (event) => { // объект непосредственно над элементом, в котором можно дропнуть
@@ -91,33 +97,27 @@ export const ExpenseItemsList = props => {
         index: canDrop && canDrop.index,
       }
     });
-    setCanDrop(false);
   }
 
   // <!-- /потенциальный кастомный хук -->
 
   const [coordinates, setCoordinates] = useState(null); // это пертаскиваемый объект
 
-  const [acceptor, setAcceptor] = useState(null);
-
   const onTouchEndHandler = () => {
-    console.log("onTouchEndHandler")
-
     coordinates &&
-    acceptor &&
+    canDrop &&
     droppingElement({
       from: {
         id: coordinates && coordinates.id,
         index: coordinates && coordinates.index,
       },
       to: {
-        id: acceptor && acceptor.id,
-        index: acceptor && acceptor.index,
+        id: canDrop && canDrop.id,
+        index: canDrop && canDrop.index,
       }
     });
-    setCanDrop(false);
+
     setCoordinates(null);
-    setAcceptor(null)
   }
 
   return (
@@ -144,7 +144,6 @@ export const ExpenseItemsList = props => {
               onTouchMoveHandler={setCanDrop}
               coordinates={coordinates}
               setCoordinates={setCoordinates}
-              setAcceptor={setAcceptor}
             />
           </div>
         ))

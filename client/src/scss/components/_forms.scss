@@ -119,12 +119,21 @@ $container_padding: $content_container_padding;
 
       &-item {
         $calculted_value: calc((100vw - 3.2rem * 2 + 1.2rem * 2)/6);
+
         padding: $modil_padding;
         flex-basis: $calculted_value;
         max-width: $calculted_value;
         height: $calculted_value;
         flex-grow: 0;
         flex-shrink: 1;
+
+        @media screen and (min-width: 450px) {
+          $calculted_value: calc((450px - 3.2rem * 2 + 1.2rem * 2)/6);
+
+          flex-basis: $calculted_value;
+          max-width: $calculted_value;
+          height: $calculted_value;
+        }
       }
     }
 

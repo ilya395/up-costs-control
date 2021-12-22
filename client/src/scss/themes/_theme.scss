@@ -13,7 +13,13 @@
     width: 428px;
   }
   @media screen and (min-width: 576px) {
-    width: calc(100% - 15px*2);
+    width: calc(576px - 15px*2);
+  }
+  @media screen and (min-width: 768px) {
+    width: calc(768px - 15px*2);
+  }
+  @media screen and (min-width: 992px) {
+    width: calc(992px - 15px*2);
   }
   @media screen and (min-width: 1200px) {
     width: calc(1200px - 15px*2);
