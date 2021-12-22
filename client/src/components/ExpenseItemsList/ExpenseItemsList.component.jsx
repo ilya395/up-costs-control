@@ -10,10 +10,6 @@ export const ExpenseItemsList = props => {
 
   const [localCosts, setLocalCosts] = useState(costs);
 
-  useEffect(() => {
-    costs && setLocalCosts(JSON.parse(JSON.stringify(costs)).sort((a, b) => +a.index - +b.index));
-  }, [costs, canDrop]);
-
   // <!-- потенциальный кастомный хук -->
 
   const [droppableElement, setDroppableElement] = useState(null);
@@ -120,6 +116,14 @@ export const ExpenseItemsList = props => {
     setCoordinates(null);
   }
 
+  const onTouchMoveHandler = arg => {
+    !canDrop && setCanDrop(arg);
+  }
+
+  useEffect(() => {
+    costs && setLocalCosts( JSON.parse( JSON.stringify(costs) ).sort( (a, b) => +a.index - +b.index ) );
+  }, [costs]);
+
   return (
     <div className={s["expense-items-list"]}>
       {
@@ -141,7 +145,7 @@ export const ExpenseItemsList = props => {
               dragLeave={dragLeave}
               dragDrop={dragDrop}
               onTouchEndHandler={onTouchEndHandler}
-              onTouchMoveHandler={setCanDrop}
+              onTouchMoveHandler={onTouchMoveHandler}
               coordinates={coordinates}
               setCoordinates={setCoordinates}
             />
