@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
-import { debounce, inMobile, throttle } from "../../utils";
+import { inMobile, throttle } from "../../utils";
 import { useClicks } from "../../hooks";
+import { ScrollControllerContext } from "../../context";
 
 export const ExpenseItem = props => {
+
+  const scrollController = useContext(ScrollControllerContext);
 
   const returnExpenseItemIdForChanging = () => {
     const { data, changeExpenseItem } = props;
@@ -99,7 +102,7 @@ export const ExpenseItem = props => {
         right: elem.getBoundingClientRect().right,
       };
 
-      setItemCoordinates(props.data.id, itemCoords);
+      setItemCoordinates(itemCoords);
 
       if (
         props.coordinates.position.y < itemCoords.bottom &&
@@ -113,6 +116,8 @@ export const ExpenseItem = props => {
           id: props.data.id,
           index: props.data.index,
         });
+      } else if (props.canDrop && (props.canDrop.id === props.data.id)) { //это иммено наш объект-подложка
+        props.onTouchMoveHandler(null)
       }
     }
 
@@ -123,6 +128,8 @@ export const ExpenseItem = props => {
       setValueClickStartTime();
 
       startHandler(event);
+
+      scrollController.setScroll(false);
     }
   }
 
@@ -135,6 +142,8 @@ export const ExpenseItem = props => {
       endHandler();
 
       props.setCoordinates(null);
+
+      scrollController.setScroll(true);
     }
   }
 

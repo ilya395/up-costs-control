@@ -117,7 +117,8 @@ export const ExpenseItemsList = props => {
   }
 
   const onTouchMoveHandler = arg => {
-    !canDrop && setCanDrop(arg);
+    arg ? (!canDrop && setCanDrop(arg)) : setCanDrop(arg);
+    // !canDrop && setCanDrop(arg)
   }
 
   useEffect(() => {
@@ -148,6 +149,7 @@ export const ExpenseItemsList = props => {
               onTouchMoveHandler={onTouchMoveHandler}
               coordinates={coordinates}
               setCoordinates={setCoordinates}
+              canDrop={canDrop}
             />
           </div>
         ))

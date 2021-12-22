@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MonthPicker, NavBar } from "../../components";
 import { ExpenseItemsListContainer } from "../../containers";
@@ -7,6 +7,7 @@ import s from "./Main.module.scss";
 import { Transition } from 'react-transition-group';
 import { modalClearAction, modalCloseAction } from "../../modules";
 import { mainMenuListAction } from "../../modules/main-menu";
+import { ScrollControllerContext } from "../../context";
 
 const Main = () => {
 
@@ -14,12 +15,14 @@ const Main = () => {
 
   const modal = useSelector(state => state.modal);
 
+  const scrollController = useContext(ScrollControllerContext);
+
   const closeModal = () => {
     dispatch(modalCloseAction());
   }
 
   return (
-    <div className="container">
+    <div className="container" style={{touchAction: scrollController.scroll ? "auto" : "none"}}>
       <main className={s["main-content-section"]}>
         <div className={s["main-content-section__title"]}>
           <h1>
