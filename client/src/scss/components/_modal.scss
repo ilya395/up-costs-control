@@ -24,11 +24,12 @@ $container_padding: $content_container_padding;
     bottom: 0;
     left: 0;
     background-color: $white_color;
+    overflow: auto;
 
-    &.focusing {
-      position: absolute;
-      bottom: -350px;
-    }
+    // &.focusing {
+    //   // position: absolute;
+    //   // bottom: -350px;
+    // }
   }
 
   &__upper-panel {
@@ -47,6 +48,7 @@ $container_padding: $content_container_padding;
     justify-content: space-between;
     align-items: center;
     height: 100vh;
+    min-height: 568px;
     position: relative;
     padding-top: 1.5rem; // 5.4rem;
     padding-bottom: 1.5rem;

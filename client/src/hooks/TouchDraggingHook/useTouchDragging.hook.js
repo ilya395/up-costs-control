@@ -1,16 +1,16 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-export const useTouchDragging = (data) => {
-  const { touchStart, touchMove, touchEnd } = data;
+// export const useTouchDragging = (data) => {
+//   const { touchStart, touchMove, touchEnd } = data;
 
-  const [clickStartTime, setClickStartTime] = useState(null);
+//   const [clickStartTime, setClickStartTime] = useState(null);
 
-  const [clickEndTime, setClickEndTime] = useState(null);
+//   const [clickEndTime, setClickEndTime] = useState(null);
 
-  return {
-    setClickStartTime,
-    setClickEndTime,
-    status: () => {},
+//   return {
+//     setClickStartTime,
+//     setClickEndTime,
+//     status: () => {},
 
-  }
-}
+//   }
+// }

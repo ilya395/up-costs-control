@@ -5,6 +5,10 @@ export const useDesctopDragging = (data) => {
 
   const [localCosts, setLocalCosts] = useState(costs);
 
+  useEffect(() => {
+    costs && setLocalCosts([...costs].sort((a, b) => +a.index - +b.index));
+  }, [costs]);
+
   const [droppableElement, setDroppableElement] = useState(null);
 
   const [canDrop, setCanDrop] = useState(false);
@@ -83,6 +87,28 @@ export const useDesctopDragging = (data) => {
     setCanDrop(false);
   }
 
+  const [coordinates, setCoordinates] = useState(null); // это пертаскиваемый объект
+
+  const [acceptor, setAcceptor] = useState(null);
+
+  const onTouchEndHandler = () => {
+    coordinates &&
+    acceptor &&
+    droppingElement({
+      from: {
+        id: coordinates && coordinates.id,
+        index: coordinates && coordinates.index,
+      },
+      to: {
+        id: acceptor && acceptor.id,
+        index: acceptor && acceptor.index,
+      }
+    });
+    setCanDrop(false);
+    setCoordinates(null);
+    setAcceptor(null)
+  }
+
   return {
     getDroppableElement: (arg) => setDroppableElement(arg),
     dragOver: event => dragOver(event),
@@ -91,5 +117,9 @@ export const useDesctopDragging = (data) => {
     dragDrop: () => dragDrop(),
     setLocalCosts,
     localCosts,
+    onTouchEndHandler,
+    coordinates,
+    setCoordinates,
+    setAcceptor
   }
 }
