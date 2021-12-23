@@ -20,8 +20,11 @@ class Validator {
   }
   checkText(arg) {
     let validate = true;
+    if (!arg || typeof arg === "string") {
+      return validate = false;
+    }
     for (let i = 0; i < BAD_WORDS.length; i++) {
-      if (arg.indexOf(BAD_WORDS[i]) !== -1) {
+      if (String(arg).indexOf(BAD_WORDS[i]) !== -1) {
           validate = false;
           break;
       }
