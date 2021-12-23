@@ -4,6 +4,7 @@ import s from "./ExpenseItem.module.scss";
 import { inMobile, throttle } from "../../utils";
 import { useClicks } from "../../hooks";
 import { ScrollControllerContext } from "../../context";
+import { CLICK_DURATION } from "../../constants";
 
 export const ExpenseItem = props => {
 
@@ -62,15 +63,36 @@ export const ExpenseItem = props => {
 
   const [readyToDAndD, setReadyToDAndD] = useState(false);
 
+  const [clickTimer, setClickTimer] = useState(null); // таймер перехода в состояние touch
+
   const startHandler = (event) => {
-    setReadyToDAndD(true);
-    props.getDroppableElement({
-      id: event.target.id,
-      index: event.target.getAttribute("index"),
-    });
+
+    let timer = null;
+
+    const wrapper = () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        setReadyToDAndD(true);
+        props.getDroppableElement({
+          id: event.target.id,
+          index: event.target.getAttribute("index"),
+        });
+        clearTimeout(timer);
+        clearTimeout(clickTimer)
+        setClickTimer(null);
+      }, CLICK_DURATION * 2 + 10);
+      setClickTimer(timer);
+    }
+
+    return wrapper();
   }
 
   const endHandler = () => {
+    clearTimeout(clickTimer)
+    setClickTimer(null);
+
     setReadyToDAndD(false);
     props.getDroppableElement(null);
   }
