@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
-import { debounce, inMobile, throttle } from "../../utils";
+import { inMobile, throttle } from "../../utils";
 import { useClicks } from "../../hooks";
+import { ScrollControllerContext } from "../../context";
+import { CLICK_DURATION } from "../../constants";
 
 export const ExpenseItem = props => {
+
+  const scrollController = useContext(ScrollControllerContext);
 
   const returnExpenseItemIdForChanging = () => {
     const { data, changeExpenseItem } = props;
@@ -59,15 +63,36 @@ export const ExpenseItem = props => {
 
   const [readyToDAndD, setReadyToDAndD] = useState(false);
 
+  const [clickTimer, setClickTimer] = useState(null); // таймер перехода в состояние touch
+
   const startHandler = (event) => {
-    setReadyToDAndD(true);
-    props.getDroppableElement({
-      id: event.target.id,
-      index: event.target.getAttribute("index"),
-    });
+
+    let timer = null;
+
+    const wrapper = () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        setReadyToDAndD(true);
+        props.getDroppableElement({
+          id: event.target.id,
+          index: event.target.getAttribute("index"),
+        });
+        clearTimeout(timer);
+        clearTimeout(clickTimer)
+        setClickTimer(null);
+      }, CLICK_DURATION * 2 + 10);
+      setClickTimer(timer);
+    }
+
+    return wrapper();
   }
 
   const endHandler = () => {
+    clearTimeout(clickTimer)
+    setClickTimer(null);
+
     setReadyToDAndD(false);
     props.getDroppableElement(null);
   }
@@ -99,7 +124,7 @@ export const ExpenseItem = props => {
         right: elem.getBoundingClientRect().right,
       };
 
-      setItemCoordinates(props.data.id, itemCoords);
+      setItemCoordinates(itemCoords);
 
       if (
         props.coordinates.position.y < itemCoords.bottom &&
@@ -113,6 +138,8 @@ export const ExpenseItem = props => {
           id: props.data.id,
           index: props.data.index,
         });
+      } else if (props.canDrop && (props.canDrop.id === props.data.id)) { //это иммено наш объект-подложка
+        props.onTouchMoveHandler(null)
       }
     }
 
@@ -123,6 +150,8 @@ export const ExpenseItem = props => {
       setValueClickStartTime();
 
       startHandler(event);
+
+      scrollController.setScroll(false);
     }
   }
 
@@ -135,6 +164,8 @@ export const ExpenseItem = props => {
       endHandler();
 
       props.setCoordinates(null);
+
+      scrollController.setScroll(true);
     }
   }
 
