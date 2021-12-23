@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItemsList.module.scss";
 import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
 import { AddExpenseItem } from "../AddExpenseItem/AddExpenseItem.component";
+import { ScrollControllerContext } from "../../context";
 
 export const ExpenseItemsList = props => {
 
   const { costs } = props;
+
+  const scrollController = useContext(ScrollControllerContext);
 
   const [localCosts, setLocalCosts] = useState(costs);
 
@@ -126,7 +129,7 @@ export const ExpenseItemsList = props => {
   }, [costs]);
 
   return (
-    <div className={s["expense-items-list"]}>
+    <div className={s["expense-items-list"]} style={{touchAction: scrollController.scroll ? "auto" : "none"}}>
       {
         localCosts &&
         localCosts.map((item, index) => (

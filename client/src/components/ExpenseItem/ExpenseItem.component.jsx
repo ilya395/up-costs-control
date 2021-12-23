@@ -124,7 +124,7 @@ export const ExpenseItem = props => {
         right: elem.getBoundingClientRect().right,
       };
 
-      setItemCoordinates(itemCoords);
+      // setItemCoordinates(itemCoords);
 
       if (
         props.coordinates.position.y < itemCoords.bottom &&
