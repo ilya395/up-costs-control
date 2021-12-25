@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { MainRoter } from './routes';
-import cn from "classnames";
-import s from "./App.scss";
+import "./App.scss";
 import { Notification, PreloaderContainer } from './components';
 import { ScrollControllerContext } from './context';
 import { useScrollController } from './hooks';

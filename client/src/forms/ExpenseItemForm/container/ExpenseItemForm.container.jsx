@@ -1,7 +1,6 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NOTIFICATION_WARNING } from "../../../constants";
-import { ModalContext } from "../../../context";
 import { modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { addExpenseItemAction, changeExpenseItemAction } from "../../../modules/costs";
 import { cheekiBreekiValidator } from "../../../utils";
@@ -71,12 +70,6 @@ export const ExpenseItemFormContainer = props => {
     return result;
   }
 
-  const modalContext = useContext(ModalContext);
-
-  const focusHandler = (arg) => {
-    modalContext.setUiFocusing(arg);
-  }
-
   return (
     <>
       <ExpenseItemFormView
@@ -86,7 +79,6 @@ export const ExpenseItemFormContainer = props => {
         onAdd={onAdd}
         disabled={expenseItemsAddAwait || expenseItemsChangeAwait}
         refName={refName}
-        focusHandler={focusHandler}
       />
     </>
   );

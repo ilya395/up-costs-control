@@ -5,7 +5,7 @@ class Validator {
   checkEmail(arg) {
     return arg && validator.isEmail(arg);
   }
-  checkName(arg, min = 5, max = 16) {
+  checkName(arg, min = 3, max = 25) {
     return arg && validator.isLength(arg, min, max); // && /[\u4e00-\u9fa5]/.test(arg);
   }
   checkNumber(arg) {

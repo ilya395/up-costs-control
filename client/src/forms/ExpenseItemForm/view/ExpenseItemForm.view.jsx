@@ -75,10 +75,6 @@ export const ExpenseItemFormView = props => {
     }
   }
 
-  const onFocus = () => props.focusHandler(true);
-
-  const onBlur = () => props.focusHandler(false);
-
   return (
     <div className="simple-form__outer-wrapper">
       {
@@ -112,8 +108,6 @@ export const ExpenseItemFormView = props => {
               onBlur={clickOnInputField}
               value={nameValue}
               ref={props.refName}
-              onFocus={onFocus}
-              onBlur={onBlur}
             />
         </div>
         <div className="simple-form__form-field simple-form__form-field_column">
@@ -143,5 +137,5 @@ export const ExpenseItemFormView = props => {
         </div>
       </form>
     </div>
-    );
+  );
 }
