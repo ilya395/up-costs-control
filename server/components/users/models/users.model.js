@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const connect = require("../../../connectors/sequelize.conector");
 const { expenseItemsModel } = require("../../expense-items/index");
 const { costsModel } = require("../../costs/index");
+const { supportMessageModel } = require('../../support');
 
 class UsersModel extends Sequelize.Model {}
 
@@ -46,5 +47,6 @@ UsersModel.init(
 );
 UsersModel.hasMany(expenseItemsModel, { onDelete: "cascade" });
 UsersModel.hasMany(costsModel, { onDelete: "cascade" });
+UsersModel.hasMany(supportMessageModel, { onDelete: "cascade" });
 
 module.exports = UsersModel;

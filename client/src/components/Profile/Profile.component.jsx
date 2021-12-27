@@ -7,7 +7,7 @@ import { MainMenu } from "../MainMenu/MainMenu.component";
 
 const Profile = props => {
 
-  const { profile } = props.props;
+  const { profile } = props;
 
   const dispatch = useDispatch();
 

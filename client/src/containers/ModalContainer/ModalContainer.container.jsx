@@ -51,7 +51,7 @@ export const ModalContainer = props => {
       <Suspense fallback={<ModalPlug />}>
         <Modal
           closeModal={closeModal}
-          render={props => <ProfileLayout props={{...props}} render={newProps => <Support props={{...newProps}} />} />}
+          render={props => <ProfileLayout props={{...props}} render={newProps => <Support {...newProps} />} />}
         />
       </Suspense>
     );
@@ -61,7 +61,7 @@ export const ModalContainer = props => {
       <Suspense fallback={<ModalPlug />}>
         <Modal
           closeModal={closeModal}
-          render={props => <ProfileLayout props={{...props}} render={newProps => <Profile props={{...newProps}} />} />}
+          render={props => <ProfileLayout props={{...props}} render={newProps => <Profile {...newProps} />} />}
         />
       </Suspense>
     );

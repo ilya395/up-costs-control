@@ -41,6 +41,9 @@ export const API_URL = {
   user: {
     get: "/api/users/get",
     update: "/api/users/update",
+  },
+  support: {
+    put: "/api/support/set",
   }
 };
 

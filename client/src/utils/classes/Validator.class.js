@@ -20,7 +20,7 @@ class Validator {
   }
   checkText(arg) {
     let validate = true;
-    if (!arg || typeof arg === "string") {
+    if (!arg || typeof arg !== "string") {
       return validate = false;
     }
     for (let i = 0; i < BAD_WORDS.length; i++) {
