@@ -27,12 +27,12 @@ class SupportMessageController {
         const mes = await supportMessageModel
           .create({
             userId,
-            problem
+            problem,
           })
           .catch(e => {
             return res.status(400).json({
               status: "ERROR",
-              message: "Can not create expense items with model",
+              message: "Can not create support message with model",
               error: e
             });
           })

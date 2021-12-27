@@ -17,9 +17,16 @@ SupportMessageModel.init(
       allowNull: true,
     },
     status: {
+      // type: Sequelize.INTEGER,
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+      // get() {
+      //   return this.setDataValue("status") === 1 ? true : false
+      // },
+      // set(value) {
+      //   this.setDataValue("status", value ? 1 : 0)
+      // }
     }
   },
   {
@@ -28,6 +35,5 @@ SupportMessageModel.init(
     timestamps: true
   }
 );
-// SupportMessageModel.hasMany(UsersModel, { onDelete: "cascade" });
 
 module.exports = SupportMessageModel;

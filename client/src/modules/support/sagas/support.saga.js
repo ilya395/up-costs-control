@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { awaitPushMessageToSupportAction, errorPushMessageToSupportAction, PUSH_MESSAGE_TO_SUPPORT, succesPushMessageToSupport } from "..";
 import { modalClearAction, modalCloseAction, notificationMessageAction } from "../..";
-import { API_URL, NOTIFICATION_ERROR } from "../../../constants";
+import { API_URL, NOTIFICATION_ERROR, NOTIFICATION_SUCCESS } from "../../../constants";
 import { localAuthData, request } from "../../../utils";
 
 function* fetchSupportMessage(data) {

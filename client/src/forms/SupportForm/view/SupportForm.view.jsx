@@ -1,7 +1,6 @@
 import React from "react";
 
 export const SupportFormView = props => {
-  console.log(props)
   return (
     <form className="simple-form">
       <div className={"simple-form__form-field simple-form__form-field_row simple-form__form-field_little-row"}>

@@ -12,9 +12,7 @@ class AuthController {
     });
 
     try {
-
       const { login, password } = req.body;
-      console.log(login, password)
 
       if (
         checkName(login) &&
@@ -35,7 +33,7 @@ class AuthController {
               error: e
             });
           });
-        console.log(user)
+
         if (user.length > 0) {
           const userData = user[0];
           return res.status(200).json({

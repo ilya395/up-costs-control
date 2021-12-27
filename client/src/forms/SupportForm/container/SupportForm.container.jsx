@@ -7,8 +7,6 @@ import { cheekiBreekiValidator } from "../../../utils";
 import { SupportFormView } from "../view/SupportForm.view";
 
 export const SupportFormContainer = props => {
-  // console.log(props)
-
   const { profile } = props;
 
   const dispatch = useDispatch();
