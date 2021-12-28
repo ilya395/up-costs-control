@@ -1,33 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import { ChangePassword, Logout, MyData } from "..";
-import { transitionMode } from "../../constants";
-import { modalClearAction } from "../../modules";
-import { mainMenuChangePasswordAction, mainMenuListAction, mainMenuLogoutAction, mainMenuMyDataAction } from "../../modules/main-menu";
+import { mainMenuChangePasswordAction, mainMenuLogoutAction, mainMenuMyDataAction } from "../../modules/main-menu";
 import { MainMenu } from "../MainMenu/MainMenu.component";
 
-export const Profile = props => {
-  console.log("Profile")
-  const { profile } = props.props;
+const Profile = props => {
+
+  const { profile } = props;
 
   const dispatch = useDispatch();
 
   const mainMenu = useSelector(state => state.mainMenu);
-  // const open = useSelector(state => state.modal.open);
-  // useEffect(() => {
-  //   !open && dispatch(mainMenuListAction());
-  // }, [open])
-
-  const [mode, setMode] = useState(transitionMode.outIn);
-  const [modeState, setModeState] = useState(true);
-  useEffect(() => {
-    if (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) {
-      setModeState(true);
-    } else {
-      setModeState(false);
-    }
-  }, [mainMenu.logout, mainMenu.changePassword, mainMenu.myData])
 
   const onLogout = () => {
     dispatch(mainMenuLogoutAction());
@@ -43,17 +27,6 @@ export const Profile = props => {
 
   return (
     <>
-      {/* <CSSTransition
-        in={mainMenu.logout || mainMenu.changePassword || mainMenu.myData}
-        timeout={400}
-        classNames={{
-          enterActive: "block-show",
-          exitActive: "block-hide",
-        }}
-        mountOnEnter
-        unmountOnExit
-      >
-      </CSSTransition> */}
       <h2>
         {
           (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) ?
@@ -66,28 +39,6 @@ export const Profile = props => {
         }
       </h2>
       <div className="support-container">
-        {/* <SwitchTransition
-          mode={mode}
-        >
-          <CSSTransition
-            key={modeState}
-            classNames={{
-              enterActive: "block-show",
-              exitActive: "block-hide",
-            }}
-            timeout={400}
-            // addEndListener={(node, done) => node.addEventListener("animationend", done, false)}
-            unmountOnExit
-            mountOnEnter
-          >
-            <MainMenu
-              profile={profile}
-              onLogout={onLogout}
-              onChangePassword={onChangePassword}
-              onGetMyData={onGetMyData}
-            />
-          </CSSTransition>
-        </SwitchTransition> */}
         {
           (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) &&
           <MainMenu
@@ -133,16 +84,9 @@ export const Profile = props => {
         >
           <MyData profile={profile} />
         </CSSTransition>
-        {
-          // mainMenu.logout && <Logout />
-        }
-        {
-          // mainMenu.changePassword && <ChangePassword />
-        }
-        {
-          // mainMenu.myData && <MyData profile={profile} />
-        }
       </div>
     </>
   );
 }
+
+export default Profile;

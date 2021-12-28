@@ -1,10 +1,11 @@
 import React, { memo } from "react";
 
 export const NavButton = memo(({ icon, title, url, callback }) => {
-  console.log("NavButton")
+
   const onClick = () => {
     return callback && callback()
   }
+
   return (
     <button
       className="nav-bar-button"

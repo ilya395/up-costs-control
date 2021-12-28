@@ -13,7 +13,13 @@
     width: 428px;
   }
   @media screen and (min-width: 576px) {
-    width: calc(100% - 15px*2);
+    width: calc(576px - 15px*2);
+  }
+  @media screen and (min-width: 768px) {
+    width: calc(768px - 15px*2);
+  }
+  @media screen and (min-width: 992px) {
+    width: calc(992px - 15px*2);
   }
   @media screen and (min-width: 1200px) {
     width: calc(1200px - 15px*2);
@@ -31,7 +37,8 @@
 .profile {
   &-wrapper {
     width: 100%;
-    margin: auto;
+    height: 100%;
+    // margin: auto;
     flex-grow: 0;
     display: flex;
     flex-direction: column;
@@ -44,17 +51,26 @@
   }
   &-content {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 
     & h2 {
       margin-top: 4.5rem;
       text-align: center;
+
+      @media screen and (max-width: 375px) {
+        margin-top: 2.5rem;
+      }
     }
   }
 }
 
 .support-container {
   width: 100%;
-  padding-top: 4.5rem;
+  height: 100%;
+  // padding-top: 4.5rem;
 }
 
 .margin-auto {
@@ -137,3 +153,11 @@
 // .ready-to-drag-and-drop {
 //   opacity: .5;
 // }
+
+.logout-block {
+  margin-top: 4.5rem;
+
+  @media screen and (max-width: 375px) {
+    margin-top: 2.5rem;
+  }
+}

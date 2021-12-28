@@ -1,16 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 export const Modal = props => {
-  console.log("Modal")
-  const mainMenu = useSelector(state => state.mainMenu);
 
   const closeHandler = () => {
     props.closeModal();
   }
 
   return (
-    <div className="modal__wrap">
+    <div className={"modal__wrap"}>
       <div className="modal__content">
         <div className="modal__upper-panel">
           <button className="upper-panel__row" onClick={closeHandler}>

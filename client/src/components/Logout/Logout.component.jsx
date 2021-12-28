@@ -5,7 +5,7 @@ import { authEndAction, modalClearAction } from "../../modules";
 import { localAuthData } from "../../utils";
 
 export const Logout = memo(() => {
-  console.log("Logout")
+
   const dispatch = useDispatch();
 
   const onLogout = () => {
@@ -15,7 +15,7 @@ export const Logout = memo(() => {
   }
 
   return (
-    <div>
+    <div className="logout-block">
       <p className="simple-text_wide paragraph">
         Уверены, что хотите покинуть приложение? Ваши расходы сохранятся.
       </p>

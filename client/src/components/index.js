@@ -17,3 +17,4 @@ export * from "./MyData/MyData.component";
 export * from "./SimpleFormFieldRow/SimpleFormFieldRow.component";
 export * from "./Notification/Notification.component";
 export * from "./Preloder";
+export * from "./ModalPlug/ModalPlug.component";

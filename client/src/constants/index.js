@@ -41,6 +41,9 @@ export const API_URL = {
   user: {
     get: "/api/users/get",
     update: "/api/users/update",
+  },
+  support: {
+    put: "/api/support/set",
   }
 };
 
@@ -63,3 +66,5 @@ export const NOTIFICATION_SUCCESS = "NOTIFICATION_SUCCESS";
 
 export const LOADING_DATA = "LOADING_DATA";
 export const LOADING_APP = "LOADING_APP";
+
+export const BAD_WORDS = ['@', 'http', 'https', 'ws'];

@@ -1,34 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItemsList.module.scss";
 import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
 import { AddExpenseItem } from "../AddExpenseItem/AddExpenseItem.component";
+import { ScrollControllerContext } from "../../context";
 
 export const ExpenseItemsList = props => {
-  console.log("ExpenseItemsList")
+
   const { costs } = props;
-  // const costs = [...props.costs];
+
+  const scrollController = useContext(ScrollControllerContext);
+
   const [localCosts, setLocalCosts] = useState(costs);
 
-  useEffect(() => {
-    costs && setLocalCosts([...costs].sort((a, b) => +a.index - +b.index));
-  }, [costs]);
+  // <!-- потенциальный кастомный хук -->
 
   const [droppableElement, setDroppableElement] = useState(null);
 
-  const getDroppableElement = (arg) => {
-    setDroppableElement(arg);
-  }
+  const [canDrop, setCanDrop] = useState(false);
 
   const droppingElement = (innerData) => { // меняем данные
-    console.log(innerData)
     const data = JSON.parse(JSON.stringify(localCosts));
-    // const indexFrom = data.findIndex(item => item.id == innerData.from.id);
-    // const indexTo = data.findIndex(item => item.id == innerData.to.id);
-    // console.log(indexFrom)
-    console.log(data)
+
     let result = null;
-    console.log(+innerData.from.index - +innerData.to.index)
+
     if (+innerData.from.index - +innerData.to.index > 0) { // вперед // от большего к меньшему
       result = data.map(item => {
         if (+item.id == +innerData.to.id) {
@@ -64,25 +59,22 @@ export const ExpenseItemsList = props => {
       });
     }
 
-    console.log(result)
     setLocalCosts(result.sort((a, b) => +a.index - +b.index));
 
     props.changeExpenseItemIndex({
       id: innerData.from.id,
       index: innerData.to.index,
     });
+
+    setCanDrop(false);
   }
 
-  const [canDrop, setCanDrop] = useState(false);
-
   const dragOver = (event) => { // объект непосредственно над элементом, в котором можно дропнуть
-    console.log("dragOver")
     event.preventDefault();
   }
 
   const dragEnter = (event) => { // объект попал в пределы элемента, в котором можно дропнуть
     const target = event.target; // id елемента, в который можно дропнуть
-    console.log("dragEnter", target)
     setCanDrop({
       id: target.id,
       index: target.getAttribute("index"),
@@ -90,12 +82,10 @@ export const ExpenseItemsList = props => {
   }
 
   const dragLeave = () => { // объект покунул пределы элемента, в котором можно дропнуть
-    console.log("dragLeave")
     setCanDrop(false);
   }
 
   const dragDrop = () => {
-    console.log("dragDrop")
     droppingElement({
       from: {
         id: droppableElement && droppableElement.id,
@@ -106,36 +96,63 @@ export const ExpenseItemsList = props => {
         index: canDrop && canDrop.index,
       }
     });
-    setCanDrop(false);
   }
 
+  // <!-- /потенциальный кастомный хук -->
+
+  const [coordinates, setCoordinates] = useState(null); // это пертаскиваемый объект
+
+  const onTouchEndHandler = () => {
+    coordinates &&
+    canDrop &&
+    droppingElement({
+      from: {
+        id: coordinates && coordinates.id,
+        index: coordinates && coordinates.index,
+      },
+      to: {
+        id: canDrop && canDrop.id,
+        index: canDrop && canDrop.index,
+      }
+    });
+
+    setCoordinates(null);
+  }
+
+  const onTouchMoveHandler = arg => {
+    arg ? (!canDrop && setCanDrop(arg)) : setCanDrop(arg);
+    // !canDrop && setCanDrop(arg)
+  }
+
+  useEffect(() => {
+    costs && setLocalCosts( JSON.parse( JSON.stringify(costs) ).sort( (a, b) => +a.index - +b.index ) );
+  }, [costs]);
 
   return (
-    <div className={s["expense-items-list"]}>
+    <div className={s["expense-items-list"]} style={{touchAction: scrollController.scroll ? "auto" : "none"}}>
       {
         localCosts &&
-        // Array.isArray(localCosts) &&
         localCosts.map((item, index) => (
           <div
             className={cn(s["expense-items-list__element"], { [s["can-drop"]]: canDrop && (canDrop.id == item.id) })}
             key={item.id}
             style={{animationDelay: `${index * 200}ms`}}
-
-            // onDragOver={dragOver}
-            // onDragEnter={dragEnter}
-            // onDragLeave={dragLeave}
-            // onDrop={dragDrop}
           >
             <ExpenseItem
               data={item}
               changeExpenseItem={props.changeExpenseItem}
               addCost={props.addCost}
               deleteExpenseItem={props.deleteExpenseItem}
-              getDroppableElement={getDroppableElement}
+              getDroppableElement={setDroppableElement}
               dragOver={dragOver}
               dragEnter={dragEnter}
               dragLeave={dragLeave}
               dragDrop={dragDrop}
+              onTouchEndHandler={onTouchEndHandler}
+              onTouchMoveHandler={onTouchMoveHandler}
+              coordinates={coordinates}
+              setCoordinates={setCoordinates}
+              canDrop={canDrop}
             />
           </div>
         ))

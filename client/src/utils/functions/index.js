@@ -1,10 +1,24 @@
 import { CLICK_DELAY } from "../../constants";
 
 export const strangeNumber = (type, str) => {
-  if (type === "tel" && str && str[0] === "8") {
-    return str.replace("8", "+7");
+  let string = str;
+  if (type === "tel" && string) {
+    if (string[0] === "8") {
+      string = string.replace("8", "+7");
+    }
+    if (string.indexOf(" ") !== -1) {
+      while (string.indexOf(" ") !== -1) {
+        string = string.replace(" ", "");
+      }
+    }
+    if (string.indexOf("-") !== -1) {
+      while (string.indexOf("-") !== -1) {
+        string = string.replace("-", "");
+      }
+    }
+    return string;
   }
-  return str;
+  return string;
 }
 
 export function debounce(callback, delay = CLICK_DELAY) {
@@ -24,7 +38,6 @@ export function debounce(callback, delay = CLICK_DELAY) {
 export function throttle(callback, delay = CLICK_DELAY) {
   let trottle = false;
 
-
   function wrapper() {
     if (trottle) {
       return;
@@ -38,4 +51,15 @@ export function throttle(callback, delay = CLICK_DELAY) {
   }
 
   return wrapper;
+}
+
+export function inMobile() {
+  if (
+    // /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+    (window.matchMedia("(max-width:767px)").matches)
+  ) {
+    // код для мобильных устройств
+    return true;
+  }
+  return false;
 }

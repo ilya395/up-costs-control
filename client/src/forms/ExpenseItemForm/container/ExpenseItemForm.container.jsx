@@ -7,15 +7,14 @@ import { cheekiBreekiValidator } from "../../../utils";
 import { ExpenseItemFormView } from "../view/ExpenseItemForm.view";
 
 export const ExpenseItemFormContainer = props => {
-  console.log("ExpenseItemFormContainer")
 
   const { allProps } = props;
 
   const refName = useRef(null);
 
   const expenseItemsAddAwait = useSelector(state => state.expenseItemsAdd.await);
+
   const expenseItemsChangeAwait = useSelector(state => state.expenseItemsChange.await);
-  console.log(expenseItemsAddAwait, expenseItemsChangeAwait)
 
   const dispatch = useDispatch();
 
@@ -25,7 +24,6 @@ export const ExpenseItemFormContainer = props => {
   }
 
   const compareName = (newData, oldDate) => {
-    console.log(newData, oldDate)
     if ((newData.name === oldDate.name) && (newData.color === oldDate.color)) {
       return true;
     }
@@ -33,7 +31,6 @@ export const ExpenseItemFormContainer = props => {
   }
 
   const onChange = data => {
-    console.log("ExpenseItemFormContainer: onChange")
     if (!validateExpenseItem(data)) {
       return;
     }
@@ -48,7 +45,6 @@ export const ExpenseItemFormContainer = props => {
   }
 
   const onAdd = data => {
-    console.log("ExpenseItemFormContainer: onAdd")
     if (!validateExpenseItem(data)) {
       return;
     }

@@ -1,2 +1,1 @@
-export * from "./container/DeleteExpenseItemForm.container";
-export * from "./view/DeleteExpenseItemForm.view";
+export { DeleteExpenseItemFormContainer as default } from "./container/DeleteExpenseItemForm.container";

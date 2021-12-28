@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const { checkCollectionValidate } = require('../../../validate');
 const costsModel = require("../../costs/models/costs.model");
 const expenseItemsModel = require("../../expense-items/models/expenseItems.model");
 
@@ -14,13 +15,21 @@ class CostsCollectionController {
       const { date, userId } = req.body;
 
       // нужно проверить входные данные
-
+      if (
+        !checkCollectionValidate({
+          keys: ["date", "userId"],
+          data: {date, userId},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       try {
-        console.log("get collection: ", date)
         const now = new Date(+date);
         const thisDate = new Date(now.getFullYear(), now.getMonth(), 1);
         const nextDate = new Date(now.getFullYear(), now.getMonth() + 1, -1);
-        console.log("stypid dates: ", thisDate, nextDate, now.getFullYear(), now.getMonth());
         const expenseItems = await expenseItemsModel
           .findAll({
             where: {
@@ -56,7 +65,6 @@ class CostsCollectionController {
               error: e
             });
           });
-        // console.log(costs)
         const data = expenseItems.map(item => {
           return {
             ...item,

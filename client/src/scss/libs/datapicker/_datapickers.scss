@@ -4,13 +4,27 @@
 .react-datepicker {
   @extend .simple-text_other;
 
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 375px) {
+    width: 80vw;
+  }
+  @media screen and (min-width: 375px) {
     width: 70vw;
   }
   @media screen and (min-width: 576px) {
     width: 400px;
   }
 }
+
+.simple-form__form-field {
+  & .react-datepicker__input-container {
+    & input {
+      @media screen and (max-width: 375px) {
+        padding-left: 40%;
+      }
+    }
+  }
+}
+
 
 .react-datepicker__month-container {
   width: 100%;

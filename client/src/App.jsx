@@ -1,19 +1,26 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { MainRoter } from './routes';
-import cn from "classnames";
-import s from "./App.scss";
+import "./App.scss";
 import { Notification, PreloaderContainer } from './components';
+import { ScrollControllerContext } from './context';
+import { useScrollController } from './hooks';
 
 const App = () => {
-  console.log("App")
+
+  const { scroll, setScroll } = useScrollController();
+
   return (
     <>
-      <BrowserRouter>
-        <MainRoter />
-      </BrowserRouter>
-      <Notification />
-      <PreloaderContainer />
+      <ScrollControllerContext.Provider
+        value={{scroll, setScroll}}
+      >
+        <BrowserRouter>
+          <MainRoter />
+        </BrowserRouter>
+        <Notification />
+        <PreloaderContainer />
+      </ScrollControllerContext.Provider>
     </>
   );
 }

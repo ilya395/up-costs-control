@@ -1,10 +1,18 @@
-import React, { memo } from "react";
+import React from "react";
+import { SupportFormContainer } from "../../forms";
 
-export const Support = memo(() => {
-  console.log("Support")
+const Support = props => {
+
   return (
     <>
-      "Support"
+      <h2>
+        Поддержка
+      </h2>
+      <div className="support-container">
+        <SupportFormContainer {...props} />
+      </div>
     </>
   );
-});
+}
+
+export default Support;

@@ -30,7 +30,7 @@ const optimization = () => {
   return config;
 }
 
-const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
+const filename = ext => `[name].${ext}`; // isDev ? `[name].${ext}` : `[name].[hash].${ext}`
 
 const cssLoaders  = (extra) => {
   const loaders = [
@@ -93,11 +93,11 @@ const jsLoaders = () => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
-      title: 'Progressive Web Application',
+      title: 'Costs Control',
       environment: process.env.NODE_ENV,
       filename: 'index.html',
       template: './templates/index.html',
-      // baseUrl: process.env.NODE_ENV === 'development'? '/' : '/up-realty/',
+      // baseUrl: process.env.NODE_ENV === 'development'? '/' : '/costs-control/',
       minify: {
         collapseWhitespace: !isProd
       },

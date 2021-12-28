@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 export const SimpleFormFieldColumn = props => {
-  console.log("SimpleFormFieldColumn")
   const { ident, label, value: val, type = "text", getValue } = props;
 
   const [value, setValue] = useState(val);
@@ -10,6 +9,7 @@ export const SimpleFormFieldColumn = props => {
     setValue(event.target.value);
     getValue(event.target.value);
   }
+
   return (
     <div className="simple-form__form-field simple-form__form-field_column">
       <label htmlFor={ident} className="simple-text_main">

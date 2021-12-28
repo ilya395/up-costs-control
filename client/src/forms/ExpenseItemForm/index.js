@@ -1,1 +1,1 @@
-export * from "./container/ExpenseItemForm.container";
+export { ExpenseItemFormContainer as default } from "./container/ExpenseItemForm.container";

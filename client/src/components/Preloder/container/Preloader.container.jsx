@@ -37,8 +37,6 @@ export const PreloaderContainer = () => {
   }
 
   useEffect(() => {
-    console.log(awaitOrNot())
-    console.log(authAwait, getCostsAwait, expenseItemsDeleteAwait, expenseItemsAddAwait, expenseItemsChangeAwait, addCostsAwait)
     setStatus({
       active: awaitOrNot() ? true : false,
       mode: LOADING_DATA,

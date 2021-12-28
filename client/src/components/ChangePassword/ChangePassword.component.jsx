@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { memo } from "react";
 import { useDispatch } from "react-redux";
-import { setUserDataAction } from "../../modules";
-import { localAuthData } from "../../utils";
+import { NOTIFICATION_WARNING } from "../../constants";
+import { notificationMessageAction, setUserDataAction } from "../../modules";
+import { cheekiBreekiValidator, localAuthData } from "../../utils";
 import { SimpleFormFieldColumn } from "../SimpleFormFieldColumn/SimpleFormFieldColumn.component";
 
 export const ChangePassword = memo(() => {
-  console.log("ChangePassword")
+
   const dispatch = useDispatch();
 
   const [newPasswordValue, setNewPasswordValue] = useState("");
@@ -26,12 +27,31 @@ export const ChangePassword = memo(() => {
     } else {
       setActiveButton(true);
     }
-  }, [newPasswordValue, confirmationPassword])
+  }, [newPasswordValue, confirmationPassword]);
+
+  const validateData = data => {
+    let result = true;
+    if (!cheekiBreekiValidator.checkPassword(data.new) && !cheekiBreekiValidator.checkPassword(data.confirmation)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните пароли!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    return result;
+  }
 
   const onSubmit = event => {
     event.preventDefault();
     if (confirmationPassword === newPasswordValue && newPasswordValue && confirmationPassword) {
-
+      if (
+        !validateData({
+          new: newPasswordValue,
+          confirmation: confirmationPassword,
+        })
+      ) {
+        return;
+      }
       dispatch(setUserDataAction({
         id: localAuthData.getUserId(),
         password: confirmationPassword,

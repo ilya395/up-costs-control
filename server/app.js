@@ -79,7 +79,7 @@ const app = () => {
       return res.send( indexHTML );
     } catch(e) {
       return res.status(404).json({
-        massage: "Can't find static files",
+        message: "Can't find this url",
         status: "ERROR"
       });
     }

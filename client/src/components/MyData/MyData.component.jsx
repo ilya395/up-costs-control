@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { SimpleFormFieldRow } from "..";
 import { NOTIFICATION_WARNING } from "../../constants";
 import { notificationMessageAction, setUserDataAction } from "../../modules";
-import { localAuthData, strangeNumber } from "../../utils";
+import { cheekiBreekiValidator, localAuthData, strangeNumber } from "../../utils";
 
 export const MyData = memo(props => {
-  console.log("MyData")
+
   const { profile } = props;
 
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ export const MyData = memo(props => {
   }
 
   const [activeButton, setActiveButton] = useState(true);
+
   useEffect(() => {
     if (
       (profile.surname === newSurname || newSurname === null) &&
@@ -47,7 +48,38 @@ export const MyData = memo(props => {
     }
   }, [newShortName, newSurname, newEmail, newPhone]);
 
-
+  const validateData = data => {
+    let result = true;
+    if (data.surname && !cheekiBreekiValidator.checkName(data.surname)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните фамилию!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    if (data.shortName && !cheekiBreekiValidator.checkName(data.shortName)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните имя!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    if (data.email && !cheekiBreekiValidator.checkEmail(data.email)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните email!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    if (data.phone && !cheekiBreekiValidator.checkPhone(data.phone)) {
+      dispatch(notificationMessageAction({
+        message: "Корректно заполните телефон!",
+        notificationType: NOTIFICATION_WARNING
+      }));
+      result = false;
+    }
+    return result;
+  }
 
   const onSubmit = event => {
     event.preventDefault();
@@ -66,6 +98,10 @@ export const MyData = memo(props => {
     }
     if (Object.entries(data).length > 0) {
       data.id = localAuthData.getUserId();
+      // валидация
+      if (!validateData(data)) {
+        return;
+      }
       dispatch(setUserDataAction(data));
     } else {
       dispatch(notificationMessageAction({

@@ -1,3 +1,4 @@
+const { checkCostValidate } = require("../../../validate");
 const CostsModel = require("../models/costs.model");
 
 class CostsController {
@@ -10,10 +11,22 @@ class CostsController {
         });
       }
       const data = req.body;
+      const { id, amount, description, userId } = data;
+      if (
+        !checkCostValidate({
+          keys: ["id", "amount", "description", "userId"],
+          data: {id, amount, description, userId},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       // нужно проверить входные данные
       const innerData = {};
       for (let key in data) {
-        if (data[key]) {
+        if (data[key] && (["id", "amount", "description", "userId"].indexOf(key) != -1)) {
           innerData[key] = data[key];
         }
       }
@@ -25,7 +38,6 @@ class CostsController {
         const costs = await CostsModel
           .findAll(searchData)
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not search with model",
@@ -61,6 +73,17 @@ class CostsController {
       }
       const { amount, description, userId, expenseItemId, date } = req.body;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["amount", "description", "userId", "expenseItemId", "date"],
+          data: {amount, description, userId, expenseItemId, date},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       try {
         const newData = {
           amount: +amount,
@@ -70,11 +93,9 @@ class CostsController {
         }
         date ? (newData.createdAt = date) : false;
         // date ? (newData.updatedAt = date) : false;
-        // console.log(newData)
         const data = await CostsModel
           .create(newData)
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not create with model",
@@ -107,6 +128,17 @@ class CostsController {
       }
       const data = req.body;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["id", "userId",],
+          data: {id, userId},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       const innerData = {};
       for (let key in data) {
         if (data[key]) {
@@ -119,14 +151,12 @@ class CostsController {
             where: innerData,
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not delete with model",
               error: e
             });
           });
-        console.log(cost)
         if (cost) {
           return res.status(200).json({
             data: cost,
@@ -156,6 +186,17 @@ class CostsController {
       }
       const data = req.body;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["id", "userId", "amount", "description", "expenseItemId", "date"],
+          data: {id, userId, amount, description, expenseItemId, date},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       const innerData = {};
       for (let key in data) {
         if (data[key]) { // ?
@@ -179,7 +220,6 @@ class CostsController {
             }
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not update with model",

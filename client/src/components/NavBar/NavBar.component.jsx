@@ -1,10 +1,9 @@
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import { modalSupportAction, modalMainMenuAction } from "../../modules/modal";
+import { modalSupportAction, modalMainMenuAction, modalAddExpenseItemAction } from "../../modules/modal";
 import { NavButton } from "../NavButton/NavButton.component";
 
 export const NavBar = memo(() => {
-  console.log("NavBar")
 
   const dispatch = useDispatch();
 
@@ -16,7 +15,9 @@ export const NavBar = memo(() => {
     dispatch(modalSupportAction());
   }
 
-  const addObject = () => {}
+  const addObject = () => {
+    dispatch(modalAddExpenseItemAction())
+  }
 
   return (
     <nav className="nav-bar">

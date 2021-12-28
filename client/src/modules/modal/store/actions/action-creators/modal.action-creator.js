@@ -2,16 +2,12 @@ import {
   MODAL_EXPENSE_ITEM_ADD,
   MODAL_EXPENSE_ITEM_EDIT,
   MODAL_EXPENSE_ITEM_DELETE,
-  MODAL_CLOSE, MODAL_OPEN,
+  MODAL_CLOSE,
   MODAL_COST_ADD,
   MODAL_SUPPORT,
   MODAL_MAIN_MENU,
   MODAL_CLEAR
 } from "../types/modal.type";
-
-// export const modalOpenAction = () => ({
-//   type: MODAL_OPEN,
-// });
 
 export const modalCloseAction = () => ({
   type: MODAL_CLOSE,

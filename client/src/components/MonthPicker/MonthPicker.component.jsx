@@ -9,9 +9,11 @@ import { choosedMonthAction } from "../../modules/month";
 registerLocale("ru", ru);
 
 export const MonthPicker = () => {
-  console.log("MonthPicker")
+
   const dispatch = useDispatch();
+
   const customDate = useSelector(state => state.date.choosedDate);
+
   return (
     <div className={cn(s["month-picker"], "simple-text_main")}>
       <DatePicker

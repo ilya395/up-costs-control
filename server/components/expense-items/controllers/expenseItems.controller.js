@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const { checkCostValidate } = require('../../../validate');
 const ExpenseItemsModel = require("../models/expenseItems.model");
 
 class ExpenseItemController {
@@ -11,7 +12,19 @@ class ExpenseItemController {
         });
       }
       const data = req.body;
+      const { id, name, index, color, userId } = data;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["id", "name", "index", "color", "userId"],
+          data: {id, name, index, color, userId},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       const innerData = {};
       for (let key in data) {
         if (data[key]) {
@@ -26,7 +39,6 @@ class ExpenseItemController {
         const items = await ExpenseItemsModel
           .findAll(searchData)
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not search with model",
@@ -62,6 +74,17 @@ class ExpenseItemController {
       }
       const { name, userId, color, } = req.body;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["name", "color", "userId"],
+          data: {name, color, userId},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       try {
         const items = await ExpenseItemsModel
           .findAll({
@@ -71,7 +94,6 @@ class ExpenseItemController {
             raw: true
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not search expense items with model",
@@ -86,7 +108,6 @@ class ExpenseItemController {
             color,
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not create expense items with model",
@@ -118,7 +139,19 @@ class ExpenseItemController {
         });
       }
       const data = req.body;
+      const { id, userId } = data;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["id", "userId"],
+          data: {id, userId},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       const innerData = {};
       for (let key in data) {
         if (data[key]) {
@@ -131,7 +164,6 @@ class ExpenseItemController {
             where: innerData,
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not delete with model",
@@ -166,7 +198,19 @@ class ExpenseItemController {
         });
       }
       const data = req.body;
+      const { id, userId, name, color, index } = data;
       // нужно проверить входные данные
+      if (
+        !checkCostValidate({
+          keys: ["id", "userId", "name", "color", "index"],
+          data: {id, userId, name, color, index},
+        })
+      ) {
+        return res.status(400).json({
+          message: "Wrong data",
+          status: "ERROR"
+        });
+      }
       const innerData = {};
       for (let key in data) {
         if (data[key]) { // ?
@@ -181,7 +225,6 @@ class ExpenseItemController {
             message: "No data for update",
           });
         }
-        console.log(innerData)
 
         if (innerData && innerData.index) {
           const oldItem = await ExpenseItemsModel
@@ -193,15 +236,12 @@ class ExpenseItemController {
               raw: true,
             })
             .catch(e => {
-              console.log(e)
               return res.status(400).json({
                 status: "ERROR",
                 message: "Can not find this model",
                 error: e
               });
             });
-          console.log("oldItem: ", oldItem)
-          console.log(+oldItem.index - +innerData.index )
 
           if (+oldItem.index - +innerData.index > 0) { // от большего к меньшему
             const items = await ExpenseItemsModel
@@ -216,14 +256,12 @@ class ExpenseItemController {
                 raw: true,
               })
               .catch(e => {
-                console.log(e)
                 return res.status(400).json({
                   status: "ERROR",
                   message: "Can not find models",
                   error: e
                 });
               });
-            console.log(items)
             const result = items.map(item => {
               // if (+item.id == +innerData.id) {
               //   item.index += 1;
@@ -242,9 +280,7 @@ class ExpenseItemController {
               // }
               // return item;
             });
-            console.log(result)
             for (let i = 0; i < result.length; i++) {
-              console.log(+result[i].id, +result[i].index)
               const request = await ExpenseItemsModel
                 .update(
                   {
@@ -258,7 +294,6 @@ class ExpenseItemController {
                   }
                 )
                 .catch(e => {
-                  console.log(e)
                   return res.status(400).json({
                     status: "ERROR",
                     message: "Can not update model in queue",
@@ -283,7 +318,6 @@ class ExpenseItemController {
                 raw: true,
               })
               .catch(e => {
-                console.log(e)
                 return res.status(400).json({
                   status: "ERROR",
                   message: "Can not find models",
@@ -309,7 +343,6 @@ class ExpenseItemController {
               // return item;
             });
             for (let i = 0; i < result.length; i++) {
-              console.log(+result[i].id, +result[i].index)
               const request = await ExpenseItemsModel
                 .update(
                   {
@@ -323,7 +356,6 @@ class ExpenseItemController {
                   }
                 )
                 .catch(e => {
-                  console.log(e)
                   return res.status(400).json({
                     status: "ERROR",
                     message: "Can not update model in queue",
@@ -346,7 +378,6 @@ class ExpenseItemController {
             }
           })
           .catch(e => {
-            console.log(e)
             return res.status(400).json({
               status: "ERROR",
               message: "Can not update with model",

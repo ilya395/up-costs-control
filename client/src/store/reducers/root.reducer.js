@@ -6,6 +6,7 @@ import { MainMenyReducer } from "../../modules/main-menu";
 import { ModalReducer } from "../../modules/modal";
 import { MonthReducer } from "../../modules/month";
 import { NotificationReducer } from "../../modules/notification";
+import { SupportReducer } from "../../modules/support";
 
 export const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -20,4 +21,5 @@ export const rootReducer = combineReducers({
   mainMenu: MainMenyReducer,
   userData: UserDataReducer,
   notification: NotificationReducer,
+  support: SupportReducer
 });

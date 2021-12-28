@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 registerLocale("ru", ru);
 
 export const CostFormView = ({props, onCancel, onSave, disabled}) => {
-  console.log("CostFormView")
 
   const [disableNumberField, setDisableNumberField] = useState(false);
 
@@ -44,10 +43,9 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
     const data = {
       amount,
       description,
-      // date: localDate,
       expenseItemId: props.expenseItemId,
     };
-    dateVisible ? (data.date = localDate) : data;
+    dateVisible ? (data.date = localDate) : (data.date = new Date());
     return onSave && onSave(data);
   }
 
@@ -60,7 +58,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
         <form className="simple-form">
           <div className="simple-form__form-field simple-form__form-field_row">
             <label htmlFor="amount" className="simple-text_main">
-              Сумма, руб:
+              Сумма,&nbsp;руб:
             </label>
             <input
               type="text"
