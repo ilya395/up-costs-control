@@ -26,6 +26,7 @@ export const DeleteExpenseItemFormView = props => {
               className="big-button simple-title_other"
               onClick={clickHandler}
               disabled={disabled}
+              aria-label={"Удалить категорию"}
             >
               Да, удалить
             </button>

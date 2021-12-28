@@ -1,11 +1,12 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import { SimpleFormFieldRow } from "..";
 import { NOTIFICATION_WARNING } from "../../constants";
 import { notificationMessageAction, setUserDataAction } from "../../modules";
 import { cheekiBreekiValidator, localAuthData, strangeNumber } from "../../utils";
 
-export const MyData = memo(props => {
+const MyData = memo(props => {
 
   const { profile } = props;
 
@@ -39,6 +40,7 @@ export const MyData = memo(props => {
 
   useEffect(() => {
     if (
+      profile &&
       (profile.surname === newSurname || newSurname === null) &&
       (profile.shortName === newShortName || newShortName === null) &&
       (profile.email === newEmail || newEmail === null) &&
@@ -112,42 +114,55 @@ export const MyData = memo(props => {
   }
 
   return (
-    <form className="simple-form">
-      <SimpleFormFieldRow
-        ident={"shortName"}
-        label={"Имя"}
-        value={profile && profile.shortName}
-        getValue={getShortName}
-      />
-      <SimpleFormFieldRow
-        ident={"surname"}
-        label={"Фамилия"}
-        value={profile && profile.surname}
-        getValue={getSurname}
-      />
-      <SimpleFormFieldRow
-        ident={"email"}
-        label={"Email"}
-        value={profile && profile.email}
-        getValue={getEmail}
-        type={"email"}
-      />
-      <SimpleFormFieldRow
-        ident={"phone"}
-        label={"Телефон"}
-        value={profile && profile.phone}
-        getValue={getPhone}
-        type={"tel"}
-      />
-      <div className="simple-form__buttons-block">
-        <button
-          className="little-button simple-title_other"
-          disabled={activeButton}
-          onClick={onSubmit}
-        >
-          Сохранить
-        </button>
-      </div>
-    </form>
+    <CSSTransition
+      in={props.active}
+      timeout={400}
+      classNames={{
+        enterActive: "block-show",
+      }}
+      mountOnEnter
+      unmountOnExit
+    >
+      <form className="simple-form">
+        <SimpleFormFieldRow
+          ident={"shortName"}
+          label={"Имя"}
+          value={profile && profile.shortName}
+          getValue={getShortName}
+        />
+        <SimpleFormFieldRow
+          ident={"surname"}
+          label={"Фамилия"}
+          value={profile && profile.surname}
+          getValue={getSurname}
+        />
+        <SimpleFormFieldRow
+          ident={"email"}
+          label={"Email"}
+          value={profile && profile.email}
+          getValue={getEmail}
+          type={"email"}
+        />
+        <SimpleFormFieldRow
+          ident={"phone"}
+          label={"Телефон"}
+          value={profile && profile.phone}
+          getValue={getPhone}
+          type={"tel"}
+        />
+        <div className="simple-form__buttons-block">
+          <button
+            className="little-button simple-title_other"
+            disabled={activeButton}
+            onClick={onSubmit}
+            aria-label={"Сохранить новые данные"}
+          >
+            Сохранить
+          </button>
+        </div>
+      </form>
+    </CSSTransition>
   );
 });
+
+export default MyData;

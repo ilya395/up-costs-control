@@ -124,6 +124,7 @@ export const ExpenseItemFormView = props => {
           <button
             className="little-button_opacity simple-title_other"
             onClick={onCancel}
+            aria-label={"Отмена"}
           >
             Отмена
           </button>
@@ -131,6 +132,7 @@ export const ExpenseItemFormView = props => {
             className="little-button simple-title_other"
             onClick={onChange}
             disabled={disabled}
+            aria-label={"Сохранить данные"}
           >
             Готово
           </button>

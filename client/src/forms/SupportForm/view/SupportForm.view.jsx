@@ -42,6 +42,7 @@ export const SupportFormView = props => {
           className="little-button simple-title_other"
           disabled={props.data.disableButton}
           onClick={props.onSubmit}
+          aria-label={"Отправить сообщение в поддержку"}
         >
           Готово
         </button>
