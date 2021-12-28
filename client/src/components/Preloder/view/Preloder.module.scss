@@ -2,80 +2,80 @@
 
 // $link_color: #AC1900;
 
-.preloader {
-  &-layer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 150;
-    background-color: transparent;
+// .preloader {
+//   &-layer {
+//     position: fixed;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: 150;
+//     background-color: transparent;
 
-    &.white {
-      background-color: $white_color;
-    }
+//     &.white {
+//       background-color: $white_color;
+//     }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
 
-  &-container {
-    width: 80px;
-    height: 80px;
-    background-color: $white_color;
-    border-radius: 50%;
-  }
+//   &-container {
+//     width: 80px;
+//     height: 80px;
+//     background-color: $white_color;
+//     border-radius: 50%;
+//   }
 
-  &-show {
-    animation: preloader-show .4s forwards;
-  }
-  &-hide {
-    animation: preloader-hide .4s forwards;
-  }
-}
+//   &-show {
+//     animation: preloader-show .4s forwards;
+//   }
+//   &-hide {
+//     animation: preloader-hide .4s forwards;
+//   }
+// }
 
-.lds-dual-ring {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
+// .lds-dual-ring {
+//   display: inline-block;
+//   width: 80px;
+//   height: 80px;
 
-  &:after {
-    content: " ";
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid $link_color;
-    border-color: $link_color transparent $link_color transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-  }
-}
+//   &:after {
+//     content: " ";
+//     display: block;
+//     width: 64px;
+//     height: 64px;
+//     margin: 8px;
+//     border-radius: 50%;
+//     border: 6px solid $link_color;
+//     border-color: $link_color transparent $link_color transparent;
+//     animation: lds-dual-ring 1.2s linear infinite;
+//   }
+// }
 
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+// @keyframes lds-dual-ring {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
 
-@keyframes preloader-show {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes preloader-hide {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
+// @keyframes preloader-show {
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }
+// @keyframes preloader-hide {
+//   0% {
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 0;
+//   }
+// }

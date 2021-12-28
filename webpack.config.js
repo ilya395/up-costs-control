@@ -93,11 +93,11 @@ const jsLoaders = () => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
-      title: 'Web Application',
+      title: 'Costs Control',
       environment: process.env.NODE_ENV,
       filename: 'index.html',
       template: './templates/index.html',
-      baseUrl: process.env.NODE_ENV === 'development'? '/' : '/up-realty/',
+      // baseUrl: process.env.NODE_ENV === 'development'? '/' : '/costs-control/',
       minify: {
         collapseWhitespace: !isProd
       },
