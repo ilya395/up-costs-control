@@ -7,7 +7,7 @@ import cn from "classnames";
 import { useSelector } from "react-redux";
 registerLocale("ru", ru);
 
-export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) => {
+export const CostFormView = ({props, onCancel, onSave, disabled}) => {
 
   const [disableNumberField, setDisableNumberField] = useState(false);
 
@@ -43,16 +43,11 @@ export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) 
     const data = {
       amount,
       description,
-      // date: localDate,
       expenseItemId: props.expenseItemId,
     };
     dateVisible ? (data.date = localDate) : (data.date = new Date());
     return onSave && onSave(data);
   }
-
-  const onFocus = () => focusHandler(true);
-
-  const onBlur = () => focusHandler(false);
 
   return (
     <>
@@ -73,8 +68,6 @@ export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) 
               value={amount}
               onChange={onChangeAmount}
               required={true}
-              onFocus={onFocus}
-              onBlur={onBlur}
             />
           </div>
           <div className="simple-form__form-field simple-form__form-field_row">
@@ -89,8 +82,6 @@ export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) 
               className="simple-form__input simple-text_main"
               value={description}
               onChange={onChangeDescription}
-              onFocus={onFocus}
-              onBlur={onBlur}
             ></textarea>
           </div>
           <div className="simple-form__form-field simple-form__form-field_row">
@@ -117,6 +108,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) 
             <button
               className="little-button_opacity simple-title_other"
               onClick={onCancelCost}
+              aria-label={"Отмена"}
             >
               Отмена
             </button>
@@ -124,6 +116,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled, focusHandler}) 
               className="little-button simple-title_other"
               onClick={onSaveCost}
               disabled={disabled || disableNumberField}
+              aria-label={"Сохранить расходы"}
             >
               Готово
             </button>

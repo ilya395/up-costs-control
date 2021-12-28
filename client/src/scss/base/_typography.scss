@@ -5,6 +5,10 @@
   font-family: "Josefin Sans", sans-serif, "Times New Roman";
   font-style: normal;
   font-weight: normal;
+
+  &_gray {
+    color: $separator_color;
+  }
 }
 html {
   @extend .simple-text;

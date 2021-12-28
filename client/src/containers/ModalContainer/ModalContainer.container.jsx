@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Modal, ModalPlug } from "../../components";
+import { ModalPlug } from "../../components";
 import { MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_MAIN_MENU, MODAL_SUPPORT } from "../../modules/modal";
 
 const ExpenseItemFormContainer = lazy(() => import("../../forms/ExpenseItemForm"));
@@ -8,6 +8,7 @@ const CostFormContainer = lazy(() => import("../../forms/CostForm"));
 const Support = lazy(() => import("../../components/Support/Support.component"));
 const ProfileLayout = lazy(() => import("../../layouts/Profile/Profile.layout"));
 const Profile = lazy(() => import("../../components/Profile/Profile.component"));
+const Modal = lazy(() => import("../../components/Modal/Modal.component"));
 
 export const ModalContainer = props => {
 
@@ -51,7 +52,7 @@ export const ModalContainer = props => {
       <Suspense fallback={<ModalPlug />}>
         <Modal
           closeModal={closeModal}
-          render={props => <ProfileLayout props={{...props}} render={newProps => <Support props={{...newProps}} />} />}
+          render={props => <ProfileLayout props={{...props}} render={newProps => <Support {...newProps} />} />}
         />
       </Suspense>
     );
@@ -61,7 +62,7 @@ export const ModalContainer = props => {
       <Suspense fallback={<ModalPlug />}>
         <Modal
           closeModal={closeModal}
-          render={props => <ProfileLayout props={{...props}} render={newProps => <Profile props={{...newProps}} />} />}
+          render={props => <ProfileLayout props={{...props}} render={newProps => <Profile {...newProps} />} />}
         />
       </Suspense>
     );

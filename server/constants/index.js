@@ -15,6 +15,14 @@ const TOKEN_LIFE_TIME = process.env.TOKEN_LIFE_TIME;
 
 const BAD_WORDS = ['@', 'http', 'https', 'ws'];
 
+const ERROR = "ERROR";
+const SUCCESS = "SUCCESS";
+
+const EMAIL_LOGIN = process.env.EMAIL_LOGIN;
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+
+const ADMIN_EMAIL = "work.i395@yandex.ru";
+
 module.exports = {
   HOST,
   PORT,
@@ -26,4 +34,9 @@ module.exports = {
   TOKEN_KEY,
   TOKEN_LIFE_TIME,
   BAD_WORDS,
+  ERROR,
+  SUCCESS,
+  EMAIL_LOGIN,
+  EMAIL_PASSWORD,
+  ADMIN_EMAIL,
 }

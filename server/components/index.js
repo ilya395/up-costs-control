@@ -3,11 +3,13 @@ const { expenseItemsRoutes, expenseItemsModel, expenseItemsController } = requir
 const { costsModel, costsRoutes, costsController } = require("./costs/index");
 const { authController, authRoutes } = require("./auth/index");
 const { costsCollectionRoutes, costsCollectionController } = require("./collections/index");
+const { supportMessageRoutes, supportMessageController, } = require("./support/index");
 
 module.exports = {
   usersModel, usersRoutes, usersController,
   expenseItemsRoutes, expenseItemsModel, expenseItemsController,
   costsModel, costsRoutes, costsController,
   authController, authRoutes,
-  costsCollectionRoutes, costsCollectionController
+  costsCollectionRoutes, costsCollectionController,
+  supportMessageRoutes, supportMessageController
 }

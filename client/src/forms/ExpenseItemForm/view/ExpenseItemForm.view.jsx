@@ -75,10 +75,6 @@ export const ExpenseItemFormView = props => {
     }
   }
 
-  const onFocus = () => props.focusHandler(true);
-
-  const onBlur = () => props.focusHandler(false);
-
   return (
     <div className="simple-form__outer-wrapper">
       {
@@ -112,8 +108,6 @@ export const ExpenseItemFormView = props => {
               onBlur={clickOnInputField}
               value={nameValue}
               ref={props.refName}
-              onFocus={onFocus}
-              onBlur={onBlur}
             />
         </div>
         <div className="simple-form__form-field simple-form__form-field_column">
@@ -130,6 +124,7 @@ export const ExpenseItemFormView = props => {
           <button
             className="little-button_opacity simple-title_other"
             onClick={onCancel}
+            aria-label={"Отмена"}
           >
             Отмена
           </button>
@@ -137,11 +132,12 @@ export const ExpenseItemFormView = props => {
             className="little-button simple-title_other"
             onClick={onChange}
             disabled={disabled}
+            aria-label={"Сохранить данные"}
           >
             Готово
           </button>
         </div>
       </form>
     </div>
-    );
+  );
 }

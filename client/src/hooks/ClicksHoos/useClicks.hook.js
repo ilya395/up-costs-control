@@ -32,7 +32,6 @@ export const useClicks = data => {
       longClickCallback && longClickCallback();
       clear();
     } else if (difference > CLICK_DURATION * 2) { // touch or dragging
-      // onTouch();
       touchCallback && touchCallback();
       clear();
     } else {
