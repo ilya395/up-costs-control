@@ -57,7 +57,10 @@ export const SupportFormContainer = props => {
         notificationType: NOTIFICATION_WARNING
       }));
     }
-    dispatch(pushMessageToSupportAction({problem: data.problem}));
+    dispatch(pushMessageToSupportAction({
+      problem: data.problem,
+      email: data.email,
+    }));
   }
 
   return (

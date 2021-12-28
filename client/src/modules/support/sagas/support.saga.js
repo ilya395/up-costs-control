@@ -6,7 +6,7 @@ import { localAuthData, request } from "../../../utils";
 
 function* fetchSupportMessage(data) {
   try {
-    const { problem } = data.payload;
+    const { problem, email } = data.payload;
     yield put(awaitPushMessageToSupportAction());
     const response = yield call(() => {
       return request.put({
@@ -14,6 +14,7 @@ function* fetchSupportMessage(data) {
         body: {
           userId: +localAuthData.getUserId(),
           problem,
+          email
         }
       })
     });
