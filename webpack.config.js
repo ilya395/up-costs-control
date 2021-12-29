@@ -9,6 +9,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 const TerserWebpackPlugin = require('terser-webpack-plugin');                         // минифицируй js
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');          // через него прикрутить externals с массивом объектов, содержащих урлы с cdn библтотек
 const Dotenv = require('dotenv-webpack');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development' // определяй в каком сейчас режиме
 const isProd = !isDev                                //
@@ -118,16 +119,42 @@ const plugins = () => {
           from: path.resolve(__dirname, './client/src/*.json').replace(/\\/g, "/"), // в win пути с другими слэшами
           to: path.resolve(__dirname, './client/dist/')
         },
-        {
-          from: path.resolve(__dirname, './client/src/*.sw.js').replace(/\\/g, "/"), // в win пути с другими слэшами
-          to: path.resolve(__dirname, './client/dist/')
-        },
+        // {
+        //   from: path.resolve(__dirname, './client/src/*.sw.js').replace(/\\/g, "/"), // в win пути с другими слэшами
+        //   to: path.resolve(__dirname, './client/dist/')
+        // },
       ]
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/' + filename('css'),
     }),
     new Dotenv(),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      maximumFileSizeToCacheInBytes: 5000000,
+      // Do not precache images
+      exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+
+      // Define runtime caching rules.
+      runtimeCaching: [{
+        // Match any request that ends with .png, .jpg, .jpeg or .svg.
+        urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+
+        // Apply a cache-first strategy.
+        handler: 'CacheFirst',
+
+        options: {
+          // Use a custom cache name.
+          cacheName: 'images',
+
+          // Only cache 10 images.
+          expiration: {
+            maxEntries: 10,
+          },
+        },
+      }],
+    }),
     // new HtmlWebpackExternalsPlugin({
     //   externals: [
     //     {

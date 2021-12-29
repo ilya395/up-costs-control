@@ -13,7 +13,7 @@ ReactDOM.render(
 window.addEventListener("load", async () => {
   if (navigator.serviceWorker) {
     try {
-      const worker = await navigator.serviceWorker.register("./main.sw.js");
+      await navigator.serviceWorker.register("./service-worker.js");
     } catch(e) {
       console.log("ServiceWorker is bad :(")
     }
