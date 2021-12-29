@@ -23,10 +23,7 @@ export const Notification = () => {
           messages.length > 0 &&
           messages.map((item, index) => (
             <NotificationPlate
-              key={
-                // `${index}: ${item.message}`
-                item.message
-              }
+              key={item.message}
               message={item.message}
               active={item.active}
               delay={index*CLICK_DELAY/2}

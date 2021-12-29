@@ -1,5 +1,8 @@
 const { checkCostValidate } = require("../../../validate");
 const supportMessageModel = require("../models/support.model");
+const emailSendler = require("../../emailSendler");
+const { ADMIN_EMAIL } = require("../../../constants");
+const supportMessageTemplate = require("../../emailSendler/emailTemplates/templates");
 
 class SupportMessageController {
   async setSupportMessages(req, res) {
@@ -10,12 +13,12 @@ class SupportMessageController {
           status: "ERROR"
         });
       }
-      const { userId, problem } = req.body;
+      const { userId, problem, email } = req.body;
       // нужно проверить входные данные
       if (
         !checkCostValidate({
-          keys: ["problem", "userId"],
-          data: {problem, userId},
+          keys: ["problem", "userId", "email"],
+          data: {problem, userId, email},
         })
       ) {
         return res.status(400).json({
@@ -24,6 +27,23 @@ class SupportMessageController {
         });
       }
       try {
+        const send = await emailSendler
+          .send({
+            email: ADMIN_EMAIL,
+            subject: "Сообщение в поддержку",
+            text: "Сообщение",
+            template: supportMessageTemplate({
+              problem,
+              userEmail: email
+            })
+          })
+          .catch(e => {
+            return res.status(400).json({
+              status: "ERROR",
+              message: "Can not send support message",
+              error: e
+            });
+          });
         const mes = await supportMessageModel
           .create({
             userId,
@@ -35,15 +55,16 @@ class SupportMessageController {
               message: "Can not create support message with model",
               error: e
             });
-          })
+          });
         return res.status(200).json({
           status: "OK",
-          mes
+          message: mes,
+          sending: send ? true : false,
         });
       } catch(e) {
         return res.status(400).json({
           status: "ERROR",
-          message: "Can not create in db",
+          message: "Can not create in db and sending",
           error: e
         });
       }

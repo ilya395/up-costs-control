@@ -85,7 +85,7 @@ export const LoginForm = () => {
         />
       </div>
       <div className={s["login-form__button-block"]}>
-        <button className="big-button simple-title_other">Войти</button>
+        <button className="big-button simple-title_other" aria-label={"Войти в приложение"}>Войти</button>
         <div className={cn(s["button-block__prompt"], s["simple-text_other"])}>
           <span>Нет аккаунта? </span>
           <a href="#" className="simple-text_other simple-text_other-bold">Зарегистрироваться</a>

@@ -10,6 +10,7 @@ export const NavButton = memo(({ icon, title, url, callback }) => {
     <button
       className="nav-bar-button"
       onClick={onClick}
+      aria-label={title}
     >
       <div className="nav-bar-button__icon">
         {icon()}

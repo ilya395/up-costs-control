@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { memo } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import { NOTIFICATION_WARNING } from "../../constants";
 import { notificationMessageAction, setUserDataAction } from "../../modules";
 import { cheekiBreekiValidator, localAuthData } from "../../utils";
 import { SimpleFormFieldColumn } from "../SimpleFormFieldColumn/SimpleFormFieldColumn.component";
 
-export const ChangePassword = memo(() => {
+const ChangePassword = memo(props => {
 
   const dispatch = useDispatch();
 
@@ -60,30 +60,43 @@ export const ChangePassword = memo(() => {
   }
 
   return (
-    <form className="simple-form">
-      <SimpleFormFieldColumn
-        ident={"newPassword"}
-        label={"Введите новый пароль"}
-        value={newPasswordValue}
-        getValue={getNewPasswordValue}
-        type={"password"}
-      />
-      <SimpleFormFieldColumn
-        ident={"confirmationPassword"}
-        label={"Повторите новый пароль"}
-        value={confirmationPassword}
-        getValue={getConfirmationValue}
-        type={"password"}
-      />
-      <div className="simple-form__buttons-block">
-        <button
-          className="little-button simple-title_other"
-          disabled={activeButton}
-          onClick={onSubmit}
-        >
-          Готово
-        </button>
-      </div>
-    </form>
+    <CSSTransition
+      in={props.active}
+      timeout={400}
+      classNames={{
+        enterActive: "block-show",
+      }}
+      mountOnEnter
+      unmountOnExit
+    >
+      <form className="simple-form">
+        <SimpleFormFieldColumn
+          ident={"newPassword"}
+          label={"Введите новый пароль"}
+          value={newPasswordValue}
+          getValue={getNewPasswordValue}
+          type={"password"}
+        />
+        <SimpleFormFieldColumn
+          ident={"confirmationPassword"}
+          label={"Повторите новый пароль"}
+          value={confirmationPassword}
+          getValue={getConfirmationValue}
+          type={"password"}
+        />
+        <div className="simple-form__buttons-block">
+          <button
+            className="little-button simple-title_other"
+            disabled={activeButton}
+            onClick={onSubmit}
+            aria-label={"Сохранить новый пароль"}
+          >
+            Готово
+          </button>
+        </div>
+      </form>
+    </CSSTransition>
   );
 });
+
+export default ChangePassword;

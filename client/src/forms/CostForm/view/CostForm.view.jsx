@@ -108,6 +108,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
             <button
               className="little-button_opacity simple-title_other"
               onClick={onCancelCost}
+              aria-label={"Отмена"}
             >
               Отмена
             </button>
@@ -115,6 +116,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
               className="little-button simple-title_other"
               onClick={onSaveCost}
               disabled={disabled || disableNumberField}
+              aria-label={"Сохранить расходы"}
             >
               Готово
             </button>
