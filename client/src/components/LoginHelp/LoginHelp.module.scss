@@ -7,14 +7,13 @@
   flex-direction: row;
   align-items: flex-end;
 
-
   @media screen and (max-width: 320px) {
-    padding-bottom: 2rem;
+    flex-grow: 0;
   }
   @media screen and (min-width: 320px) {
-    padding-bottom: 2rem;
+    flex-grow: 0;
   }
-  @media screen and (min-width: 450px) {
-    padding-bottom: 4.4rem;
+  @media screen and (min-width: 375px) {
+    flex-grow: 0;
   }
 }
