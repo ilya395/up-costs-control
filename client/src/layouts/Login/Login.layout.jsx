@@ -1,7 +1,7 @@
 import React from "react";
 import cn from "classnames";
 import s from "./Login.module.scss";
-import { LoginForm, LoginHelp, WelcomeHeader } from "../../components";
+import { LoginForm, WelcomeHeader } from "../../components";
 
 const Login = () => {
   return (
@@ -9,7 +9,7 @@ const Login = () => {
       <div className={cn(s["login-main-section"])}>
         <WelcomeHeader />
         <LoginForm />
-        <LoginHelp />
+        {/* <LoginHelp /> */}
       </div>
     </div>
   );
