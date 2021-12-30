@@ -3,9 +3,22 @@
 .welcom-header-block {
   @extend .login-form;
   position: relative;
-  height: 120px;
+  min-height: 120px;
   margin-bottom: 4rem;
-  flex-grow: 1;
+
+  @media screen and (max-width: 320px) {
+    flex-grow: 0;
+  }
+  @media screen and (min-width: 320px) {
+    flex-grow: 0;
+  }
+  @media screen and (min-width: 375px) {
+    flex-grow: 1;
+  }
+  @media screen and (min-width: 576px) {
+    flex-grow: 0;
+  }
+
   &__icon {
     position: absolute;
     top: auto;

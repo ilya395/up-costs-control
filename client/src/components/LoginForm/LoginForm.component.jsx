@@ -58,6 +58,8 @@ export const LoginForm = () => {
     return result;
   }
 
+  const [visibleLink, setVisibleLink] = useState(false);
+
   return (
     <form className={s["login-form"]} onSubmit={submitForm}>
       <div className="form-field">
@@ -87,8 +89,15 @@ export const LoginForm = () => {
       <div className={s["login-form__button-block"]}>
         <button className="big-button simple-title_other" aria-label={"Войти в приложение"}>Войти</button>
         <div className={cn(s["button-block__prompt"], s["simple-text_other"])}>
-          <span>Нет аккаунта? </span>
-          <a href="#" className="simple-text_other simple-text_other-bold">Зарегистрироваться</a>
+          {
+            visibleLink && (
+              <>
+                <span>Нет аккаунта? </span>
+                <a href="#" className="simple-text_other simple-text_other-bold">Зарегистрироваться</a>
+              </>
+            )
+          }
+
         </div>
       </div>
     </form>

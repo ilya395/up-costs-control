@@ -4,17 +4,29 @@
 
 .login-form {
   margin: auto;
-  flex-grow: 0;
 
   @media screen and (max-width: 420px) {
     width: 100%;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
+
+  }
+  @media screen and (max-width: 320px) {
+    flex-grow: 0;
+  }
+  @media screen and (min-width: 320px) {
+    flex-grow: 0;
+  }
+  @media screen and (min-width: 375px) {
+    flex-grow: 1;
   }
   @media screen and (min-width: 420px) {
     width: 420px;
     padding-left: 3.4rem;
     padding-right: 3.4rem;
+  }
+  @media screen and (min-width: 576px) {
+    flex-grow: 0;
   }
 }
 
