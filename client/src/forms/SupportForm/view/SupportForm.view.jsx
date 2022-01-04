@@ -33,7 +33,7 @@ export const SupportFormView = props => {
           cols="30"
           rows="5"
           className="simple-form__input simple-text_main"
-          value={props.data.propblem}
+          value={props.data.problem || ""}
           onChange={props.onChangeProblem}
         ></textarea>
       </div>

@@ -40,7 +40,7 @@ export const CostFormContainer = props => {
       result = false;
     }
 
-    if (description && !cheekiBreekiValidator.checkText()) {
+    if (description && !cheekiBreekiValidator.checkText(description)) {
       dispatch(notificationMessageAction({
         message: "Корректно заполните поле описания!",
         notificationType: NOTIFICATION_WARNING

@@ -225,6 +225,17 @@ export const ExpenseItem = props => {
     }
   }
 
+  const fuckingTitle = title => {
+    if (title.length < 12) {
+      console.log(title.length)
+      return title;
+    }
+    let newTitle = title;
+    newTitle = newTitle.slice(0, 11);
+    newTitle = newTitle[newTitle.length - 1] == " " ? newTitle.slice(0, newTitle.length - 1) : newTitle;
+    return newTitle = `${newTitle}...`;
+  }
+
   return (
     <article
       id={props.data.id}
@@ -253,7 +264,7 @@ export const ExpenseItem = props => {
       ref={refItem}
     >
       <h3 className="expense-item-button__title simple-text_other lowercase" style={{pointerEvents: "none"}}>
-        {props.data.name}
+        {fuckingTitle(props.data.name)}
       </h3>
       <div className="expense-item-button__price simple-text_number" style={{pointerEvents: "none"}}>
         {props.data.costsAmount || "0"}
