@@ -1,47 +1,41 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItem.module.scss";
 import { inMobile, throttle } from "../../utils";
 import { useClicks } from "../../hooks";
 import { ScrollControllerContext } from "../../context";
 import { CLICK_DURATION } from "../../constants";
+import { useHistory } from "react-router-dom";
 
 export const ExpenseItem = props => {
 
+  const { data, changeExpenseItem, deleteExpenseItem, addCost } = props;
+
+  const history = useHistory();
+
+  const redirectToCost = useCallback(() => history.push(`/expense-item/${data.id}`), [data.id]);
+
+  const [clickedOnManagementBtn, setClickedOnManagementBtn] = useState(false);
+
   const scrollController = useContext(ScrollControllerContext);
 
-  const returnExpenseItemIdForChanging = () => {
-    const { data, changeExpenseItem } = props;
-    return changeExpenseItem({
-      expenseItemId: data.id,
-    });
-  }
+  const returnExpenseItemIdForChanging = useCallback(() => changeExpenseItem({
+    expenseItemId: data.id,
+  }), [data.id, changeExpenseItem]);
 
-  const returnExpenseItemIdForDeleting = () => {
-    const { data, deleteExpenseItem } = props;
-    return deleteExpenseItem({
-      expenseItemId: data.id,
-    });
-  }
+  const returnExpenseItemIdForDeleting = useCallback(() => deleteExpenseItem({
+    expenseItemId: data.id,
+  }), [data.id, deleteExpenseItem]);
 
-  const returnDataForCreateCost = () => {
-    const { data, addCost } = props;
-    return addCost({
-      expenseItemId: data.id,
-    });
-  }
+  const returnDataForCreateCost = useCallback(() => addCost({
+    expenseItemId: data.id,
+  }), [data.id, addCost]);
 
-  const onShortClick = () => {
-    returnDataForCreateCost();
-  }
+  const onShortClick = () => null; // returnDataForCreateCost();
 
-  const onLongClick = () => {
-    returnExpenseItemIdForDeleting();
-  }
+  const onLongClick = () => null; // returnExpenseItemIdForDeleting();
 
-  const onCustomDoubleClick = () => {
-    returnExpenseItemIdForChanging();
-  }
+  const onCustomDoubleClick = () => null; // returnExpenseItemIdForChanging();
 
   const { setValueClickStartTime, setNullClickStartTime, makeMove } = useClicks({
     shortClickCallback: onShortClick,
@@ -49,17 +43,9 @@ export const ExpenseItem = props => {
     longClickCallback: onLongClick,
   });
 
-  const onMouseDown = () => {
-    if (!inMobile()) {
-      setValueClickStartTime();
-    }
-  }
+  const onMouseDown = () => !inMobile() && setValueClickStartTime();
 
-  const onMouseUp = () => {
-    if (!inMobile()) {
-      makeMove();
-    }
-  }
+  const onMouseUp = () => !inMobile() && makeMove();
 
   const [readyToDAndD, setReadyToDAndD] = useState(false);
 
@@ -227,13 +213,19 @@ export const ExpenseItem = props => {
 
   const fuckingTitle = title => {
     if (title.length < 12) {
-      console.log(title.length)
       return title;
     }
     let newTitle = title;
     newTitle = newTitle.slice(0, 11);
     newTitle = newTitle[newTitle.length - 1] == " " ? newTitle.slice(0, newTitle.length - 1) : newTitle;
     return newTitle = `${newTitle}...`;
+  }
+
+  const managementBlockClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setClickedOnManagementBtn(!clickedOnManagementBtn);
   }
 
   return (
@@ -263,6 +255,34 @@ export const ExpenseItem = props => {
       }}
       ref={refItem}
     >
+      <div className="expense-item-button__expense-item-management">
+        <button className="expense-item-management__manage-button" onClick={managementBlockClick} >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          </svg>
+        </button>
+        {
+            clickedOnManagementBtn &&
+            <ul className="expense-item-management__list">
+              <li className="expense-item-management__list-item">
+                <button className="expense-item-management__variable-btn" onClick={returnExpenseItemIdForChanging}>Редактировать</button>
+              </li>
+              <li className="expense-item-management__list-item">
+                <button className="expense-item-management__variable-btn" onClick={returnExpenseItemIdForDeleting}>Удалить</button>
+              </li>
+              <li className="expense-item-management__list-item">
+                <button className="expense-item-management__variable-btn" onClick={returnDataForCreateCost}>Добавить расходы</button>
+              </li>
+              <li className="expense-item-management__list-item">
+                <button className="expense-item-management__variable-btn" onClick={redirectToCost}>Перейти к расходам</button>
+              </li>
+            </ul>
+          }
+        {/* <div className="expense-item-management__list-wrap">
+
+        </div> */}
+
+      </div>
       <h3 className="expense-item-button__title simple-text_other lowercase" style={{pointerEvents: "none"}}>
         {fuckingTitle(props.data.name)}
       </h3>

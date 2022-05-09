@@ -17,4 +17,4 @@ export function MonthReducer(state = initialMonthState, action) {
   }
 }
 
-export const choosedDateSelector = state => state.date. choosedDate;
+export const choosedDateSelector = state => state.date.choosedDate;

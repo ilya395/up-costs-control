@@ -12,6 +12,9 @@ function checkCollectionValidate({keys, data}) {
       if (key == "userId" && !checkNumbers(data[key])) {
         status = false;
       }
+      if (key == "expenseItemId" && !checkNumbers(data[key])) {
+        status = false;
+      }
     }
   }
 

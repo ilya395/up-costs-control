@@ -27,8 +27,7 @@ export const MainRoter = () => {
               <Redirect to="/" /> :
               <Login />
           }}
-        >
-        </Route>
+        />
         <Route
           path="/"
           exact={true}
@@ -37,9 +36,24 @@ export const MainRoter = () => {
               <Redirect to="/login" /> :
               <Main />
           }}
-        >
-        </Route>
-        <Redirect to="/" />
+        />
+        <Route
+          path="/expense-item/:id"
+          render={() => {
+            return !tokenInComponent ?
+              <Redirect to="/login" /> :
+              <Main mainPage={false} />
+          }}
+        />
+        <Route
+          path="*"
+          render={() => {
+            return !tokenInComponent ?
+              <Redirect to="/login" /> :
+              <div>404</div>
+          }}
+        />
+        {/* <Redirect to="/" /> */}
       </Switch>
     </Suspense>
   );

@@ -11,7 +11,7 @@ export const ExpenseItemsListContainer = memo(() => {
 
   const dispatch = useDispatch();
 
-  const costs = useSelector(state => state.costsGet.data);
+  const expenseItems = useSelector(state => state.costsGet.data);
 
   const choosedDate = useSelector(state => state.date.choosedDate);
 
@@ -33,7 +33,7 @@ export const ExpenseItemsListContainer = memo(() => {
   }
 
   const changeExpenseItem = ({expenseItemId}) => {
-    const result = costs.find(item => +item.id === +expenseItemId);
+    const result = expenseItems.find(item => +item.id === +expenseItemId);
     dispatch(modalEditExpenseItemAction(result));
   }
 
@@ -42,18 +42,18 @@ export const ExpenseItemsListContainer = memo(() => {
   }
 
   const addCost = ({expenseItemId}) => {
-    const result = costs.find(item => +item.id === +expenseItemId);
+    const result = expenseItems.find(item => +item.id === +expenseItemId);
     dispatch(modalAddCostAction({expenseItemId, ...result}));
   }
 
   const deleteExpenseItem = ({expenseItemId}) => {
-    const result = costs.find(item => +item.id === +expenseItemId);
+    const result = expenseItems.find(item => +item.id === +expenseItemId);
     dispatch(modalDeleteExpenseItemAction(result));
   }
 
   return (
     <ExpenseItemsList
-      costs={costs}
+      costs={expenseItems}
       addNewExpenseItem={addNewExpenseItem}
       changeExpenseItem={changeExpenseItem}
       addCost={addCost}

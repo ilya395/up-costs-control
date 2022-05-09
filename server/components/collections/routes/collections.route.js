@@ -7,4 +7,8 @@ costsCollectionRoutes
   .route("/costs")
   .post(costsCollection.getMonthlyExpenses)
 
+costsCollectionRoutes
+  .route("/monthly-costs")
+  .post(costsCollection.getMonthlyCosts)
+
 module.exports = costsCollectionRoutes;

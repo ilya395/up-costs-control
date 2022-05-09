@@ -8,8 +8,14 @@ import { Transition } from 'react-transition-group';
 import { modalClearAction, modalCloseAction } from "../../modules";
 import { mainMenuListAction } from "../../modules/main-menu";
 import { ScrollControllerContext } from "../../context";
+import CostsList from "../../components/CostsList/CostsList.component";
+import { useHistory } from "react-router-dom";
 
-const Main = () => {
+const Main = (props) => {
+
+  const { mainPage = true, } = props;
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -29,11 +35,21 @@ const Main = () => {
             Мои расходы
           </h1>
         </div>
+        {
+          !mainPage &&
+          <div className={s["main-content-section__monthspicker"]}>
+            <button onClick={() => history.push("/")}>назад</button>
+          </div>
+        }
         <div className={s["main-content-section__monthspicker"]}>
           <MonthPicker />
         </div>
         <div className={s["main-content-section__expense-items-list"]}>
-          <ExpenseItemsListContainer />
+          {
+            mainPage ?
+              <ExpenseItemsListContainer /> :
+              <CostsList />
+          }
         </div>
         <div className={s["main-content-section__nav-bar"]}>
           <NavBar />

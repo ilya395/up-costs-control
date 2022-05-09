@@ -19,7 +19,6 @@ class Validator {
     // return arg && validator.isMobilePhone(arg.toString(), 'ru-RU');
   }
   checkText(arg) {
-    console.log(arg)
     let validate = true;
     if (!arg || typeof arg !== "string") {
       return validate = false;

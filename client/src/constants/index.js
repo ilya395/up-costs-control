@@ -19,6 +19,10 @@ export const API_URL = {
   },
   collection: {
     post: "/api/collection/costs",
+
+    monthlyCosts: {
+      post: "/api/collection/monthly-costs",
+    },
   },
   users: {
     get: "/api/users/get",

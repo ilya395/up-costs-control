@@ -44,6 +44,53 @@
   @media screen and (min-width: 1200px) {
     padding: 1.5rem 2rem 1rem 2rem;
   }
+
+  &__expense-item-management {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    z-index: 9000;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    max-height: 100%;
+  }
+}
+.expense-item-management {
+  &__manage-button {
+    background-color: transparent;
+    padding: .5rem 0rem;
+  }
+
+  &__list-wrap {
+    position: relative;
+  }
+
+  &__list {
+    position: absolute;
+    top: calc(1.8rem + 0.5rem);
+    right: 0;
+    bottom: auto;
+    left: auto;
+    z-index: 9000;
+    min-width: 11rem;
+
+    // margin-left: 2px !important;
+    margin-right: -15px !important;
+
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  }
+  &__list-item {
+    background-color: $white_color;
+    padding: .3rem .5rem;
+  }
+  &__variable-btn {
+    background-color: transparent;
+  }
 }
 .add-expense-item-button {
   @extend .expense-item-button;
