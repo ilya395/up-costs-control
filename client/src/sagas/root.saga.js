@@ -1,7 +1,7 @@
 import { all } from "@redux-saga/core/effects";
 import { watchAuth, watchNotification, watchUser, watchUserData } from "../modules";
 import { watchAddCosts, watchAddExpenseItem, watchChangeExpenseItem, watchDeleteExpenseItem, watchGetCosts } from "../modules/costs";
-import { watchCostsCollection } from "../modules/costsCollection/sagas/costsCollection.saga";
+import { watchCostsCollection, watchDeleteCostCollection } from "../modules/costsCollection/sagas/costsCollection.saga";
 import { watchSupportMessage } from "../modules/support";
 
 
@@ -18,5 +18,6 @@ export function* rootSaga() {
     watchNotification(),
     watchSupportMessage(),
     watchCostsCollection(),
+    watchDeleteCostCollection(),
   ]);
 }

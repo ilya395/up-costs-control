@@ -34,6 +34,7 @@ export function CostsCollectionReducer(state = initialCostsCollectionState, acti
   }
 }
 
-export const dataCostsCollectionSelector = (state) => state.costsCollection.data;
+export const costsDataFromCostsCollectionSelector = (state) => state.costsCollection.data?.costs;
+export const expenseItemDataFromCostsCollectionSelector = (state) => state.costsCollection.data?.expenseItem;
 export const errorCostsCollectionSelector = (state) => state.costsCollection.error;
 export const awaitCostsCollectionSelector = (state) => state.costsCollection.await;

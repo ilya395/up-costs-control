@@ -228,6 +228,20 @@ export const ExpenseItem = props => {
     setClickedOnManagementBtn(!clickedOnManagementBtn);
   }
 
+  const list = useRef(null);
+
+  const clickHandler = (event) => {
+    const targetElement = event.target;
+    if (!(list.current && list.current.contains(targetElement))) {
+      setClickedOnManagementBtn(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("click", clickHandler);
+    return () => window.removeEventListener("click", clickHandler);
+  }, []);
+
   return (
     <article
       id={props.data.id}
@@ -256,14 +270,14 @@ export const ExpenseItem = props => {
       ref={refItem}
     >
       <div className="expense-item-button__expense-item-management">
-        <button className="expense-item-management__manage-button" onClick={managementBlockClick} >
+        <button className="expense-item-management__manage-button" onClick={managementBlockClick}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
           </svg>
         </button>
         {
             clickedOnManagementBtn &&
-            <ul className="expense-item-management__list">
+            <ul className="expense-item-management__list" ref={list}>
               <li className="expense-item-management__list-item">
                 <button className="expense-item-management__variable-btn" onClick={returnExpenseItemIdForChanging}>Редактировать</button>
               </li>
@@ -278,10 +292,6 @@ export const ExpenseItem = props => {
               </li>
             </ul>
           }
-        {/* <div className="expense-item-management__list-wrap">
-
-        </div> */}
-
       </div>
       <h3 className="expense-item-button__title simple-text_other lowercase" style={{pointerEvents: "none"}}>
         {fuckingTitle(props.data.name)}

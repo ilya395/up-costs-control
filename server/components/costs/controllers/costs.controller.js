@@ -127,6 +127,8 @@ class CostsController {
         });
       }
       const data = req.body;
+      const { id, userId, expenseItemId, date, } = data;
+      console.log("#### data: ", data)
       // нужно проверить входные данные
       if (
         !checkCostValidate({
@@ -139,12 +141,15 @@ class CostsController {
           status: "ERROR"
         });
       }
-      const innerData = {};
-      for (let key in data) {
-        if (data[key]) {
-          innerData[key] = data[key];
-        }
-      }
+      const innerData = {
+        id,
+        userId,
+      };
+      // for (let key in data) {
+      //   if (data[key]) {
+      //     innerData[key] = data[key];
+      //   }
+      // }
       try {
         const cost = await CostsModel
           .destroy({

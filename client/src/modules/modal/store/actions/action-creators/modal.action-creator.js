@@ -6,7 +6,9 @@ import {
   MODAL_COST_ADD,
   MODAL_SUPPORT,
   MODAL_MAIN_MENU,
-  MODAL_CLEAR
+  MODAL_CLEAR,
+  MODAL_EDIT_COST_IN_COLLECTION,
+  MODAL_DELETE_COST_IN_COLLECTION
 } from "../types/modal.type";
 
 export const modalCloseAction = () => ({
@@ -43,4 +45,14 @@ export const modalSupportAction = () => ({
 
 export const modalMainMenuAction = () => ({
   type: MODAL_MAIN_MENU,
+});
+
+export const modalDeleteCostInCollection = payload => ({
+  type: MODAL_DELETE_COST_IN_COLLECTION,
+  payload,
+});
+
+export const modalEditCostInCollection = payload => ({
+  type: MODAL_EDIT_COST_IN_COLLECTION,
+  payload,
 });

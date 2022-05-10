@@ -7,6 +7,7 @@ import {
   MODAL_SUPPORT,
   MODAL_MAIN_MENU,
   MODAL_CLEAR,
+  MODAL_EDIT_COST_IN_COLLECTION,
 } from "../actions";
 
 const initialModalState = {
@@ -43,6 +44,13 @@ export const ModalReducer = (state = initialModalState, action) => {
         ...state,
         open: true,
         componentName: MODAL_COST_ADD,
+        data: action.payload,
+      }
+    case MODAL_EDIT_COST_IN_COLLECTION:
+      return {
+        ...state,
+        open: true,
+        componentName: MODAL_EDIT_COST_IN_COLLECTION,
         data: action.payload,
       }
     case MODAL_SUPPORT:

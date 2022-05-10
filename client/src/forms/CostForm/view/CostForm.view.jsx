@@ -8,15 +8,25 @@ import { useSelector } from "react-redux";
 registerLocale("ru", ru);
 
 export const CostFormView = ({props, onCancel, onSave, disabled}) => {
+  console.log("### prps: ", props)
+  const {
+    expenseItemId,
+    mode,
+    name,
+    amount: editAmount,
+    costId: editCostId,
+    createdAt: editCreatedAt,
+    description: editDescription,
+  } = props;
 
   const [disableNumberField, setDisableNumberField] = useState(false);
 
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(editAmount || "");
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(editDescription || "");
 
   const customDate = useSelector(state => state.date.choosedDate);
-  const [localDate, setLocalDate] = useState(customDate);
+  const [localDate, setLocalDate] = useState(editCreatedAt || customDate);
 
   const [dateVisible, setDateVisible] = useState(false);
 
@@ -43,7 +53,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
     const data = {
       amount,
       description,
-      expenseItemId: props.expenseItemId,
+      expenseItemId: expenseItemId,
     };
     dateVisible ? (data.date = localDate) : (data.date = new Date());
     return onSave && onSave(data);
@@ -53,7 +63,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
     <>
       <div className="simple-form__outer-wrapper">
         <h2>
-          Добавить расход в категорию “{props.name}”
+          {mode === "add" ? `Добавить расход в категорию “${name}”` : `Редактировать расход в категории “${name}”`}
         </h2>
         <form className="simple-form">
           <div className="simple-form__form-field simple-form__form-field_row">

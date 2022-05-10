@@ -9,6 +9,8 @@ export const CostFormContainer = props => {
 
   const { allProps } = props;
 
+  const { mode, ...rest } = allProps;
+
   const [localThrottle, setLocalthrottle] = useState(false);
 
   useEffect(() => {

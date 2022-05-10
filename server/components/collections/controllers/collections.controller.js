@@ -99,7 +99,6 @@ class CostsCollectionController {
         });
       }
       const { date, userId, expenseItemId } = req.body;
-      console.log("### date: ", date)
 
       // нужно проверить входные данные
       if (
@@ -117,20 +116,21 @@ class CostsCollectionController {
         const now = new Date(+date);
         const thisDate = new Date(now.getFullYear(), now.getMonth(), 1, 23, 59, 59);
         const nextDate = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0);
-        // const expenseItems = await expenseItemsModel
-        //   .findAll({
-        //     where: {
-        //       userId
-        //     },
-        //     raw: true,
-        //   })
-        //   .catch(e => {
-        //     return res.status(400).json({
-        //       status: "ERROR",
-        //       message: "Can not find expense items with model",
-        //       error: e
-        //     });
-        //   });
+        const expenseItems = await expenseItemsModel
+          .findAll({
+            where: {
+              userId,
+              id: expenseItemId,
+            },
+            raw: true,
+          })
+          .catch(e => {
+            return res.status(400).json({
+              status: "ERROR",
+              message: "Can not find expense items with model",
+              error: e
+            });
+          });
         const costs = await costsModel
           .findAll({
             where: {
@@ -163,7 +163,10 @@ class CostsCollectionController {
         // });
         return res.status(200).json({
           status: "OK",
-          data: costs,
+          data: {
+            costs,
+            expenseItem: expenseItems[0],
+          },
         });
       } catch(e) {
         return res.status(400).json({

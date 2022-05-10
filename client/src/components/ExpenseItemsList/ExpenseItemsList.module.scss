@@ -7,7 +7,7 @@ $item_padding: 1.5rem;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  overflow: hidden;
+  // overflow: hidden;
 
   @media screen and (max-width: 369px) {
     margin-left: -$item_padding;
