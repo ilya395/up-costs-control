@@ -5,6 +5,7 @@ import s from "./CostForm.module.scss";
 import ru from "date-fns/locale/ru";
 import cn from "classnames";
 import { useSelector } from "react-redux";
+import { MODAL_ADD_COST } from "../../../constants";
 registerLocale("ru", ru);
 
 export const CostFormView = ({props, onCancel, onSave, disabled}) => {
@@ -15,7 +16,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
     name,
     amount: editAmount,
     costId: editCostId,
-    createdAt: editCreatedAt,
+    costCreatedAt: editCreatedAt,
     description: editDescription,
   } = props;
 
@@ -26,7 +27,8 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
   const [description, setDescription] = useState(editDescription || "");
 
   const customDate = useSelector(state => state.date.choosedDate);
-  const [localDate, setLocalDate] = useState(editCreatedAt || customDate);
+  console.log((editCreatedAt && (new Date(editCreatedAt))), customDate)
+  const [localDate, setLocalDate] = useState((editCreatedAt && (new Date(editCreatedAt))) || customDate);
 
   const [dateVisible, setDateVisible] = useState(false);
 
@@ -54,9 +56,15 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
       amount,
       description,
       expenseItemId: expenseItemId,
+      id: editCostId,
     };
     dateVisible ? (data.date = localDate) : (data.date = new Date());
     return onSave && onSave(data);
+  }
+
+  const setDate = (arg) => {
+    const date = new Date(arg);
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
 
   return (
@@ -109,7 +117,9 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
                   showFullMonthYearPicker
                   locale={ru}
                 /> :
-                <span onClick={() => setDateVisible(true)}>сегодня</span>
+                <span onClick={() => setDateVisible(true)}>
+                  {mode === MODAL_ADD_COST ? "сегодня" : setDate(localDate)}
+                </span>
               }
 
             </div>

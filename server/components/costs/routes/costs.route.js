@@ -17,6 +17,6 @@ costsRoutes
 
 costsRoutes
   .route("/update")
-  .post(costsController.updateCost)
+  .put(costsController.updateCost)
 
 module.exports = costsRoutes;

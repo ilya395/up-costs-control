@@ -19,6 +19,7 @@ import {
   SUCCESS_ADD_COSTS,
   ERROR_ADD_COSTS,
   ADD_COSTS,
+  EDIT_COST,
 } from "../types/costs.type";
 
 export const getCostsAction = payload => ({
@@ -50,6 +51,11 @@ export const succesAddCostsAction = payload => ({
 });
 export const errorAddCostsAction = payload => ({
   type: ERROR_ADD_COSTS,
+  payload,
+});
+
+export const editCostAction = payload => ({
+  type: EDIT_COST,
   payload,
 });
 

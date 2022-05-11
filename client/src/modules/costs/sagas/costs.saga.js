@@ -4,6 +4,8 @@ import { modalClearAction, modalCloseAction, notificationMessageAction } from ".
 import { API_URL, NOTIFICATION_ERROR } from "../../../constants";
 import { localAuthData } from "../../../utils";
 import { request } from "../../../utils/classes/Request.class";
+import { fetchCostsCollection } from "../../costsCollection/sagas/costsCollection.saga";
+import { EDIT_COST } from "../store";
 
 function* fetchGetCosts(data) {
   try {
@@ -77,6 +79,54 @@ function* fetchAddCosts(data) {
 }
 export function* watchAddCosts() {
   yield takeEvery(ADD_COSTS, fetchAddCosts);
+}
+
+function* fetchEditCost(data) {
+  try {
+    const { userId, amount, expenseItemId, description, date, id } = data.payload;
+    const body = {
+      userId: +userId || +localAuthData.getUserId(),
+      amount: +amount,
+      expenseItemId: +expenseItemId,
+      description,
+      id,
+    };
+    date ? (body.date = date) : body;
+    yield put(awaitAddCostsAction());
+    const response = yield call(() => {
+      return request.put({
+        url: API_URL.cost.update,
+        body,
+      })
+    });
+    if (!response.error) {
+      yield put(modalCloseAction());
+      yield put(modalClearAction());
+      // yield put(succesAddCostsAction(response.data));
+      yield put(fetchCostsCollection({
+        payload: {
+          userId,
+          expenseItemId,
+          date,
+        },
+      }));
+    } else {
+      yield put(errorAddCostsAction(response.error));
+      yield put(notificationMessageAction({
+        message: response.error,
+        notificationType: NOTIFICATION_ERROR
+      }));
+    }
+  } catch(e) {
+    yield put(errorAddCostsAction(e));
+    yield put(notificationMessageAction({
+      message: e.message,
+      notificationType: NOTIFICATION_ERROR
+    }));
+  }
+}
+export function* watchEditCost() {
+  yield takeEvery(EDIT_COST, fetchEditCost);
 }
 
 function* fetchAddExpenseItem(data) {

@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { ModalPlug } from "../../components";
+import { MODAL_ADD_COST, MODAL_EDIT_COST } from "../../constants";
 import { MODAL_EDIT_COST_IN_COLLECTION, MODAL_DELETE_COST_IN_COLLECTION, MODAL_COST_ADD, MODAL_EXPENSE_ITEM_ADD, MODAL_EXPENSE_ITEM_DELETE, MODAL_EXPENSE_ITEM_EDIT, MODAL_MAIN_MENU, MODAL_SUPPORT } from "../../modules/modal";
 
 const ExpenseItemFormContainer = lazy(() => import("../../forms/ExpenseItemForm"));
@@ -42,7 +43,7 @@ export const ModalContainer = props => {
       <Suspense fallback={<ModalPlug />}>
         <Modal
           closeModal={closeModal}
-          render={props => <CostFormContainer allProps={{...props, ...data, mode: "add",}} />}
+          render={props => <CostFormContainer allProps={{...props, ...data, mode: MODAL_ADD_COST,}} />}
         />
       </Suspense>
     );
@@ -80,7 +81,7 @@ export const ModalContainer = props => {
       <Suspense fallback={<ModalPlug />}>
         <Modal
           closeModal={closeModal}
-          render={props => <CostFormContainer allProps={{...props, ...data, mode: "edit",}} />}
+          render={props => <CostFormContainer allProps={{...props, ...data, mode: MODAL_EDIT_COST,}} />}
         />
       </Suspense>
     );

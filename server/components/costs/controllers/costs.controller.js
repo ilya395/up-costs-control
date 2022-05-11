@@ -190,6 +190,7 @@ class CostsController {
         });
       }
       const data = req.body;
+      const {id, userId, amount, description, expenseItemId, date} = data;
       // нужно проверить входные данные
       if (
         !checkCostValidate({

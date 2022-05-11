@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CostFormView } from "../view/CostForm.view";
-import { CLICK_DELAY, NOTIFICATION_WARNING } from "../../../constants";
-import { addCostsAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
+import { CLICK_DELAY, MODAL_ADD_COST, NOTIFICATION_WARNING } from "../../../constants";
+import { addCostsAction, editCostAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { cheekiBreekiValidator, throttle } from "../../../utils";
 
 export const CostFormContainer = props => {
@@ -57,7 +57,9 @@ export const CostFormContainer = props => {
     if (!validateCost(data)) {
       return;
     }
-    dispatch(addCostsAction(data));
+    mode === MODAL_ADD_COST ?
+      dispatch(addCostsAction(data)) :
+      dispatch(editCostAction(data));
   }
 
   const onThrottleSave = throttle(saveHandler, 5000);

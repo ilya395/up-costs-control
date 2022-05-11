@@ -72,3 +72,6 @@ export const LOADING_DATA = "LOADING_DATA";
 export const LOADING_APP = "LOADING_APP";
 
 export const BAD_WORDS = ['@', 'http', 'https', 'ws'];
+
+export const MODAL_ADD_COST = "ADD";
+export const MODAL_EDIT_COST = "EDIT";

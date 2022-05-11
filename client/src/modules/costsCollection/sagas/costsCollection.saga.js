@@ -4,7 +4,7 @@ import { request } from "../../../utils";
 import { notificationMessageAction } from "../../notification";
 import { awaitCostsCollectionAction, DELETE_COST_IN_COLEECTION, errorCostsCollectionAction, GET_COSTS_COLLECTION, successCostsCollectionAction } from "../store";
 
-function* fetchCostsCollection(data) {
+export function* fetchCostsCollection(data) {
   try {
     const { date, userId, expenseItemId } = data.payload;
     yield put(awaitCostsCollectionAction());
