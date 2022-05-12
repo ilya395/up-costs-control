@@ -1,43 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { choosedDateSelector, modalEditCostInCollection } from "../../modules";
-import { costsDataFromCostsCollectionSelector, deleteCostInCollection, expenseItemDataFromCostsCollectionSelector, getCostsCollection } from "../../modules/costsCollection/store";
-import { localAuthData } from "../../utils";
+import React from "react";
+import useCostsList from "./hooks/CostsList.hook";
 
 const CostsList = () => {
-  const { id: expenseItemId } = useParams();
-  const dispatch = useDispatch();
-  const userId = localAuthData.getUserId()
-  const date = useSelector(choosedDateSelector);
-  useEffect(() => {
-    dispatch(getCostsCollection({
-      expenseItemId: Number(expenseItemId),
-      userId,
-      date: (date).getTime(),
-    }));
-  }, [expenseItemId, userId, date,]);
-  const costs = useSelector(costsDataFromCostsCollectionSelector);
-  const expenseItem = useSelector(expenseItemDataFromCostsCollectionSelector);
-  const setDate = (arg) => {
-    const date = new Date(arg);
-    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-  }
-  const editHandler = ({id, amount, description, createdAt,}) => () => dispatch(modalEditCostInCollection({
-    expenseItemId: Number(expenseItemId),
-    userId,
-    costCreatedAt: (createdAt && (new Date(createdAt)).getTime()) || date,
-    costId: id,
-    name: expenseItem.name,
-    amount,
-    description,
-  }));
-  const deleteHandler = (id) => () => dispatch(deleteCostInCollection({
-    expenseItemId: Number(expenseItemId),
-    userId,
-    date: (date).getTime(),
-    costId: id,
-  }));
+  const {
+    costs,
+
+    editHandler,
+    deleteHandler,
+  } = useCostsList();
   if (!costs || costs.length === 0) {
     return ("Нет расходов за данный период");
   }

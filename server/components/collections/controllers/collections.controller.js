@@ -13,7 +13,6 @@ class CostsCollectionController {
         });
       }
       const { date, userId } = req.body;
-      console.log("### date: ", date)
 
       // нужно проверить входные данные
       if (

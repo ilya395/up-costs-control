@@ -23,7 +23,7 @@ export const NotificationPlate = ({ message, delay, active, type, clearNotificat
   return (
     <CSSTransition
       in={active}
-      timeout={400 + localDelay }
+      timeout={400 + localDelay}
       classNames={{
         enterActive: "show",
         enterDone: "showed",

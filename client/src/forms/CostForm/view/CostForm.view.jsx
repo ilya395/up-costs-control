@@ -9,7 +9,6 @@ import { MODAL_ADD_COST } from "../../../constants";
 registerLocale("ru", ru);
 
 export const CostFormView = ({props, onCancel, onSave, disabled}) => {
-  console.log("### prps: ", props)
   const {
     expenseItemId,
     mode,
@@ -27,7 +26,6 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
   const [description, setDescription] = useState(editDescription || "");
 
   const customDate = useSelector(state => state.date.choosedDate);
-  console.log((editCreatedAt && (new Date(editCreatedAt))), customDate)
   const [localDate, setLocalDate] = useState((editCreatedAt && (new Date(editCreatedAt))) || customDate);
 
   const [dateVisible, setDateVisible] = useState(false);

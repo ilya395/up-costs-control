@@ -128,7 +128,6 @@ class CostsController {
       }
       const data = req.body;
       const { id, userId, expenseItemId, date, } = data;
-      console.log("#### data: ", data)
       // нужно проверить входные данные
       if (
         !checkCostValidate({

@@ -92,7 +92,7 @@ function* fetchEditCost(data) {
       id,
     };
     date ? (body.date = date) : body;
-    yield put(awaitAddCostsAction());
+    // yield put(awaitAddCostsAction());
     const response = yield call(() => {
       return request.put({
         url: API_URL.cost.update,
@@ -103,13 +103,13 @@ function* fetchEditCost(data) {
       yield put(modalCloseAction());
       yield put(modalClearAction());
       // yield put(succesAddCostsAction(response.data));
-      yield put(fetchCostsCollection({
+      yield fetchCostsCollection({
         payload: {
-          userId,
+          userId: +userId || +localAuthData.getUserId(),
           expenseItemId,
-          date,
+          date: (date).getTime(),
         },
-      }));
+      });
     } else {
       yield put(errorAddCostsAction(response.error));
       yield put(notificationMessageAction({
