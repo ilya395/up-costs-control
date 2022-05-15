@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ExpenseItemsList } from "../../components";
 import { getCostsAction } from "../../modules/costs";
 import { modalAddCostAction, modalAddExpenseItemAction, modalDeleteExpenseItemAction, modalEditExpenseItemAction } from "../../modules/modal";
-import { changeExpenseItemAction } from "../../modules";
+import { changeExpenseItemAction, choosedDateSelector, modalOpenSelector, costsDataSelector } from "../../modules";
 import { localAuthData } from "../../utils"; // не сработал нормально импорт
 import { memo } from "react";
 
@@ -11,9 +11,9 @@ export const ExpenseItemsListContainer = memo(() => {
 
   const dispatch = useDispatch();
 
-  const expenseItems = useSelector(state => state.costsGet.data);
+  const expenseItems = useSelector(costsDataSelector);
 
-  const choosedDate = useSelector(state => state.date.choosedDate);
+  const choosedDate = useSelector(choosedDateSelector);
 
   const goDispatchChoosedDate = () => {
     dispatch(getCostsAction({
@@ -22,15 +22,13 @@ export const ExpenseItemsListContainer = memo(() => {
     }));
   }
 
-  const open = useSelector(state => state.modal.open);
+  const open = useSelector(modalOpenSelector);
 
   useEffect(() => {
     goDispatchChoosedDate();
   }, [open, choosedDate]);
 
-  const addNewExpenseItem = () => {
-    dispatch(modalAddExpenseItemAction());
-  }
+  const addNewExpenseItem = () => dispatch(modalAddExpenseItemAction());
 
   const changeExpenseItem = ({expenseItemId}) => {
     const result = expenseItems.find(item => +item.id === +expenseItemId);

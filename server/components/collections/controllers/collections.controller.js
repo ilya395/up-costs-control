@@ -28,7 +28,7 @@ class CostsCollectionController {
       }
       try {
         const now = new Date(+date);
-        const thisDate = new Date(now.getFullYear(), now.getMonth(), 1, 23, 59, 59);
+        const thisDate = new Date(now.getFullYear(), now.getMonth(), 0, 0, 0, 0);
         const nextDate = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0);
         const expenseItems = await expenseItemsModel
           .findAll({
@@ -113,7 +113,7 @@ class CostsCollectionController {
       }
       try {
         const now = new Date(+date);
-        const thisDate = new Date(now.getFullYear(), now.getMonth(), 1, 23, 59, 59);
+        const thisDate = new Date(now.getFullYear(), now.getMonth(), 0, 0, 0, 0);
         const nextDate = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0);
         const expenseItems = await expenseItemsModel
           .findAll({

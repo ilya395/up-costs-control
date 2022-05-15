@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ModalPlug, } from "..";
-import { mainMenuChangePasswordAction, mainMenuLogoutAction, mainMenuMyDataAction } from "../../modules/main-menu";
+import { mainMenuChangePasswordAction, mainMenuLogoutAction, mainMenuMyDataAction, menuChangePasswordSelector, menuDataSelector, menuLogoutSelector } from "../../modules/main-menu";
 import { MainMenu } from "../MainMenu/MainMenu.component";
 
 const Logout = lazy(() => import("../Logout/Logout.component"));
@@ -14,7 +14,9 @@ const Profile = props => {
 
   const dispatch = useDispatch();
 
-  const mainMenu = useSelector(state => state.mainMenu);
+  const myData = useSelector(menuDataSelector);
+  const changePassword = useSelector(menuChangePasswordSelector);
+  const logout = useSelector(menuLogoutSelector);
 
   const onLogout = () => {
     dispatch(mainMenuLogoutAction());
@@ -32,18 +34,18 @@ const Profile = props => {
     <Suspense fallback={<ModalPlug />}>
       <h2>
         {
-          (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) ?
+          (!logout && !changePassword && !myData) ?
           (profile ? `${profile.shortName} ${profile.surname}` : "... ...") :
           (
-            (mainMenu.logout && "Выход") ||
-            (mainMenu.changePassword && "Смена пароля") ||
-            (mainMenu.myData && "Мои данные")
+            (logout && "Выход") ||
+            (changePassword && "Смена пароля") ||
+            (myData && "Мои данные")
           )
         }
       </h2>
       <div className="support-container">
         {
-          (!mainMenu.logout && !mainMenu.changePassword && !mainMenu.myData) &&
+          (!logout && !changePassword && !myData) &&
           <MainMenu
             profile={profile}
             onLogout={onLogout}
@@ -52,13 +54,13 @@ const Profile = props => {
           />
         }
 
-        <Logout active={mainMenu.logout} />
+        <Logout active={logout} />
 
 
-        <ChangePassword active={mainMenu.changePassword} />
+        <ChangePassword active={changePassword} />
 
 
-        <MyData profile={profile} active={mainMenu.myData} />
+        <MyData profile={profile} active={myData} />
 
       </div>
     </Suspense>

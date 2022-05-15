@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import cn from "classnames";
 import s from "./ExpenseItemsList.module.scss";
 import { ExpenseItem } from "../ExpenseItem/ExpenseItem.component";
@@ -7,7 +7,7 @@ import { ScrollControllerContext } from "../../context";
 
 export const ExpenseItemsList = props => {
 
-  const { costs } = props;
+  const { costs, changeExpenseItemIndex, changeExpenseItem, deleteExpenseItem, addCost, addNewExpenseItem, } = props;
 
   const scrollController = useContext(ScrollControllerContext);
 
@@ -19,7 +19,7 @@ export const ExpenseItemsList = props => {
 
   const [canDrop, setCanDrop] = useState(false);
 
-  const droppingElement = (innerData) => { // меняем данные
+  const droppingElement = useCallback((innerData) => { // меняем данные
     const data = JSON.parse(JSON.stringify(localCosts));
 
     let result = null;
@@ -61,13 +61,13 @@ export const ExpenseItemsList = props => {
 
     setLocalCosts(result.sort((a, b) => +a.index - +b.index));
 
-    props.changeExpenseItemIndex({
+    changeExpenseItemIndex({
       id: innerData.from.id,
       index: innerData.to.index,
     });
 
     setCanDrop(false);
-  }
+  }, [localCosts]);
 
   const dragOver = (event) => { // объект непосредственно над элементом, в котором можно дропнуть
     event.preventDefault();
@@ -140,9 +140,9 @@ export const ExpenseItemsList = props => {
           >
             <ExpenseItem
               data={item}
-              changeExpenseItem={props.changeExpenseItem}
-              addCost={props.addCost}
-              deleteExpenseItem={props.deleteExpenseItem}
+              changeExpenseItem={changeExpenseItem}
+              addCost={addCost}
+              deleteExpenseItem={deleteExpenseItem}
               getDroppableElement={setDroppableElement}
               dragOver={dragOver}
               dragEnter={dragEnter}
@@ -159,7 +159,7 @@ export const ExpenseItemsList = props => {
       }
       <div className={s["expense-items-list__element"]}>
         <AddExpenseItem
-          addNewExpenseItem={props.addNewExpenseItem}
+          addNewExpenseItem={addNewExpenseItem}
         />
       </div>
     </div>

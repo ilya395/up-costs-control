@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router";
 import { PreloaderContainer } from "../../components";
+import { authStatusSelector } from "../../modules";
 import { localAuthData } from "../../utils/classes/LocalAuthData.class";
 
 const Login = lazy(() => import("../../layouts/Login/Login.layout"));
@@ -11,7 +12,7 @@ export const MainRoter = () => {
 
   const [tokenInComponent, setTokenInComponent] = useState(localAuthData.getToken());
 
-  const state = useSelector(state => state.auth);
+  const state = useSelector(authStatusSelector);
 
   useEffect(() => {
     setTokenInComponent(localAuthData.getToken());

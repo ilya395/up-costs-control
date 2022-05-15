@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CostFormView } from "../view/CostForm.view";
 import { CLICK_DELAY, MODAL_ADD_COST, NOTIFICATION_WARNING } from "../../../constants";
-import { addCostsAction, editCostAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
+import { addCostsAction, addCostsAwaitSelector, editCostAction, modalClearAction, modalCloseAction, notificationMessageAction } from "../../../modules";
 import { cheekiBreekiValidator, throttle } from "../../../utils";
 
 export const CostFormContainer = props => {
@@ -21,7 +21,7 @@ export const CostFormContainer = props => {
     }
   }, [localThrottle]);
 
-  const costsAddAwait = useSelector(state => state.costsAdd.await);
+  const costsAddAwait = useSelector(addCostsAwaitSelector);
 
   const dispatch = useDispatch();
 
@@ -64,9 +64,7 @@ export const CostFormContainer = props => {
 
   const onThrottleSave = throttle(saveHandler, 5000);
 
-  const onSave = data => {
-    onThrottleSave(data);
-  }
+  const onSave = data => onThrottleSave(data);
 
   return (
     <CostFormView

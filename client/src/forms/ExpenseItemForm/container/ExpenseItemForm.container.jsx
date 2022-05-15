@@ -5,6 +5,7 @@ import { modalClearAction, modalCloseAction, notificationMessageAction } from ".
 import { addExpenseItemAction, changeExpenseItemAction } from "../../../modules/costs";
 import { cheekiBreekiValidator } from "../../../utils";
 import { ExpenseItemFormView } from "../view/ExpenseItemForm.view";
+import { expenseItemsAddAwaitSelector, expenseItemsChangeAwaitSelector } from "../../../modules";
 
 export const ExpenseItemFormContainer = props => {
 
@@ -12,9 +13,9 @@ export const ExpenseItemFormContainer = props => {
 
   const refName = useRef(null);
 
-  const expenseItemsAddAwait = useSelector(state => state.expenseItemsAdd.await);
+  const expenseItemsAddAwait = useSelector(expenseItemsAddAwaitSelector);
 
-  const expenseItemsChangeAwait = useSelector(state => state.expenseItemsChange.await);
+  const expenseItemsChangeAwait = useSelector(expenseItemsChangeAwaitSelector);
 
   const dispatch = useDispatch();
 

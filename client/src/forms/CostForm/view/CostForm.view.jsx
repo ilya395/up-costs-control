@@ -6,6 +6,7 @@ import ru from "date-fns/locale/ru";
 import cn from "classnames";
 import { useSelector } from "react-redux";
 import { MODAL_ADD_COST } from "../../../constants";
+import { choosedDateSelector } from "../../../modules";
 registerLocale("ru", ru);
 
 export const CostFormView = ({props, onCancel, onSave, disabled}) => {
@@ -25,7 +26,7 @@ export const CostFormView = ({props, onCancel, onSave, disabled}) => {
 
   const [description, setDescription] = useState(editDescription || "");
 
-  const customDate = useSelector(state => state.date.choosedDate);
+  const customDate = useSelector(choosedDateSelector);
   const [localDate, setLocalDate] = useState((editCreatedAt && (new Date(editCreatedAt))) || customDate);
 
   const [dateVisible, setDateVisible] = useState(false);

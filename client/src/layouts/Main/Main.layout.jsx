@@ -5,7 +5,7 @@ import { ExpenseItemsListContainer } from "../../containers";
 import { ModalContainer } from "../../containers/ModalContainer/ModalContainer.container";
 import s from "./Main.module.scss";
 import { Transition } from 'react-transition-group';
-import { modalClearAction, modalCloseAction } from "../../modules";
+import { modalClearAction, modalCloseAction, modalComponentSelector, modalDataSelector, modalOpenSelector } from "../../modules";
 import { mainMenuListAction } from "../../modules/main-menu";
 import { ScrollControllerContext } from "../../context";
 import CostsList from "../../components/CostsList/CostsList.component";
@@ -19,7 +19,9 @@ const Main = (props) => {
 
   const dispatch = useDispatch();
 
-  const modal = useSelector(state => state.modal);
+  const openModal = useSelector(modalOpenSelector);
+  const componentNameModel = useSelector(modalComponentSelector);
+  const dataModal = useSelector(modalDataSelector);
 
   const scrollController = useContext(ScrollControllerContext);
 
@@ -56,7 +58,7 @@ const Main = (props) => {
         </div>
       </main>
       <Transition
-        in={modal && modal.open}
+        in={openModal}
         timeout={600}
         mountOnEnter
         unmountOnExit
@@ -68,8 +70,8 @@ const Main = (props) => {
         {
           classState => <div className={`modal__outer-wrap ${classState}`}>
                           <ModalContainer
-                            componentName={modal.componentName}
-                            data={modal.data}
+                            componentName={componentNameModel}
+                            data={dataModal}
                             closeModal={closeModal}
                           />
                         </div>

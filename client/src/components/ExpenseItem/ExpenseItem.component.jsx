@@ -9,7 +9,22 @@ import { useHistory } from "react-router-dom";
 
 export const ExpenseItem = props => {
 
-  const { data, changeExpenseItem, deleteExpenseItem, addCost } = props;
+  const {
+    data,
+    changeExpenseItem,
+    deleteExpenseItem,
+    addCost,
+    getDroppableElement,
+    coordinates,
+    onTouchEndHandler,
+    onTouchMoveHandler,
+    canDrop,
+    setCoordinates,
+    dragOver,
+    dragEnter,
+    dragLeave,
+    dragDrop,
+  } = props;
 
   const history = useHistory();
 
@@ -59,16 +74,18 @@ export const ExpenseItem = props => {
       if (timer) {
         clearTimeout(timer);
       }
+
       timer = setTimeout(() => {
         setReadyToDAndD(true);
-        props.getDroppableElement({
-          id: event.target.id,
+        const values = {
+          id: event.target.getAttribute("id"),
           index: event.target.getAttribute("index"),
-        });
+        }
+        getDroppableElement(values);
         clearTimeout(timer);
         clearTimeout(clickTimer)
         setClickTimer(null);
-      }, CLICK_DURATION * 2 + 10);
+      }, CLICK_DURATION + 10);
       setClickTimer(timer);
     }
 
@@ -80,7 +97,7 @@ export const ExpenseItem = props => {
     setClickTimer(null);
 
     setReadyToDAndD(false);
-    props.getDroppableElement(null);
+    getDroppableElement(null);
   }
 
   const onDragStart = (event) => startHandler(event);
@@ -94,13 +111,13 @@ export const ExpenseItem = props => {
   useEffect(() => {
     if (readyToDAndD) { // это пертаскиваемый объект
       setItemCoordinates({
-        top: props.coordinates && props.coordinates.elem && props.coordinates.elem.top,
-        left: props.coordinates && props.coordinates.elem && props.coordinates.elem.left,
+        top: coordinates && coordinates.elem && coordinates.elem.top,
+        left: coordinates && coordinates.elem && coordinates.elem.left,
       });
     }
 
     // условие попадания центра объекта в периметр зоны дропа
-    if (!readyToDAndD && props.coordinates && (props.coordinates.id !== props.data.id)) { // это статичный объект
+    if (!readyToDAndD && coordinates && (coordinates.id !== data.id)) { // это статичный объект
       const elem = refItem.current;
 
       const itemCoords = {
@@ -113,23 +130,23 @@ export const ExpenseItem = props => {
       // setItemCoordinates(itemCoords);
 
       if (
-        props.coordinates.position.y < itemCoords.bottom &&
-        props.coordinates.position.y > itemCoords.top &&
-        props.coordinates.position.x > itemCoords.left &&
-        props.coordinates.position.x < itemCoords.right
+        coordinates.position.y < itemCoords.bottom &&
+        coordinates.position.y > itemCoords.top &&
+        coordinates.position.x > itemCoords.left &&
+        coordinates.position.x < itemCoords.right
       ) { // из всех статичных объектов должен отработать один
         // или debounce или проверять в род.методе заполненность или сравнивать данные в род.методе
         setItemCoordinates(null);
-        props.onTouchMoveHandler({
-          id: props.data.id,
-          index: props.data.index,
+        onTouchMoveHandler({
+          id: data.id,
+          index: data.index,
         });
-      } else if (props.canDrop && (props.canDrop.id === props.data.id)) { //это иммено наш объект-подложка
-        props.onTouchMoveHandler(null)
+      } else if (canDrop && (canDrop.id === data.id)) { //это иммено наш объект-подложка
+        onTouchMoveHandler(null)
       }
     }
 
-  }, [props.coordinates]);
+  }, [coordinates, readyToDAndD]);
 
   const onTouchStart = (event) => {
     if (inMobile()) {
@@ -145,26 +162,26 @@ export const ExpenseItem = props => {
     if (inMobile()) {
       makeMove();
 
-      props.onTouchEndHandler();
+      onTouchEndHandler();
 
       endHandler();
 
-      props.setCoordinates(null);
+      setCoordinates(null);
 
       scrollController.setScroll(true);
     }
   }
 
-  const onTouchMove = event => {
-    if (readyToDAndD) {
+  const onTouchMove = useCallback(event => {
+    if (readyToDAndD && itemCoordinates) {
 
       setNullClickStartTime();
 
       const touch = event.targetTouches[0]; // 1 finger
 
-      const offsetX = touch.clientX - (props.coordinates && props.coordinates.touch && props.coordinates.touch.left ? props.coordinates.touch.left : touch.clientX);
-      const offsetY = touch.clientY - (props.coordinates && props.coordinates.touch && props.coordinates.touch.top ? props.coordinates.touch.top : touch.clientY);
-      const coords = props.coordinates ? {
+      const offsetX = touch.clientX - (coordinates && coordinates.touch && coordinates.touch.left ? coordinates.touch.left : touch.clientX);
+      const offsetY = touch.clientY - (coordinates && coordinates.touch && coordinates.touch.top ? coordinates.touch.top : touch.clientY);
+      const coords = coordinates ? {
         id: +event.target.id,
         index: +event.target.getAttribute("index"),
         touch: {
@@ -207,9 +224,9 @@ export const ExpenseItem = props => {
           top: 0,
         }
       }
-      return throttle(() => props.setCoordinates(coords))();
+      return throttle(() => setCoordinates(coords))();
     }
-  }
+  }, [readyToDAndD, itemCoordinates]);
 
   const fuckingTitle = title => {
     if (title.length < 12) {
@@ -244,24 +261,24 @@ export const ExpenseItem = props => {
 
   return (
     <article
-      id={props.data.id}
-      index={props.data.index}
+      id={data.id}
+      index={data.index}
       className={cn("expense-item-button", { [s["ready-to-drag-and-drop"]]: readyToDAndD })}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       draggable={true}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
-      onDragOver={props.dragOver}
-      onDragEnter={props.dragEnter}
-      onDragLeave={props.dragLeave}
-      onDrop={props.dragDrop}
+      onDragOver={dragOver}
+      onDragEnter={dragEnter}
+      onDragLeave={dragLeave}
+      onDrop={dragDrop}
       // onTouchCancel={props.onTouchCancel}
       onTouchEnd={onTouchEnd}
       onTouchMove={onTouchMove}
       onTouchStart={onTouchStart}
       style={{
-        backgroundColor: props.data.color,
+        backgroundColor: data.color,
         position: readyToDAndD && itemCoordinates ? "fixed" : "relative",
         top: readyToDAndD && itemCoordinates ? `${itemCoordinates.top}px` : "",
         left: readyToDAndD && itemCoordinates ? `${itemCoordinates.left}px` : "",
@@ -294,10 +311,10 @@ export const ExpenseItem = props => {
           }
       </div>
       <h3 className="expense-item-button__title simple-text_other lowercase" style={{pointerEvents: "none"}}>
-        {fuckingTitle(props.data.name)}
+        {fuckingTitle(data.name)}
       </h3>
       <div className="expense-item-button__price simple-text_number" style={{pointerEvents: "none"}}>
-        {props.data.costsAmount || "0"}
+        {data.costsAmount || "0"}
       </div>
     </article>
   );

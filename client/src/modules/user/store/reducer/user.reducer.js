@@ -34,6 +34,9 @@ export const UserReducer = (state = initialGetUser, action) => {
       }
   }
 }
+export const userValueSelector = state => state.user.data;
+export const userAwaitSelector = state => state.user.await;
+export const userErrorSelector = state => state.user.error;
 
 export const UserDataReducer = (
     state = {
